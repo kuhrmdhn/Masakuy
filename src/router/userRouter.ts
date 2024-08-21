@@ -1,30 +1,37 @@
 import { firestore } from "@/lib/firebase/firestore";
-import { addDoc, collection, doc, getDoc, getDocs, query, updateDoc, where } from "firebase/firestore";
+import { addDoc, collection, getDocs, query, updateDoc, where } from "firebase/firestore";
 import { User } from "next-auth";
+import { decodeBcrypt, encodeBcrypt } from "@/lib/hash/bcrypt";
 
-const userCollectionRef = collection(firestore, "users")
+const userCollectionRef = collection(firestore, "users");
+
 const UserRouter = {
     createUser: async (username: string, password: string) => {
+        const hashedPassword = await encodeBcrypt(password)
         const userTemplateData = {
             username,
-            password,
-        }
-        const userRef = await addDoc(userCollectionRef, userTemplateData)
-        const userId = userRef.id
-        const userData = { id: userId, ...userTemplateData }
-        await updateDoc(userRef, userData)
-        return userData
+            password: hashedPassword,
+        };
+        const userRef = await addDoc(userCollectionRef, userTemplateData);
+        const userId = userRef.id;
+        const userData = { id: userId, ...userTemplateData };
+        await updateDoc(userRef, userData);
+        return userData;
     },
     getUser: async (username: string, password: string) => {
-        const userQuery = query(userCollectionRef, where("username", "==", username), where("password", "==", password));
+        const userQuery = query(userCollectionRef, where("username", "==", username));
         const querySnapshot = await getDocs(userQuery);
         if (!querySnapshot.empty) {
             const userDoc = querySnapshot.docs[0];
-            return userDoc.data() as User;
-        } else {
-            return null;
-        }
-    }
-}
+            const userData = userDoc.data() as User;
 
-export default UserRouter
+            const isPasswordValid = await decodeBcrypt(password, userData.password);
+            if (isPasswordValid) {
+                return userData;
+            }
+        }
+        return null;
+    },
+};
+
+export default UserRouter;

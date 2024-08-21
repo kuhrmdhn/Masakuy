@@ -5,7 +5,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import { JWT } from "next-auth/jwt";
 
 const authOption: NextAuthOptions = {
-    secret: "this is next auth secret",
+    secret: process.env.NEXT_AUTH_SECRET,
     providers: [
         CredentialsProvider({
             name: "Credentials",
@@ -43,6 +43,12 @@ const authOption: NextAuthOptions = {
                 session.user.name = token.username as string
             }
             return session
+        },
+        async redirect({ url, baseUrl }) {
+            if (url.startsWith(baseUrl)) {
+                return url;
+            }
+            return baseUrl;
         },
     }
 }
