@@ -6,80 +6,85 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function useLogin() {
-    const [session, setSession] = useState<null | Session>(null)
-    const [loginStatus, setLoginStatus] = useState<boolean>(false)
-    const [isNewUser, setIsNewUser] = useState<boolean>(false)
-    const [loading, setLoading] = useState<boolean>(false)
-    const { getUser, createUser } = UserRouter
-    const { push } = useRouter()
+    const [session, setSession] = useState<null | Session>(null);
+    const [loginStatus, setLoginStatus] = useState<boolean>(false);
+    const [isNewUser, setIsNewUser] = useState<boolean>(false);
+    const [loading, setLoading] = useState<boolean>(false);
+    const { getUser, createUser } = UserRouter;
+    const router = useRouter();
+
     async function confirmSession() {
         try {
-            const session = await getSession()
+            const session = await getSession();
             if (session) {
-                setSession(session)
+                setSession(session);
             } else {
-                throw new Error("Session is undefined")
+                throw new Error("Session is undefined");
             }
         } catch (error) {
             console.error(error);
-            return error
+            return error;
         }
     }
 
     useEffect(() => {
-        confirmSession()
-    }, [])
+        confirmSession();
+    }, []);
 
-    async function handleLogin(username: string, password: string) {
-        setLoading(true)
-        const loginResponse = await signIn("credentials", {
-            redirect: false,
-            username,
-            password
-        })
-        if (loginResponse && loginResponse.ok) {
-            if (session) {
-                await confirmSession()
-                push("/")
-                setSession(session)
-                setLoginStatus(true)
+    async function handleLogin(username: string, passwordKey: string) {
+        setLoading(true);
+        try {
+            const user = await getUser(username, passwordKey);
+            if (user) {
+                const loginResponse = await signIn("credentials", {
+                    redirect: false,
+                    username,
+                    password: passwordKey,
+                });
+                if (loginResponse && loginResponse.ok) {
+                    if (session) {
+                        await confirmSession();
+                        setSession(session);
+                    }
+                    router.push("/");
+                } else if (loginResponse && loginResponse.error) {
+                    throw new Error(loginResponse.error);
+                }
+            } else {
+                throw new Error("User not found");
             }
-        } else if (loginResponse && loginResponse.error) {
-            setLoading(false)
-            throw new Error(loginResponse.error)
+        } catch (error) {
+            console.error(error);
+            throw error;
+        } finally {
+            setLoading(false);
         }
     }
 
-    async function handleSignUp(username: string, password: string) {
-        console.log(session)
-        const loginResponse = await signIn("credentials", {
-            redirect: false,
-            username,
-            password
-        })
-        console.log(loginResponse)
-        if (session) {
-            // const id = session.user.id
-            // const user = await getUser(id)
-            // console.log(user)
-            // if (user) {
-            //     setIsNewUser(false)
-            //     console.log("user ada")
-            //     return
-            // }
-        } else {
-            // createUser(username, password)
-            // const signUp = await signIn("credentials", {
-            //     redirect: false,
-            //     username,
-            //     password,
-            // });
-            // if (signUp?.ok) {
-            //     setIsNewUser(true)
-            //     console.log("signUp success")
-            // }
-            console.log("create user")
+    async function handleSignUp(username: string, passwordKey: string) {
+        setLoading(true);
+        try {
+            const user = await getUser(username, passwordKey);
+            if (!user) {
+                const registerResponse = await createUser(username, passwordKey);
+                if (registerResponse) {
+                    await signIn("credentials", {
+                        redirect: false,
+                        username,
+                        password: passwordKey,
+                    });
+                    router.push("/");
+                }
+            } else {
+                throw new Error("User already exists. Would you like to sign in?");
+            }
+        } catch (error) {
+            console.error(error);
+            throw error;
+        } finally {
+            setLoading(false);
         }
     }
-    return { session, loginStatus, isNewUser, handleLogin, handleSignUp, loading }
+
+    return { session, loginStatus, isNewUser, handleLogin, handleSignUp, loading };
 }

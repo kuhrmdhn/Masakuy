@@ -10,6 +10,7 @@ import { useState } from "react";
 
 
 export default function SignInPage() {
+    const { handleLogin, loading } = useLogin()
     const [formInputValue, setFormInputValue] = useState({
         username: "",
         password: ""
@@ -18,7 +19,6 @@ export default function SignInPage() {
         show: false,
         description: ""
     })
-    const { handleLogin, loading } = useLogin()
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
@@ -62,7 +62,7 @@ export default function SignInPage() {
     ];
 
     return (
-        <section className="w-full h-[100svh]">
+        <>
             <div className="w-full h-[calc(100svh-64px)] flex justify-center items-center gap-7 px-7">
                 <section className="w-1/2 h-4/5 lg:flex justify-end items-end hidden">
                     <div className="w-4/5 h-full flex flex-col justify-between">
@@ -76,7 +76,7 @@ export default function SignInPage() {
                     </div>
                 </section>
                 <section className="flex justify-center items-center lg:w-1/2 w-full h-4/5">
-                    <div className="h-full lg:w-3/5 w-full px-5 flex flex-col justify-between">
+                    <div className="h-full lg:w-3/5 sm:w-1/2 w-full px-5 flex flex-col justify-between">
                         <h2 className="text-2xl font-semibold">Sign In</h2>
                         <form className="h-5/6 w-full flex flex-col gap-7 items-center" onSubmit={handleSubmit}>
                             <FormInput
@@ -107,6 +107,6 @@ export default function SignInPage() {
                     {alert.description}
                 </AlertDescription>
             </Alert>
-        </section>
+        </>
     );
 }
