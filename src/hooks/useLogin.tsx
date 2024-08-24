@@ -1,5 +1,5 @@
 "use client"
-import UserRouter from "@/router/userRouter";
+import { UserRouter } from "@/router/userRouter";
 import { Session } from "next-auth";
 import { getSession, signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";

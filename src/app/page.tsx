@@ -1,26 +1,30 @@
 "use client"
-
-import { getSession, signIn, signOut } from "next-auth/react"
-import { useEffect, useState } from "react"
+import { Button } from "@/components/ui/button"
+import { publicRecipeRouter } from "@/router/publicRecipeRouter"
+import { UserRouter } from "@/router/userRouter"
+import { RecipeInput } from "@/types/recipeType"
+import { useCallback, useEffect } from "react"
 
 export default function Home() {
-  const [session, setSession] = useState(false)
-  async function getSessions() {
-    const session = await getSession()
-    if(session) setSession(true)
-  }
+  const { getPublicRecipe } = publicRecipeRouter
+  const { createUserRecipes } = UserRouter
+  const fetchPublicRecipes = useCallback(async () => {
+    getPublicRecipe()
+  }, [getPublicRecipe])
+
   useEffect(() => {
-    getSessions()
-  }, [])
+    fetchPublicRecipes()
+  }, [fetchPublicRecipes])
+
+  const uploadedRecipe: RecipeInput = {
+    title: "Nasi Rames",
+    ingredients: ["Nasi", "Nangka Muda"],
+    steps: [{ name: "Masak", description: "Masak sampai matang dan sajikan" }]
+  }
+
   return (
     <>
-      <button type="button" onClick={() => {
-        if(session) {
-          signOut()
-        } else {
-          signIn()
-        }
-      }}>{session ? "logout" : "login"}</button>
+      <Button onClick={() => createUserRecipes(uploadedRecipe)}>Add Recipe</Button>
     </>
   )
 }

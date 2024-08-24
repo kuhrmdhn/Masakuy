@@ -1,5 +1,5 @@
 import NextAuth from "next-auth/next"
-import UserRouter from "@/router/userRouter";
+import { UserRouter } from "@/router/userRouter";
 import { NextAuthOptions, Session, User } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { JWT } from "next-auth/jwt";
@@ -34,12 +34,14 @@ const authOption: NextAuthOptions = {
         async jwt(params) {
             const { token, user } = params as { token: JWT, user: User };
             if (user) {
+                token.id = user.id
                 token.username = user.username
             }
             return token
         },
         async session({ session, token }: { session: Session, token: JWT }): Promise<any> {
             if (token) {
+                session.user.id = token.id as string
                 session.user.name = token.username as string
             }
             return session
