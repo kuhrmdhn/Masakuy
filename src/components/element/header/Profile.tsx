@@ -3,16 +3,21 @@ import { UserStore } from '@/store/UserStore'
 import Image from 'next/image'
 import React from 'react'
 import Link from 'next/link'
-import { NavigationMenu, navigationMenuTriggerStyle } from '../ui/navigation-menu'
+import { NavigationMenu, navigationMenuTriggerStyle } from '../../ui/navigation-menu'
+import PhotoProfile from '../profile/PhotoProfile'
 
 const navigationLink = [
     {
         name: "Edit Profile",
-        link: "/edit-profile"
+        link: "edit-profile"
+    },
+    {
+        name: "New Post",
+        link: "new-post"
     },
     {
         name: "Setting",
-        link: "/setting"
+        link: "setting"
     }
 ]
 
@@ -22,7 +27,7 @@ export default function Profile() {
     return (
         <section className='h-[100svh] w-1/5 bg-white border-r px-4'>
             <div className='flex flex-col justify-center items-center gap-3 w-full h-1/3'>
-                <Image src={photo_profile} alt={`${username} photo profile`} width={100} height={100} className="w-1/2 aspect-square rounded-full" />
+                <PhotoProfile/>
                 <h2 className='font-semibold text-lg'>{username}</h2>
             </div>
             <div className='flex flex-col gap-3 w-full'>

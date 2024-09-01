@@ -1,5 +1,6 @@
 "use client"
-import FormInput from "@/components/element/FormInput";
+import AuthButton from "@/components/element/auth/AuthButton";
+import AuthForm from "@/components/element/auth/AuthForm";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogDescription, DialogContent, DialogFooter, DialogOverlay } from "@/components/ui/dialog";
@@ -128,16 +129,10 @@ export default function SignInPage() {
                     <div className="h-full lg:w-3/5 sm:w-1/2 w-full px-5 flex flex-col justify-between">
                         <h2 className="text-2xl font-semibold">Sign Up</h2>
                         <form className="h-5/6 w-full flex flex-col gap-7 items-center" onSubmit={handleSubmit}>
-                            <FormInput
+                            <AuthForm
                                 inputData={inputData}
                             />
-                            <Button
-                                className={`bg-primary-app text-white w-full h-12 shadow-lg shadow-primary-app hover:bg-primary-app hover:bg-opacity-80 duration-200 ${loading ? "cursor-not-allowed" : "cursor-pointer"}`}
-                                type="submit"
-                                disabled={loading}
-                            >
-                                {loading ? <span className="animate-spin"><RefreshCw /></span> : "Register"}
-                            </Button>
+                            <AuthButton loading={loading} />
                             <p className="text-sm font-normal">Have an Account?
                                 <a href="/signIn" className="text-primary-app font-semibold ml-2">Login</a>
                             </p>
@@ -156,7 +151,7 @@ export default function SignInPage() {
                     {alert.description}
                 </AlertDescription>
             </Alert>
-            <Dialog open={dialog.show} onOpenChange={() => setDialog((state) => ({...state, show: false}))}>
+            <Dialog open={dialog.show} onOpenChange={() => setDialog((state) => ({ ...state, show: false }))}>
                 <DialogContent>
                     <DialogDescription>
                         {dialog.description}

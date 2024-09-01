@@ -1,5 +1,6 @@
 "use client"
-import FormInput from "@/components/element/FormInput";
+import AuthButton from "@/components/element/auth/AuthButton";
+import AuthForm from "@/components/element/auth/AuthForm";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import useLogin from "@/hooks/useLogin";
@@ -79,16 +80,10 @@ export default function SignInPage() {
                     <div className="h-full lg:w-3/5 sm:w-1/2 w-full px-5 flex flex-col justify-between">
                         <h2 className="text-2xl font-semibold">Sign In</h2>
                         <form className="h-5/6 w-full flex flex-col gap-7 items-center" onSubmit={handleSubmit}>
-                            <FormInput
+                            <AuthForm
                                 inputData={inputData}
                             />
-                            <Button
-                                className={`bg-primary-app text-white w-full h-12 shadow-lg shadow-primary-app hover:bg-primary-app hover:bg-opacity-80 duration-200 ${loading ? "cursor-not-allowed" : "cursor-pointer"}`}
-                                type="submit"
-                                disabled={loading}
-                            >
-                                {loading ? <span className="animate-spin"><RefreshCw/></span> : "Login"}
-                            </Button>
+                            <AuthButton loading={loading} />
                             <p className="text-sm font-normal">Don’t have an Account?
                                 <a href="/signUp" className="text-primary-app font-semibold ml-2">Register</a>
                             </p>

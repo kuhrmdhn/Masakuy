@@ -1,12 +1,12 @@
 import React from 'react';
-import Input from "../ui/input";
+import Input from "../../ui/input";
 import { InputType } from '@/types/InputType';
 
 type Props = {
     inputData: InputType[];
 };
 
-export default function FormInput({ inputData, ...props }: Props) {
+export default function AuthForm({ inputData, ...props }: Props) {
     return (
         <div className="space-y-7 w-full" {...props}>
             {inputData.map(({ id, placeholder, type, handleOnChange, value, required }) => (
