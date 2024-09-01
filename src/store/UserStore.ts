@@ -17,7 +17,7 @@ export const UserStore = create<Store>()((set) => ({
     userData: {
         id: "",
         username: "",
-        photo_profile: "/icons/default-photo-profile",
+        photo_profile: "/images/default-photo-profile",
         recipe_created: null
     },
     setUserData(data) {

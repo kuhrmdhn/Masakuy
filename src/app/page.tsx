@@ -19,7 +19,7 @@ export default function Home() {
   const uploadedRecipe: RecipeInput = {
     title: "Nasi Rames",
     ingredients: ["Nasi", "Nangka Muda"],
-    steps: [{ name: "Masak", description: "Masak sampai matang dan sajikan" }]
+    steps: ["asgdjhgasd"]
   }
 
   return (

@@ -3,10 +3,11 @@ import { Recipe } from '@/types/recipeType'
 import Image from 'next/image'
 import Link from 'next/link'
 import React, { useState } from 'react'
-import { Select, SelectContent, SelectGroup, SelectTrigger, SelectItem } from '../ui/select'
-import MoreOption from '../icons/MoreOption'
-import { Dialog, DialogContent } from '../ui/dialog'
+import { Select, SelectContent, SelectGroup, SelectTrigger, SelectItem } from '../../ui/select'
+import MoreOption from '../../icons/MoreOption'
+import { Dialog, DialogContent, DialogFooter, DialogHeader } from '../../ui/dialog'
 import { useRouter } from 'next/navigation'
+import { Button } from '../../ui/button'
 
 type Props = {
     recipe: Recipe,
@@ -14,7 +15,7 @@ type Props = {
 }
 
 export default function RecipeCard({ recipe, isPublic }: Props) {
-    const { public_id, title } = recipe
+    const { public_id, title, image } = recipe
     const [selectValue, setSelectValue] = useState("")
     const [showDialog, setShowDialog] = useState(false)
     const { push } = useRouter()
@@ -47,7 +48,7 @@ export default function RecipeCard({ recipe, isPublic }: Props) {
         <section className="w-64 h-60 p-4 bg-white border border-gray-200 rounded-lg shadow">
             <Link href={recipeUrl} className='w-fit h-fit'>
                 <div className="h-40">
-                    <Image className="rounded-lg h-full w-full aspect-auto" src={"https://i.pinimg.com/originals/d5/0f/4e/d50f4efb892b948e5fd4f17effe82984.jpg"} alt={title} width={100} height={100} />
+                    <Image className="rounded-lg h-full w-full aspect-auto" src={image || "/favicon.ico"} alt={title} width={100} height={100} />
                 </div>
             </Link>
             <div className="p-5 h-1/5 flex justify-between">
@@ -73,7 +74,13 @@ export default function RecipeCard({ recipe, isPublic }: Props) {
             </div>
             <Dialog open={showDialog} onOpenChange={() => setShowDialog(false)}>
                 <DialogContent>
-                    <p>Delete?</p>
+                    <DialogHeader>
+                        <h3>Are you sure delete {title}?</h3>
+                    </DialogHeader>
+                    <DialogFooter className="flex gap-3">
+                        <Button variant={"ghost"}>Cancel</Button>
+                        <Button variant={"destructive"}>Delete</Button>
+                    </DialogFooter>
                 </DialogContent>
             </Dialog>
         </section>
