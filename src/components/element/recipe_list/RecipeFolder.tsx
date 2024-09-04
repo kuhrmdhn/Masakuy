@@ -25,7 +25,6 @@ export default function RecipeFolder() {
                             <RecipeCard
                                 key={index}
                                 recipe={recipe}
-                                isPublic={false}
                             />
                         ))
                     }
@@ -36,7 +35,6 @@ export default function RecipeFolder() {
                             <RecipeCard
                                 key={index}
                                 recipe={recipe}
-                                isPublic={false}
                             />
                         ))
                     }
@@ -45,10 +43,10 @@ export default function RecipeFolder() {
                             <RecipeCard
                                 key={index}
                                 recipe={recipe}
-                                isPublic={false}
                             />
                         ))
-                    }                </TabsContent>
+                    }
+                </TabsContent>
             </Tabs>
         </section>
     )

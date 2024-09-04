@@ -2,10 +2,9 @@
 import AuthButton from "@/components/element/auth/AuthButton";
 import AuthForm from "@/components/element/auth/AuthForm";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Button } from "@/components/ui/button";
 import useLogin from "@/hooks/useLogin";
 import { InputType } from "@/types/InputType";
-import { RefreshCw, X } from "lucide-react";
+import { X } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
 
@@ -19,7 +18,7 @@ export default function SignInPage() {
     const [alert, setAlert] = useState({
         show: false,
         description: ""
-    })
+    }); 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         try {

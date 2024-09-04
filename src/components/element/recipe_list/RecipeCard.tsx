@@ -1,5 +1,5 @@
 "use client"
-import { Recipe } from '@/types/recipeType'
+import { Recipe, RecipeInput } from '@/types/recipeType'
 import Image from 'next/image'
 import Link from 'next/link'
 import React, { useState } from 'react'
@@ -11,10 +11,9 @@ import { Button } from '../../ui/button'
 
 type Props = {
     recipe: Recipe,
-    isPublic: boolean
 }
 
-export default function RecipeCard({ recipe, isPublic }: Props) {
+export default function RecipeCard({ recipe }: Props) {
     const { public_id, title, image } = recipe
     const [selectValue, setSelectValue] = useState("")
     const [showDialog, setShowDialog] = useState(false)
@@ -53,8 +52,6 @@ export default function RecipeCard({ recipe, isPublic }: Props) {
             </Link>
             <div className="p-5 h-1/5 flex justify-between">
                 <h5 className="mb-2 font-semibold tracking-tight text-gray-900 dark:text-white">{title}</h5>
-                {
-                    !isPublic &&
                     <Select onValueChange={(e) => handleSelect(e)} value={selectValue}>
                         <SelectTrigger className='w-fit h-fit p-0 bg-transparent border-transparent ring-transparent' withIcon={false}>
                             <MoreOption className="w-5 h-5" />
@@ -70,7 +67,6 @@ export default function RecipeCard({ recipe, isPublic }: Props) {
                             </SelectGroup>
                         </SelectContent>
                     </Select>
-                }
             </div>
             <Dialog open={showDialog} onOpenChange={() => setShowDialog(false)}>
                 <DialogContent>

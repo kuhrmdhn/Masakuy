@@ -60,7 +60,7 @@ const UserRouter = {
             const userDocRef = user?.userDocRef
             const currentRecipes = data.recipe_created;
             const recipeId = data.id + Date.now()
-            const publicRecipeRef = await publicRecipeRouter.createPublicRecipe(recipe)
+            const publicRecipeRef = await publicRecipeRouter.createPublicRecipe({ ...recipe, authorId: data.id })
             const publicRecipeId = publicRecipeRef.id;
             const newRecipe = { id: recipeId, public_id: publicRecipeId, ...recipe }
             const updatedRecipes = [...currentRecipes, newRecipe];
@@ -92,6 +92,13 @@ const UserRouter = {
             const currentRecipes = data.recipe_created;
             return currentRecipes
         }
+    },
+    getUserById: async (userId: string) => {
+        const userDoc = doc(firestore, `users/${userId}`)
+        const user = await getDoc(userDoc)
+        const data = user.data()
+        return data && data.username
+
     }
 }
 

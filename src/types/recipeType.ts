@@ -10,3 +10,7 @@ export interface Recipe extends RecipeInput {
     id: string
     public_id: string
 }
+
+export interface RecipeDetails extends RecipeInput {
+    authorId: string
+}
