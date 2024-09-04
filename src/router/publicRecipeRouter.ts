@@ -30,6 +30,11 @@ const publicRecipeRouter = {
         }));
 
         return recipes
+    },
+    getRecipeById: async (recipeId:string) => {
+        const recipeRef = doc(firestore, `public_recipes/${recipeId}`);
+        const recipe = await getDoc(recipeRef)
+        return recipe.data()
     }
 }
 

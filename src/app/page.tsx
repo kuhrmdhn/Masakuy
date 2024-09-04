@@ -2,14 +2,15 @@
 import { Button } from "@/components/ui/button"
 import { publicRecipeRouter } from "@/router/publicRecipeRouter"
 import { UserRouter } from "@/router/userRouter"
-import { RecipeInput } from "@/types/recipeType"
-import { useCallback, useEffect } from "react"
+import { Recipe, RecipeInput } from "@/types/recipeType"
+import { useCallback, useEffect, useState } from "react"
 
 export default function Home() {
   const { getPublicRecipe } = publicRecipeRouter
   const { createUserRecipes } = UserRouter
   const fetchPublicRecipes = useCallback(async () => {
-    getPublicRecipe()
+    await getPublicRecipe()
+
   }, [getPublicRecipe])
 
   useEffect(() => {
@@ -19,7 +20,8 @@ export default function Home() {
   const uploadedRecipe: RecipeInput = {
     title: "Nasi Rames",
     ingredients: ["Nasi", "Nangka Muda"],
-    steps: ["asgdjhgasd"]
+    steps: "asgdjhgasd",
+    image: ""
   }
 
   return (
