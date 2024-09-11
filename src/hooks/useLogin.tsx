@@ -2,10 +2,11 @@
 import { UserRouter } from "@/router/userRouter";
 import { Session } from "next-auth";
 import { getSession, signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function useLogin() {
+    const searchParams = useSearchParams()
     const [session, setSession] = useState<null | Session>(null);
     const [loginStatus, setLoginStatus] = useState<boolean>(false);
     const [isNewUser, setIsNewUser] = useState<boolean>(false);
@@ -42,11 +43,12 @@ export default function useLogin() {
                     password: passwordKey,
                 });
                 if (loginResponse && loginResponse.ok) {
+                    const callbackUrl = searchParams.get("callbackUrl")
                     if (session) {
                         await confirmSession();
                         setSession(session);
                     }
-                    router.push("/");
+                    router.push(callbackUrl || "/");
                 } else if (loginResponse && loginResponse.error) {
                     throw new Error(loginResponse.error);
                 }

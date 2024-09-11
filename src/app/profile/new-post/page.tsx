@@ -7,11 +7,13 @@ import { uploadRecipeImage } from '@/router/bucketStorage'
 import { UserRouter } from '@/router/userRouter'
 import { RecipeInput } from '@/types/recipeType'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
 
 export default function NewPostPage() {
+  const { push } = useRouter()
   const { createUserRecipes } = UserRouter
-  const [recipeImage, setRecipeImage] = useState<File>()
+  const [recipeImage, setRecipeImage] = useState<File | null>(null)
   const [ingredients, setIngredients] = useState<string[]>([])
   const [formState, setFormState] = useState({
     title: "",
@@ -52,7 +54,16 @@ export default function NewPostPage() {
       }
       await createUserRecipes(dataToPost)
       alert("submited!")
+      push("/profile")
     }
+  }
+
+  function removeIngredient(ingredient: string) {
+    const ingredientIndex = ingredients.indexOf(ingredient)
+    const updatedIngredients = [...ingredients]
+    updatedIngredients.splice(ingredientIndex, 1)
+    setIngredients(updatedIngredients)
+    alert("deleted")
   }
 
   return (
@@ -66,7 +77,7 @@ export default function NewPostPage() {
         />
         <section className='flex flex-col border'>
           <Input
-          className="border-none"
+            className="border-none"
             accept='image/*'
             name="image"
             type='file'
@@ -83,7 +94,10 @@ export default function NewPostPage() {
             <ol className="flex flex-col gap-5 overflow-y-auto h-[80%] w-full list-decimal">
               {
                 ingredients.map((ingredient, index) => (
-                  <li key={index}>{ingredient}</li>
+                  <li key={index}>
+                    {ingredient}
+                    <button type="button" onClick={() => removeIngredient(ingredient)}>Delete</button>
+                  </li>
                 ))
               }
             </ol>

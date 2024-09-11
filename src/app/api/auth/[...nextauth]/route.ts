@@ -52,6 +52,11 @@ const authOption: NextAuthOptions = {
             }
             return baseUrl;
         },
+    },
+    session: {
+        strategy: "jwt",
+        maxAge: 7 * 24 * 60 * 60,
+        updateAge: 30 * 24 * 60 * 60
     }
 }
 

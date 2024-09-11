@@ -19,7 +19,7 @@ export default function RecipeFolder() {
                         Saved Recipe
                     </TabsTrigger>
                 </TabsList>
-                <TabsContent value="postedRecipe">
+                <TabsContent value="postedRecipe" className="grid grid-cols-3 px-5">
                     {
                         recipe_created && recipe_created.map((recipe: Recipe, index: number) => (
                             <RecipeCard
