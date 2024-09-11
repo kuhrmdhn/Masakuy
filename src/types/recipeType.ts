@@ -8,9 +8,8 @@ export interface RecipeInput {
 
 export interface Recipe extends RecipeInput {
     id: string
-    public_id: string
 }
 
-export interface RecipeDetails extends RecipeInput {
+export interface RecipeDetails extends Recipe {
     authorId: string
 }

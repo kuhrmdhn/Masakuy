@@ -8,8 +8,9 @@ export async function middleware(req: NextRequest) {
 
     if (!token || token == null) {
         if (pathname !== "/signIn") {
-            url.pathname = "/signIn"
-            return NextResponse.redirect(url)
+            const loginUrl = new URL('/signIn', req.url);
+            loginUrl.searchParams.set('callbackUrl', req.url);
+            return NextResponse.redirect(loginUrl);
         }
         return NextResponse.next()
     }

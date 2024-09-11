@@ -1,5 +1,6 @@
 import { firestore } from "@/lib/firebase/firestore";
-import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, query, where } from "firebase/firestore";
+import { RecipeDetails } from "@/types/recipeType";
+import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, limit, query, where } from "firebase/firestore";
 
 const publicRecipesCollectionRef = collection(firestore, "public_recipes");
 
@@ -22,16 +23,23 @@ const publicRecipeRouter = {
             throw error;
         }
     },
-    getPublicRecipe: async () => {
-        const querySnapshot = await getDocs(collection(firestore, "public_recipes"));
-        const recipes = querySnapshot.docs.map(doc => ({
-            id: doc.id,
-            ...doc.data()
-        }));
-
-        return recipes
+    getPublicRecipe: async (): Promise<RecipeDetails[]> => {
+        const q = query(collection(firestore, "public_recipes"));
+        const querySnapshot = await getDocs(q)
+        const recipes: RecipeDetails[] = querySnapshot.docs.map(doc => {
+            const data = doc.data();
+            return {
+                id: doc.id,
+                title: data.title,
+                ingredients: data.ingredients,
+                steps: data.steps,
+                image: data.image,
+                authorId: data.authorId
+            } as RecipeDetails;
+        });
+        return recipes;
     },
-    getRecipeById: async (recipeId:string) => {
+    getRecipeById: async (recipeId: string) => {
         const recipeRef = doc(firestore, `public_recipes/${recipeId}`);
         const recipe = await getDoc(recipeRef)
         return recipe.data()

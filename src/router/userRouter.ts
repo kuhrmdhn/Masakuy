@@ -9,97 +9,121 @@ import { UserData, UserStore } from "@/store/UserStore";
 const userCollectionRef = collection(firestore, "users");
 
 const getUserData = async () => {
-    const session = await getSession()
+    const session = await getSession();
     if (session) {
-        const userId = session.user.id
+        const userId = session.user.id;
         const userDocRef = doc(firestore, `users/${userId}`);
         const userDoc = await getDoc(userDocRef);
         if (userDoc.exists()) {
-            const { password, ...userData } = userDoc.data()
-            UserStore.getState().setUserData(userData as UserData)
-            return { userData, userDocRef }
+            const { password, ...userData } = userDoc.data();
+            UserStore.getState().setUserData(userData as UserData);
+            return { userData, userDocRef };
+        } else {
+            throw new Error("User document does not exist"); // Improved error handling
         }
     } else {
-        throw new Error("Can`t get session")
+        throw new Error("Can't get session"); // Improved error handling
     }
-}
+};
 
 const UserRouter = {
     createUser: async (username: string, password: string) => {
-        const hashedPassword = await encodeBcrypt(password)
-        const userTemplateData = {
-            username,
-            password: hashedPassword,
-            recipe_created: [],
-            photo_profile: ""
-        };
-        const userRef = await addDoc(userCollectionRef, userTemplateData);
-        const userId = userRef.id;
-        const userData = { id: userId, ...userTemplateData };
-        await updateDoc(userRef, userData);
-        return userData;
-    },
-    getUser: async (username: string, password: string) => {
-        const userQuery = query(userCollectionRef, where("username", "==", username));
-        const querySnapshot = await getDocs(userQuery);
-        if (!querySnapshot.empty) {
-            const userDoc = querySnapshot.docs[0];
-            const userData = userDoc.data() as User;
-
-            const isPasswordValid = await decodeBcrypt(password, userData.password);
-            if (isPasswordValid) {
-                return userData;
-            }
+        try {
+            const hashedPassword = await encodeBcrypt(password);
+            const userTemplateData = {
+                username,
+                password: hashedPassword,
+                recipe_created: [],
+                photo_profile: ""
+            };
+            const userRef = await addDoc(userCollectionRef, userTemplateData);
+            const userId = userRef.id;
+            const userData = { id: userId, ...userTemplateData };
+            await updateDoc(userRef, userData);
+            return userData;
+        } catch (error) {
+            console.error("Error creating user:", error); // Added error handling
+            throw error;
         }
-        return null;
     },
+
+    getUser: async (username: string, password: string) => {
+        try {
+            const userQuery = query(userCollectionRef, where("username", "==", username));
+            const querySnapshot = await getDocs(userQuery);
+            if (!querySnapshot.empty) {
+                const userDoc = querySnapshot.docs[0];
+                const userData = userDoc.data() as User;
+                const isPasswordValid = await decodeBcrypt(password, userData.password);
+                if (isPasswordValid) {
+                    return userData;
+                }
+            }
+            return null;
+        } catch (error) {
+            console.error("Error getting user:", error); // Added error handling
+            throw error;
+        }
+    },
+
     createUserRecipes: async (recipe: any) => {
-        const user = await getUserData()
-        const data = user?.userData;
-        if (data) {
-            const userDocRef = user?.userDocRef
-            const currentRecipes = data.recipe_created;
-            const recipeId = data.id + Date.now()
-            const publicRecipeRef = await publicRecipeRouter.createPublicRecipe({ ...recipe, authorId: data.id })
+        try {
+            const user = await getUserData();
+            const { userData, userDocRef } = user;
+            const currentRecipes = userData.recipe_created;
+            const recipeId = userData.id + Date.now();
+            const publicRecipeRef = await publicRecipeRouter.createPublicRecipe({ ...recipe, authorId: userData.id });
             const publicRecipeId = publicRecipeRef.id;
-            const newRecipe = { id: recipeId, public_id: publicRecipeId, ...recipe }
+            const newRecipe = { id: publicRecipeId, user_recipe_id: recipeId, ...recipe };
             const updatedRecipes = [...currentRecipes, newRecipe];
             await updateDoc(userDocRef, { recipe_created: updatedRecipes });
+            await updateDoc(publicRecipeRef, { id: publicRecipeId })
+            return newRecipe;
+        } catch (error) {
+            console.error("Error creating user recipes:", error);
+            throw error;
         }
-        getUserData()
     },
+
     deleteUserRecipes: async (recipeId: string) => {
-        const user = await getUserData();
-        const data = user?.userData;
-        if (data) {
-            const userDocRef = user?.userDocRef;
-            const currentRecipes = data.recipe_created;
+        try {
+            const user = await getUserData();
+            const { userData, userDocRef } = user;
+            const currentRecipes = userData.recipe_created;
             const publicRecipe = currentRecipes.find((recipe: any) => recipe.id === recipeId);
 
             if (publicRecipe) {
-                await publicRecipeRouter.deletePublicRecipe(publicRecipe.public_id);
+                await publicRecipeRouter.deletePublicRecipe(publicRecipe.id);
             }
 
             const updatedRecipes = currentRecipes.filter((recipe: any) => recipe.id !== recipeId);
             await updateDoc(userDocRef, { recipe_created: updatedRecipes });
-        }
-        getUserData()
-    },
-    getUserRecipe: async () => {
-        const user = await getUserData();
-        const data = user?.userData;
-        if (data) {
-            const currentRecipes = data.recipe_created;
-            return currentRecipes
+        } catch (error) {
+            console.error("Error deleting user recipes:", error); // Added error handling
+            throw error;
         }
     },
-    getUserById: async (userId: string) => {
-        const userDoc = doc(firestore, `users/${userId}`)
-        const user = await getDoc(userDoc)
-        const data = user.data()
-        return data && data.username
 
+    getUserRecipe: async () => {
+        try {
+            const user = await getUserData();
+            return user?.userData?.recipe_created || []; // Return empty array if no recipes
+        } catch (error) {
+            console.error("Error getting user recipes:", error); // Added error handling
+            throw error;
+        }
+    },
+
+    getUserById: async (userId: string) => {
+        try {
+            const userDoc = doc(firestore, `users/${userId}`);
+            const user = await getDoc(userDoc);
+            const data = user.data();
+            return data?.username || null;
+        } catch (error) {
+            throw error;
+        }
     }
-}
+};
 
 export { UserRouter, getUserData };

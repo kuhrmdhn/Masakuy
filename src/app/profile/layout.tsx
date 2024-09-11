@@ -5,7 +5,7 @@ import React, { useCallback, useEffect } from 'react'
 export default function ProfileLayout({ children }: { children: React.ReactNode }) {
     const fetchUserData = useCallback(async () => {
         try {
-            const data = await getUserData()
+            await getUserData()
         } catch (error) {
             console.error(error)
         }
