@@ -2,9 +2,10 @@ import { UserStore } from '@/store/UserStore'
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
+import { useShallow } from 'zustand/react/shallow'
 
 export default function PhotoProfile() {
-    const { userData } = UserStore()
+    const { userData } = UserStore(useShallow((state) => ({ userData: state.userData })))
     const { photo_profile, username } = userData
     return (
         <Link href={"/profile"}>

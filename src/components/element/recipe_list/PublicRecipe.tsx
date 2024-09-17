@@ -24,7 +24,6 @@ export default function PublicRecipe() {
                         <RecipeCard
                             key={index}
                             recipe={recipeData}
-                            authorId={authorId}
                             isPublic={true}
                         />
                     )

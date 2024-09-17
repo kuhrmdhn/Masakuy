@@ -19,10 +19,10 @@ const getUserData = async () => {
             UserStore.getState().setUserData(userData as UserData);
             return { userData, userDocRef };
         } else {
-            throw new Error("User document does not exist"); // Improved error handling
+            throw new Error("User document does not exist");
         }
     } else {
-        throw new Error("Can't get session"); // Improved error handling
+        throw new Error("Can't get session");
     }
 };
 
@@ -65,7 +65,6 @@ const UserRouter = {
             throw error;
         }
     },
-
     createUserRecipes: async (recipe: any) => {
         try {
             const user = await getUserData();
@@ -79,6 +78,19 @@ const UserRouter = {
             await updateDoc(userDocRef, { recipe_created: updatedRecipes });
             await updateDoc(publicRecipeRef, { id: publicRecipeId })
             return newRecipe;
+        } catch (error) {
+            console.error("Error creating user recipes:", error);
+            throw error;
+        }
+    },
+    createUserSavedRecipes: async (recipeId: any) => {
+        try {
+            const user = await getUserData();
+            const { userData, userDocRef } = user;
+            const currentRecipes = userData.saved_recipe;
+            const updatedRecipes = [...currentRecipes, recipeId];
+            await updateDoc(userDocRef, { saved_recipe: updatedRecipes });
+            getUserData()
         } catch (error) {
             console.error("Error creating user recipes:", error);
             throw error;
@@ -98,22 +110,43 @@ const UserRouter = {
 
             const updatedRecipes = currentRecipes.filter((recipe: any) => recipe.id !== recipeId);
             await updateDoc(userDocRef, { recipe_created: updatedRecipes });
+            await getUserData()
         } catch (error) {
-            console.error("Error deleting user recipes:", error); // Added error handling
+            console.error("Error deleting user recipes:", error);
             throw error;
         }
     },
-
+    deleteUserSavedRecipes: async (recipeId: string) => {
+        try {
+            const user = await getUserData();
+            const { userData, userDocRef } = user;
+            const currentSavedRecipes = userData.saved_recipe;
+            const updatedRecipes = currentSavedRecipes.filter((id: any) => id !== recipeId);
+            await updateDoc(userDocRef, { saved_recipe: updatedRecipes });
+            await getUserData()
+        } catch (error) {
+            console.error("Error deleting user recipes:", error);
+            throw error;
+        }
+    },
     getUserRecipe: async () => {
         try {
             const user = await getUserData();
-            return user?.userData?.recipe_created || []; // Return empty array if no recipes
+            return user?.userData?.recipe_created || [];
         } catch (error) {
-            console.error("Error getting user recipes:", error); // Added error handling
+            console.error("Error getting user recipes:", error);
             throw error;
         }
     },
-
+    getUserSavedRecipe: async () => {
+        try {
+            const user = await getUserData();
+            return user?.userData?.saved_recipe || [];
+        } catch (error) {
+            console.error("Error getting user recipes:", error);
+            throw error;
+        }
+    },
     getUserById: async (userId: string) => {
         try {
             const userDoc = doc(firestore, `users/${userId}`);
