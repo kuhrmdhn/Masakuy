@@ -17,13 +17,14 @@ export default async function RecipePage({ recipe, author }: Props) {
         </p>
       </div>
       <div className="w-3/4 max-h-[350px] flex justify-center items-center">
-        <Image src={image} alt={title} width={200} height={200} className='w-full h-[250px] sm:h-[350px] aspect-auto' />
+        <Image src={image} alt={title} width={200} height={200} className='w-auto h-[250px] sm:h-[350px] aspect-auto' />
       </div>
-      <ol className="list-decimal w-3/4">
+      <ol className="w-3/4">
         <h2 className="font-semibold">Ingredients</h2>
         {
           ingredients.map((ingredient, index) => (
-            <li key={index}>
+            <li key={index} className='flex mb-2'>
+              <span className='w-7 h-7 flex justify-center items-center rounded-full font-bold bg-primary-app text-white mr-2'>{index + 1}</span>
               {ingredient}
             </li>
           ))

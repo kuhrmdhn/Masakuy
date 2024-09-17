@@ -1,9 +1,10 @@
 "use client"
 import { UserStore } from '@/store/UserStore'
+import { useShallow } from "zustand/react/shallow"
 import React from 'react'
 
-export default function page() {
-    const { userData } = UserStore()
+export default function SettingPage() {
+    const { userData } = UserStore(useShallow((state) => ({ userData: state.userData })))
     console.log(userData)
     return (
         <div>

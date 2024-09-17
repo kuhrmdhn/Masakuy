@@ -5,6 +5,7 @@ import React from 'react'
 import Link from 'next/link'
 import { NavigationMenu, navigationMenuTriggerStyle } from '../../ui/navigation-menu'
 import PhotoProfile from '../profile/PhotoProfile'
+import { useShallow } from 'zustand/react/shallow'
 
 const navigationLink = [
     {
@@ -22,12 +23,12 @@ const navigationLink = [
 ]
 
 export default function Profile() {
-    const { userData } = UserStore()
-    const { photo_profile, username } = userData
+    const { userData } = UserStore(useShallow((state) => ({ userData: state.userData })))
+    const { username } = userData
     return (
         <section className='h-[100svh] w-1/5 bg-white border-r px-4'>
             <div className='flex flex-col justify-center items-center gap-3 w-full h-1/3'>
-                <PhotoProfile/>
+                <PhotoProfile />
                 <h2 className='font-semibold text-lg'>{username}</h2>
             </div>
             <div className='flex flex-col gap-3 w-full'>

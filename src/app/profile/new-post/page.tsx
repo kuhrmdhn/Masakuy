@@ -19,7 +19,8 @@ export default function NewPostPage() {
     title: "",
     steps: "",
     image: "",
-    ingredients: ""
+    ingredients: "",
+    serving: 1
   })
   function addIngredients(e: React.MouseEvent<HTMLButtonElement>) {
     e.preventDefault()
@@ -50,8 +51,10 @@ export default function NewPostPage() {
         title: formState.title,
         steps: formState.steps,
         ingredients: ingredients,
+        serving: formState.serving,
         image: imageUrl
       }
+      console.log({ dataToPost })
       await createUserRecipes(dataToPost)
       alert("submited!")
       push("/profile")
@@ -75,6 +78,13 @@ export default function NewPostPage() {
           name="title"
           placeholder='Title'
         />
+        <Input
+          value={formState.serving}
+          type="number"
+          onChange={(e) => handleOnChange(e)}
+          name="serving"
+          placeholder='Serving'
+        />
         <section className='flex flex-col border'>
           <Input
             className="border-none"
@@ -85,7 +95,7 @@ export default function NewPostPage() {
             onChange={(e) => handleOnChange(e)}
           />
           {
-            recipeImage && <Image src={formState.image} alt="Recipe Image" height={100} width={100} className='w-56 aspect-square self-center justify-self-center' />
+            recipeImage && <Image src={formState.image} alt="Recipe Image" height={100} width={100} className='h-64 w-auto aspect-auto self-center justify-self-center' />
           }
         </section>
         <section className='h-[250px] w-full flex flex-col-reverse justify-between border rounded-lg'>
@@ -94,7 +104,7 @@ export default function NewPostPage() {
             <ol className="flex flex-col gap-5 overflow-y-auto h-[80%] w-full list-decimal">
               {
                 ingredients.map((ingredient, index) => (
-                  <li key={index}>
+                  <li key={index} className={index % 2 === 0 ? "bg-gray-200" : "bg-white"}>
                     {ingredient}
                     <button type="button" onClick={() => removeIngredient(ingredient)}>Delete</button>
                   </li>
