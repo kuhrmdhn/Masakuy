@@ -1,8 +1,8 @@
-import NextAuth from "next-auth/next"
 import { UserRouter } from "@/router/userRouter";
-import { NextAuthOptions, Session, User } from "next-auth";
-import CredentialsProvider from "next-auth/providers/credentials";
+import { NextAuthOptions, Session } from "next-auth";
 import { JWT } from "next-auth/jwt";
+import NextAuth from "next-auth/next";
+import CredentialsProvider from "next-auth/providers/credentials";
 
 const authOption: NextAuthOptions = {
     secret: process.env.NEXT_AUTH_SECRET,
@@ -31,8 +31,7 @@ const authOption: NextAuthOptions = {
         newUser: "/signUp",
     },
     callbacks: {
-        async jwt(params) {
-            const { token, user } = params as { token: JWT, user: User };
+        async jwt({ token, user }) {
             if (user) {
                 token.id = user.id
                 token.username = user.username
@@ -61,4 +60,5 @@ const authOption: NextAuthOptions = {
 }
 
 const handler = NextAuth(authOption)
-export { handler as GET, handler as POST }
+export { handler as GET, handler as POST };
+

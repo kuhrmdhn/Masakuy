@@ -4,8 +4,6 @@ import { NextRequest, NextResponse } from "next/server";
 export async function middleware(req: NextRequest) {
     const token = await getToken({ req, secret: `${process.env.NEXT_AUTH_SECRET}` });
     const { pathname } = req.nextUrl;
-    const url = req.nextUrl.clone()
-
     if (!token || token == null) {
         if (pathname !== "/signIn") {
             const loginUrl = new URL('/signIn', req.url);

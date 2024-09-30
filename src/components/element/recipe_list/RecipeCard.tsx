@@ -5,10 +5,9 @@ import useFormatRecipeStep from '@/hooks/useFormatRecipeStep'
 import { UserRouter } from '@/router/userRouter'
 import { UserStore } from '@/store/UserStore'
 import { Recipe } from '@/types/recipeType'
-import { Bookmark, BookmarkMinus, BookOpen, CookingPot, Ellipsis, User } from "lucide-react"
+import { Bookmark, BookmarkX, BookOpen, CookingPot, Ellipsis, User } from "lucide-react"
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { useState } from 'react'
 import { useShallow } from 'zustand/react/shallow'
 
 type Props = {
@@ -75,7 +74,7 @@ export default function RecipeCard({ recipe, isPublic = false }: Props) {
                     <Link className="bg-primary-app text-white w-5/6 py-2 flex justify-center items-center rounded-md" href={recipeUrl}>View Recipe</Link>
                     <Button variant={"link"} onClick={handleIsSaved}>
                         {
-                            saved_recipe?.includes(id) ? <BookmarkMinus /> : <Bookmark />
+                            saved_recipe?.includes(id) ? <BookmarkX /> : <Bookmark />
                         }
                     </Button>
                 </div>

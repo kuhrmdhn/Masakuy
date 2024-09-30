@@ -30,11 +30,7 @@ const publicRecipeRouter = {
             const data = doc.data();
             return {
                 id: doc.id,
-                title: data.title,
-                ingredients: data.ingredients,
-                steps: data.steps,
-                image: data.image,
-                authorId: data.authorId
+                ...data
             } as RecipeDetails;
         });
         return recipes;
