@@ -9,21 +9,22 @@ import { UserData, UserStore } from "@/store/UserStore";
 const userCollectionRef = collection(firestore, "users");
 
 const getUserData = async () => {
-    const session = await getSession();
-    if (session) {
-        const userId = session.user.id;
-        const userDocRef = doc(firestore, `users/${userId}`);
-        const userDoc = await getDoc(userDocRef);
-        if (userDoc.exists()) {
-            const { password, ...userData } = userDoc.data();
-            UserStore.getState().setUserData(userData as UserData);
-            return { userData, userDocRef };
+        const session = await getSession();
+        if (session) {
+            const userId = session.user.id;
+            const userDocRef = doc(firestore, `users/${userId}`);
+            const userDoc = await getDoc(userDocRef);
+            if (userDoc.exists()) {
+                const { password, ...userData } = userDoc.data();
+                UserStore.getState().setUserData(userData as UserData);
+                return { userData, userDocRef };
+            } else {
+                throw new Error("User document does not exist");
+            }
         } else {
-            throw new Error("User document does not exist");
+            window.location.href = "/signIn";
+            throw new Error("Session is empty");
         }
-    } else {
-        throw new Error("Can't get session");
-    }
 };
 
 const UserRouter = {
