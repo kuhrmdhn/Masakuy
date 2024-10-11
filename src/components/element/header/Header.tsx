@@ -2,22 +2,52 @@
 import React from 'react'
 import Logo from './Logo'
 import { usePathname } from 'next/navigation'
+import SearchBar from './SearchBar'
+import Link from 'next/link'
 
 type Props = {
-    children?: React.ReactNode
     className?: string
 }
 
-export default function Header({ children, className, ...props }: Props) {
+const navList = [
+    {
+        link: "/",
+        title: "Home"
+    },
+    {
+        link: "/profile",
+        title: "Profile"
+    },
+    {
+        link: "/create-recipe",
+        title: "Upload Recipe"
+    },
+]
+
+export default function Header({ className, ...props }: Props) {
     const pathname = usePathname()
-    const ignoreNavbarPage = ["/profile"]
+    const ignoreNavbarPage = ["/profile", "/signIn", "/signUp"]
     if (ignoreNavbarPage.some((path: string) => pathname == path)) {
         return <></>
     }
     return (
-        <header className={`h-16 w-full flex items-center px-7 ${className}`} {...props}>
+        <header className={`h-16 w-full fixed top-0 z-50 flex justify-evenly items-center px-7 ${className}`} {...props}>
             <Logo />
-            {children}
+            <nav className='w-1/3 flex justify-around'>
+                {
+                    navList.map((nav, index) => (
+                        <Link
+                            key={index}
+                            className="hover:text-primary-app/70 relative link-underline" href={nav.link}
+                        >
+                            {nav.title}
+                        </Link>
+                    ))
+                }
+            </nav>
+            <div className="w-1/3">
+                <SearchBar />
+            </div>
         </header>
     )
 }

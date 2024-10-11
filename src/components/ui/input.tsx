@@ -4,9 +4,11 @@ import { cn } from "@/lib/shadcn/utils";
 import Image from "next/image";
 
 export interface InputProps
-  extends React.InputHTMLAttributes<HTMLInputElement> { }
+  extends React.InputHTMLAttributes<HTMLInputElement> {
+  withLabel?: boolean
+}
 
-const Input = React.forwardRef<HTMLInputElement, InputProps>(({ className, type = "text", id, placeholder, ...props }, ref) => {
+const Input = React.forwardRef<HTMLInputElement, InputProps>(({ className, withLabel = true, type = "text", id, placeholder, ...props }, ref) => {
   const [visiblePassword, setVisiblePassword] = React.useState(false)
   function handleVisiblePassword(e: React.MouseEvent<HTMLButtonElement>) {
     e.preventDefault()
@@ -26,12 +28,15 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(({ className, type 
         placeholder={placeholder}
         {...props}
       />
-      <label
-        htmlFor={id}
-        className="absolute -top-6 left-3 text-sm text-slate-800 peer-focus:text-primary-app peer-focus:-top-6 peer-placeholder-shown:top-4 peer-placeholder-shown:text-gray-400 duration-200"
-      >
-        {placeholder}
-      </label>
+      {
+        withLabel &&
+        <label
+          htmlFor={id}
+          className="absolute -top-6 left-3 text-sm text-slate-800 peer-focus:text-primary-app peer-focus:-top-6 peer-placeholder-shown:top-4 peer-placeholder-shown:text-gray-400 duration-200"
+        >
+          {placeholder}
+        </label>
+      }
       {
         type === "password" &&
         <button className="absolute right-3 top-4" onClick={(e) => handleVisiblePassword(e)}>

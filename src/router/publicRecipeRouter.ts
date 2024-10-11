@@ -1,5 +1,5 @@
 import { firestore } from "@/lib/firebase/firestore";
-import { RecipeDetails } from "@/types/recipeType";
+import { Recipe, RecipeDetails } from "@/types/recipeType";
 import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, limit, query, where } from "firebase/firestore";
 
 const publicRecipesCollectionRef = collection(firestore, "public_recipes");
@@ -39,6 +39,16 @@ const publicRecipeRouter = {
         const recipeRef = doc(firestore, `public_recipes/${recipeId}`);
         const recipe = await getDoc(recipeRef)
         return recipe.data()
+    },
+    getRecipeByName: async (recipeName:string):Promise<RecipeDetails[]> => {
+        const q = query(collection(firestore, "public_recipes"))
+        const querySnapshot = await getDocs(q)
+        const recipes = querySnapshot.docs.map((doc) => doc.data()) as RecipeDetails[]
+        const keyword = recipeName.trim().toLowerCase()
+        return recipes.filter((recipe) => {
+            const recipeTitle = recipe.title.trim().toLowerCase()
+            return recipeTitle.includes(keyword)
+        }) 
     }
 }
 

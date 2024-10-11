@@ -13,17 +13,17 @@ export default function RecipeInfo({ recipe, className }: Props) {
     const recipeInfoData = [
         {
             title: "Serving",
-            icon: <User className='text-gray-700' />,
+            icon: <User className='text-gray-700 h-5 w-5' />,
             detail: serving
         },
         {
             title: "Ingredient(s)",
-            icon: <BookOpen className='text-gray-700' />,
+            icon: <BookOpen className='text-gray-700 h-5 w-5' />,
             detail: ingredients.length
         },
         {
             title: "Step(s)",
-            icon: <CookingPot className='text-gray-700' />,
+            icon: <CookingPot className='text-gray-700 h-5 w-5' />,
             detail: recipeStepLength(steps)
         },
     ]

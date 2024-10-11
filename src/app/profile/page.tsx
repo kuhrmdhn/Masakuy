@@ -4,8 +4,7 @@ import React from 'react'
 
 export default function ProfilePage() {
   return (
-    <div className='w-full min-h-[100svh] flex'>
-      <Profile />
+    <div className='w-full min-h-[100svh]'>
       <RecipeFolder />
     </div>
   )

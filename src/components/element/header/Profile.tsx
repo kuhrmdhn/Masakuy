@@ -26,7 +26,7 @@ export default function Profile() {
     const { userData } = UserStore(useShallow((state) => ({ userData: state.userData })))
     const { username } = userData
     return (
-        <section className='h-[100svh] w-1/5 bg-white border-r px-4'>
+        <section className='h-[100svh] w-1/6 bg-white border-r px-4'>
             <div className='flex flex-col justify-center items-center gap-3 w-full h-1/3'>
                 <PhotoProfile />
                 <h2 className='font-semibold text-lg'>{username}</h2>

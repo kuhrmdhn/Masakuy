@@ -5,6 +5,7 @@ import { decodeBcrypt, encodeBcrypt } from "@/lib/hash/bcrypt";
 import { getSession } from "next-auth/react";
 import { publicRecipeRouter } from "./publicRecipeRouter";
 import { UserData, UserStore } from "@/store/UserStore";
+import { Recipe } from "@/types/recipeType";
 
 const userCollectionRef = collection(firestore, "users");
 
@@ -71,25 +72,22 @@ const UserRouter = {
             const user = await getUserData();
             const { userData, userDocRef } = user;
             const currentRecipes = userData.recipe_created;
-            const recipeId = userData.id + Date.now();
             const publicRecipeRef = await publicRecipeRouter.createPublicRecipe({ ...recipe, authorId: userData.id });
             const publicRecipeId = publicRecipeRef.id;
-            const newRecipe = { id: publicRecipeId, user_recipe_id: recipeId, ...recipe };
-            const updatedRecipes = [...currentRecipes, newRecipe];
+            const updatedRecipes = [...currentRecipes, recipe];
             await updateDoc(userDocRef, { recipe_created: updatedRecipes });
             await updateDoc(publicRecipeRef, { id: publicRecipeId })
-            return newRecipe;
         } catch (error) {
             console.error("Error creating user recipes:", error);
             throw error;
         }
     },
-    createUserSavedRecipes: async (recipeId: any) => {
+    createUserSavedRecipes: async (recipe: Recipe) => {
         try {
             const user = await getUserData();
             const { userData, userDocRef } = user;
-            const currentRecipes = userData.saved_recipe;
-            const updatedRecipes = [...currentRecipes, recipeId];
+            const currentSavedRecipes = userData.saved_recipe;
+            const updatedRecipes = [...currentSavedRecipes, recipe];
             await updateDoc(userDocRef, { saved_recipe: updatedRecipes });
             getUserData()
         } catch (error) {
@@ -117,12 +115,12 @@ const UserRouter = {
             throw error;
         }
     },
-    deleteUserSavedRecipes: async (recipeId: string) => {
+    deleteUserSavedRecipes: async (recipeData: Recipe) => {
         try {
             const user = await getUserData();
             const { userData, userDocRef } = user;
             const currentSavedRecipes = userData.saved_recipe;
-            const updatedRecipes = currentSavedRecipes.filter((id: any) => id !== recipeId);
+            const updatedRecipes = currentSavedRecipes.filter((recipe: Recipe) => recipe.id !== recipeData.id);
             await updateDoc(userDocRef, { saved_recipe: updatedRecipes });
             await getUserData()
         } catch (error) {

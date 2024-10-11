@@ -22,7 +22,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="en">
       <body className={roboto.className}>
         <Header />
-        {children}
+        <main className="pt-20">
+          {children}
+        </main>
       </body>
     </html>
   );

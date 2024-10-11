@@ -5,7 +5,7 @@ export interface UserData {
     id: string
     username: string
     recipe_created: Recipe[] | null
-    saved_recipe?:string[] | null
+    saved_recipe?:Recipe[] | null
     photo_profile: string
 }
 

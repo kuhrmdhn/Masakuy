@@ -9,6 +9,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useShallow } from 'zustand/react/shallow'
 import RecipeInfo from './RecipeInfo'
+import { useEffect, useState } from 'react'
 
 type Props = {
     recipe: Recipe,
@@ -16,23 +17,29 @@ type Props = {
 }
 
 export default function RecipeCard({ recipe, isPublic = false }: Props) {
+    const [savedStatus, setSavedStatus] = useState(false)
     const { id, title, image } = recipe
     const recipeUrl = `recipe/${id}`
     const { userData } = UserStore(useShallow((state) => ({ userData: state.userData })))
     const { saved_recipe } = userData
     const { deleteUserSavedRecipes, createUserSavedRecipes } = UserRouter
     function handleIsSaved() {
-        const status = saved_recipe?.includes(id)
-        if (status) {
-            deleteUserSavedRecipes(id)
+        if (savedStatus) {
+            deleteUserSavedRecipes(recipe)
         } else {
-            createUserSavedRecipes(id)
+            createUserSavedRecipes(recipe)
         }
     }
 
+    useEffect(() => {
+        if (saved_recipe) {
+            const status = saved_recipe.some((saved) => saved.id == id)
+            setSavedStatus(status)
+        }
+    }, [id, saved_recipe])
 
     return (
-        <section className='w-[280px] h-[350px] bg-white rounded-lg border shadow-xl hover:shadow-lg duration-300'>
+        <section className='w-[260px] h-[320px] bg-white rounded-lg border shadow-xl hover:shadow-lg duration-300 text-sm'>
             <CardImage image={image} isPublic={isPublic} recipeId={id} />
             <div className='flex flex-col w-full p-3 h-1/2 items-center justify-evenly'>
                 <div className="flex flex-col w-full h-1/5 justify-between">
@@ -44,7 +51,9 @@ export default function RecipeCard({ recipe, isPublic = false }: Props) {
                     <Link className="bg-primary-app text-white w-5/6 py-2 flex justify-center items-center rounded-md" href={recipeUrl}>View Recipe</Link>
                     <Button variant={"link"} onClick={handleIsSaved}>
                         {
-                            saved_recipe?.includes(id) ? <BookmarkX /> : <Bookmark />
+                            savedStatus ?
+                                <BookmarkX className='w-5 h-5' /> :
+                                <Bookmark className='w-5 h-5' />
                         }
                     </Button>
                 </div>
