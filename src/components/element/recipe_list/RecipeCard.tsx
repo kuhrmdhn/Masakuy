@@ -87,7 +87,7 @@ function CardImage({ image, isPublic, recipeId }: CardImageProps) {
             {
                 !isPublic &&
                 <DropdownMenu>
-                    <DropdownMenuTrigger asChild className='absolute top-2 right-2 text-white cursor-pointer'>
+                    <DropdownMenuTrigger asChild className='absolute top-2 right-2 text-primary-app cursor-pointer'>
                         <Ellipsis />
                     </DropdownMenuTrigger>
                     <DropdownMenuContent>
