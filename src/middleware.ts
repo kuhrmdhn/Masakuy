@@ -6,21 +6,11 @@ export async function middleware(req: NextRequest) {
     const { pathname } = req.nextUrl;
     if (!token || token == null) {
         if (pathname !== "/signIn") {
-            const loginUrl = new URL('/signIn', req.url);
-            loginUrl.searchParams.set('callbackUrl', req.url);
-            return NextResponse.redirect(loginUrl);
+            const callbackUrl = `/signIn?callbackUrl=${pathname}`
+            return NextResponse.redirect(new URL(callbackUrl, req.url));
         }
         return NextResponse.next()
     }
-    try {
-        if (pathname.startsWith("/signIn") || pathname.startsWith("/signUp")) {
-            const signInUrl = new URL("/", req.url);
-            return NextResponse.redirect(signInUrl);
-        }
-    } catch (error) {
-        console.error(error);
-    }
-    return NextResponse.next();
 }
 
 export const config = {

@@ -26,12 +26,12 @@ const navList = [
 
 export default function Header({ className, ...props }: Props) {
     const pathname = usePathname()
-    const ignoreNavbarPage = ["/profile", "/signIn", "/signUp"]
+    const ignoreNavbarPage = ["/signIn", "/signUp"]
     if (ignoreNavbarPage.some((path: string) => pathname == path)) {
         return <></>
     }
     return (
-        <header className={`h-16 w-full fixed top-0 z-50 flex justify-evenly items-center px-7 ${className}`} {...props}>
+        <header className={`h-16 w-full fixed top-0 z-50 flex justify-evenly items-center px-7 bg-white ${className}`} {...props}>
             <Logo />
             <nav className='w-1/3 flex justify-around'>
                 {

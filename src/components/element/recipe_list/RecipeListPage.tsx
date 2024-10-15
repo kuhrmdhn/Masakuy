@@ -1,78 +1,30 @@
 import { Recipe } from '@/types/recipeType'
-import React from 'react'
 import RecipeCard from './RecipeCard'
+import EmptyRecipeList from './EmptyRecipeList'
 
 type Props = {
-    recipes: Recipe[]
-    isPublic?:boolean
+  recipes: Recipe[]
+  isPublic?: boolean
+  className?: string
 }
 
-export default function RecipeListPage({recipes, isPublic = true}: Props) {
+export default function RecipeListPage({ recipes, isPublic = true, className = "grid-cols-5" }: Props) {
   return (
-    <div className='w-full h-full grid justify-items-center gap-y-5 grid-cols-5'>
+    <section className="w-full h-[calc(100svh-8rem)] overflow-auto">
       {
-        recipes.map((recipe, index) => (
-            <RecipeCard 
-                key={index}
-                recipe={recipe}
-                isPublic={isPublic}
-            />
-        ))
+        recipes.length === 0 ? <EmptyRecipeList /> :
+          <div className={`w-full h-full grid justify-items-center gap-y-5 ${className}`}>
+            {
+              recipes.map((recipe, index) => (
+                <RecipeCard
+                  key={index}
+                  recipe={recipe}
+                  isPublic={isPublic}
+                />
+              ))
+            }
+          </div>
       }
-      {
-        recipes.map((recipe, index) => (
-            <RecipeCard 
-                key={index}
-                recipe={recipe}
-                isPublic={isPublic}
-            />
-        ))
-      }
-      {
-        recipes.map((recipe, index) => (
-            <RecipeCard 
-                key={index}
-                recipe={recipe}
-                isPublic={isPublic}
-            />
-        ))
-      }
-      {
-        recipes.map((recipe, index) => (
-            <RecipeCard 
-                key={index}
-                recipe={recipe}
-                isPublic={isPublic}
-            />
-        ))
-      }
-      {
-        recipes.map((recipe, index) => (
-            <RecipeCard 
-                key={index}
-                recipe={recipe}
-                isPublic={isPublic}
-            />
-        ))
-      }
-      {
-        recipes.map((recipe, index) => (
-            <RecipeCard 
-                key={index}
-                recipe={recipe}
-                isPublic={isPublic}
-            />
-        ))
-      }
-      {
-        recipes.map((recipe, index) => (
-            <RecipeCard 
-                key={index}
-                recipe={recipe}
-                isPublic={isPublic}
-            />
-        ))
-      }
-    </div>
+    </section>
   )
 }
