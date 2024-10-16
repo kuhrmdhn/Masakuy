@@ -1,7 +1,7 @@
 export interface RecipeInput {
     title: string
     ingredients: string[]
-    steps: string
+    steps: string[]
     image: string
     serving: number
 }

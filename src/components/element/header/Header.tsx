@@ -19,7 +19,7 @@ const navList = [
         title: "Profile"
     },
     {
-        link: "/create-recipe",
+        link: "/new-post",
         title: "Upload Recipe"
     },
 ]

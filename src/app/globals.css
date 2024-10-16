@@ -95,4 +95,17 @@
   .link-underline:hover::after {
     width: 50%;
   }
+
+  .scrollbar-main::-webkit-scrollbar-thumb {
+    background-color: theme('colors.primary.app');
+    border-radius: 25%;
+    -webkit-border-radius: 25%;
+    -moz-border-radius: 25%;
+    -ms-border-radius: 25%;
+    -o-border-radius: 25%;
+}
+
+  .scrollbar-small::-webkit-scrollbar {
+    width: .3rem;
+  }
 }

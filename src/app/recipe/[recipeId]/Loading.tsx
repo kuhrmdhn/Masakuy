@@ -1,4 +1,4 @@
-import RecipePageLoading from '@/components/loading/RecipePageLoading'
+import RecipePageLoading from '@/app/loading'
 
 export default function Loading() {
   return (

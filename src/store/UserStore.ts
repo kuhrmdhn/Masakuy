@@ -5,7 +5,7 @@ export interface UserData {
     id: string
     username: string
     recipe_created: Recipe[] | null
-    saved_recipe?:Recipe[] | null
+    saved_recipe?: Recipe[] | null
     photo_profile: string
 }
 
@@ -18,7 +18,7 @@ export const UserStore = create<Store>()((set) => ({
     userData: {
         id: "",
         username: "",
-        photo_profile: "/images/default-photo-profile",
+        photo_profile: "/images/default-image",
         recipe_created: null,
         saved_recipe: null
     },
