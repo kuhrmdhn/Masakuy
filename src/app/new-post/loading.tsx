@@ -1,9 +1,9 @@
 import React from 'react'
 
-export default function UserSavedRecipe() {
+export default function Loading() {
   return (
     <div>
-      
+      loading...
     </div>
   )
 }

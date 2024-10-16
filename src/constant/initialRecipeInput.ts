@@ -1,6 +1,9 @@
-export const initialRecipeInput = {
+import { RecipeInput } from "@/types/recipeType";
+
+export const initialRecipeInput:RecipeInput = {
     title: "",
-    image: "/images/default-photo-profile.webp",
+    serving: 1,
+    image: "",
     ingredients: [""],
-    steps: ""
+    steps: [""]
 }
