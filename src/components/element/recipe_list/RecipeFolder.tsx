@@ -21,11 +21,13 @@ export default function RecipeFolder() {
     const tabContents = [
         {
             trigger: "postedRecipe",
-            recipes: recipe_created
+            recipes: recipe_created,
+            isPublic: false
         },
         {
             trigger: "savedRecipe",
-            recipes: saved_recipe
+            recipes: saved_recipe,
+            isPublic: true
         }
     ]
 
@@ -38,7 +40,7 @@ export default function RecipeFolder() {
             {
                 tabContents.map((content, index) => (
                     <TabsContent className="block pl-7" value={content.trigger} key={index}>
-                        {content.recipes && <RecipeListPage recipes={content.recipes} isPublic={false} className='grid-cols-4' />}
+                        {content.recipes && <RecipeListPage isPublic={content.isPublic} recipes={content.recipes} className='grid-cols-4' />}
                     </TabsContent>
                 ))
             }
