@@ -52,7 +52,7 @@ export default async function RecipePage({ recipe, author }: Props) {
           <ol className="w-full">
             <h2 className="font-bold text-3xl mb-5">Instructions</h2>
             {
-              steps.split("\n").map((step, index) => (
+              steps.map((step, index) => (
                 <li key={index} className='flex mb-2 gap-5'>
                   <span className='h-7 w-7 flex justify-center items-center rounded-full font-bold text-primary-app mr-2'>{index + 1}.</span>
                   <p className="w-4/5">

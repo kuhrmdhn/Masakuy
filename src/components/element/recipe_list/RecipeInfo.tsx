@@ -1,4 +1,3 @@
-import useFormatRecipeStep from "@/hooks/useFormatRecipeStep"
 import { Recipe } from "@/types/recipeType"
 import { BookOpen, CookingPot, User } from "lucide-react"
 
@@ -8,7 +7,6 @@ type Props = {
 }
 export default function RecipeInfo({ recipe, className }: Props) {
     const { serving, ingredients, steps } = recipe
-    const { recipeStepLength } = useFormatRecipeStep()
 
     const recipeInfoData = [
         {
@@ -24,7 +22,7 @@ export default function RecipeInfo({ recipe, className }: Props) {
         {
             title: "Step(s)",
             icon: <CookingPot className='text-gray-700 h-5 w-5' />,
-            detail: recipeStepLength(steps)
+            detail: steps.length
         },
     ]
     return (

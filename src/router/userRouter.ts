@@ -10,22 +10,22 @@ import { Recipe } from "@/types/recipeType";
 const userCollectionRef = collection(firestore, "users");
 
 const getUserData = async () => {
-        const session = await getSession();
-        if (session) {
-            const userId = session.user.id;
-            const userDocRef = doc(firestore, `users/${userId}`);
-            const userDoc = await getDoc(userDocRef);
-            if (userDoc.exists()) {
-                const { password, ...userData } = userDoc.data();
-                UserStore.getState().setUserData(userData as UserData);
-                return { userData, userDocRef };
-            } else {
-                throw new Error("User document does not exist");
-            }
+    const session = await getSession();
+    if (session) {
+        const userId = session.user.id;
+        const userDocRef = doc(firestore, `users/${userId}`);
+        const userDoc = await getDoc(userDocRef);
+        if (userDoc.exists()) {
+            const { password, ...userData } = userDoc.data();
+            UserStore.getState().setUserData(userData as UserData);
+            return { userData, userDocRef };
         } else {
-            window.location.href = "/signIn";
-            throw new Error("Session is empty");
+            throw new Error("User document does not exist");
         }
+    } else {
+        window.location.href = "/signIn";
+        throw new Error("Session is empty");
+    }
 };
 
 const UserRouter = {
@@ -44,7 +44,7 @@ const UserRouter = {
             await updateDoc(userRef, userData);
             return userData;
         } catch (error) {
-            console.error("Error creating user:", error); // Added error handling
+            console.error("Error creating user:", error); 
             throw error;
         }
     },
@@ -63,7 +63,7 @@ const UserRouter = {
             }
             return null;
         } catch (error) {
-            console.error("Error getting user:", error); // Added error handling
+            console.error("Error getting user:", error); 
             throw error;
         }
     },
@@ -74,7 +74,7 @@ const UserRouter = {
             const currentRecipes = userData.recipe_created;
             const publicRecipeRef = await publicRecipeRouter.createPublicRecipe({ ...recipe, authorId: userData.id });
             const publicRecipeId = publicRecipeRef.id;
-            const updatedRecipes = [...currentRecipes, recipe];
+            const updatedRecipes = [...currentRecipes, { id: publicRecipeId, ...recipe }];
             await updateDoc(userDocRef, { recipe_created: updatedRecipes });
             await updateDoc(publicRecipeRef, { id: publicRecipeId })
         } catch (error) {
