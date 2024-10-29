@@ -31,20 +31,8 @@ export default function Header({ className, ...props }: Props) {
         return <></>
     }
     return (
-        <header className={`h-16 w-full fixed top-0 z-50 flex justify-evenly items-center px-7 bg-white ${className}`} {...props}>
+        <header className={`h-16 w-full fixed top-0 z-50 flex justify-between items-center px-7 bg-white ${className}`} {...props}>
             <Logo />
-            <nav className='w-1/3 flex justify-around'>
-                {
-                    navList.map((nav, index) => (
-                        <Link
-                            key={index}
-                            className="hover:text-primary-app/70 relative link-underline" href={nav.link}
-                        >
-                            {nav.title}
-                        </Link>
-                    ))
-                }
-            </nav>
             <div className="w-1/3">
                 <SearchBar />
             </div>

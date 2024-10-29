@@ -6,6 +6,7 @@ import useLogin from "@/hooks/useLogin";
 import { InputType } from "@/types/InputType";
 import { X } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 
 
@@ -83,8 +84,8 @@ export default function SignInPage() {
                                 inputData={inputData}
                             />
                             <AuthButton loading={loading} />
-                            <p className="text-sm font-normal">Don’t have an Account?
-                                <a href="/signUp" className="text-primary-app font-semibold ml-2">Register</a>
+                            <p className="text-sm font-normal">Don't have an Account?
+                                <Link href="/signUp" className="text-primary-app font-semibold ml-2">Register</Link>
                             </p>
                         </form>
                     </div>

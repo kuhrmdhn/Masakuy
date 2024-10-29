@@ -15,8 +15,8 @@ export default function Home() {
     fetchPublicRecipe()
   }, [fetchPublicRecipe])
   return (
-    <>
-      <RecipeListPage recipes={publicRecipes} />
-    </>
+      <div className="h-[100svh] w-full overflow-y-auto">
+        <RecipeListPage recipes={publicRecipes} />
+      </div>
   )
 }

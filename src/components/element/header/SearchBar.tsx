@@ -26,7 +26,7 @@ export default function SearchBar() {
         }
     }, [queryParams])
     return (
-        <form onSubmit={onSearch} className="flex gap-5 w-full items-center">
+        <form onSubmit={onSearch} className="flex gap-3 w-full items-center">
             <Input ref={inputRef} className='placeholder-slate-400 h-10 w-80' withLabel={false} placeholder='Search recipe' />
             <Button className="bg-primary-app hover:bg-primary-app/80 w-fit" type="submit">
                 <Search />

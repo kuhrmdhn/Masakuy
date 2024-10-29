@@ -7,9 +7,10 @@ import { UserRouter } from "@/router/userRouter";
 import { RecipeInput } from "@/types/recipeType";
 import { Plus, X } from "lucide-react";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 
 export default function NewRecipePostPage() {
+  const inputImageRef = useRef<HTMLInputElement>(null)
   const [previewImage, setPreviewImage] = useState<File | null>(null);
   const [formData, setFormData] = useState(initialRecipeInput);
   const { createUserRecipes } = UserRouter
@@ -84,12 +85,22 @@ export default function NewRecipePostPage() {
 
   async function handleSubmit(e: React.MouseEvent<HTMLButtonElement>) {
     e.preventDefault()
+    let imageUrl = ""
     if (previewImage) {
-      const imageUrl = await uploadRecipeImage(previewImage)
+      imageUrl = await uploadRecipeImage(previewImage)
+    }
+    try {
       const dataToPost: RecipeInput = { ...formData, image: imageUrl }
       await createUserRecipes(dataToPost)
+    } catch (error) {
+      console.error(error);
+    } finally {
+      if (inputImageRef.current) {
+        inputImageRef.current.value = "";
+      }
+      setFormData(initialRecipeInput);
+      setPreviewImage(null);
     }
-    setFormData(initialRecipeInput)
   };
 
   return (
@@ -104,7 +115,9 @@ export default function NewRecipePostPage() {
                 name={data.name}
                 placeholder={data.placeholder}
                 onChange={(e) => handleOnChange(e)}
-                accept="image/*"
+                value={data.type === "file" ? undefined : data.value}
+                accept={data.name === "image" ? "image/*" : undefined}
+                ref={data.type === "file" ? inputImageRef : undefined}
               />
             ))
           }

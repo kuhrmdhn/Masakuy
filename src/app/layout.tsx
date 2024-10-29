@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/element/header/Header";
+import Sidebar from "@/components/element/sidebar/Sidebar";
 
 const roboto = Roboto({
   subsets: ["latin"],
@@ -22,7 +23,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="en">
       <body className={roboto.className}>
         <Header />
-        <main className="pt-20">
+        <Sidebar />
+        <main className="pt-20 pl-56">
           {children}
         </main>
       </body>

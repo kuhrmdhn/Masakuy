@@ -8,9 +8,9 @@ type Props = {
   className?: string
 }
 
-export default function RecipeListPage({ recipes, isPublic = true, className = "grid-cols-5" }: Props) {
+export default function RecipeListPage({ recipes, isPublic = true, className = "grid-cols-4" }: Props) {
   return (
-    <section className="w-full h-[calc(100svh-8rem)] overflow-auto">
+    <section className="w-full h-full overflow-hidden">
       {
         recipes.length === 0 ? <EmptyRecipeList /> :
           <div className={`w-full h-full grid justify-items-center gap-y-5 ${className}`}>
