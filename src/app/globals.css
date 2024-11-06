@@ -70,6 +70,11 @@
 }
 
 @layer components {
+  .link-underline {
+    width: 100%;
+    position: relative;
+  }
+
   .link-underline::after {
     content: "";
     width: 0;
@@ -90,10 +95,10 @@
     -moz-border-radius: 2rem;
     -ms-border-radius: 2rem;
     -o-border-radius: 2rem;
-}
+  }
 
   .link-underline:hover::after {
-    width: 50%;
+    width: 80%;
   }
 
   .scrollbar-main::-webkit-scrollbar-thumb {
@@ -103,7 +108,7 @@
     -moz-border-radius: 25px;
     -ms-border-radius: 25px;
     -o-border-radius: 25px;
-}
+  }
 
   .scrollbar-small::-webkit-scrollbar {
     width: .3rem;

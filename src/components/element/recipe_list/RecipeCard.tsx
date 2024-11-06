@@ -47,7 +47,9 @@ export default function RecipeCard({ recipe, isPublic = false }: Props) {
                 </div>
                 <RecipeInfo recipe={recipe} />
                 <div className="flex justify-around items-center w-full">
-                    <Link className="bg-primary-app text-white w-5/6 py-2 flex justify-center items-center rounded-md" href={recipeUrl}>Start Cooking</Link>
+                    <Button variant={"main"}>
+                        <Link className="w-5/6 py-2 flex justify-center items-center" href={recipeUrl}>Start Cooking</Link>
+                    </Button>
                     <Button variant={"link"} onClick={handleIsSaved}>
                         {
                             savedStatus ?
