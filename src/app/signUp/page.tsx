@@ -1,5 +1,5 @@
 "use client"
-import AuthButton from "@/components/element/auth/AuthButton";
+import FormAuthButton from "@/components/element/auth/FormAuthButton";
 import AuthForm from "@/components/element/auth/AuthForm";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
@@ -132,7 +132,7 @@ export default function SignInPage() {
                             <AuthForm
                                 inputData={inputData}
                             />
-                            <AuthButton loading={loading} />
+                            <FormAuthButton loading={loading} />
                             <p className="text-sm font-normal">Have an Account?
                                 <a href="/signIn" className="text-primary-app font-semibold ml-2">Login</a>
                             </p>

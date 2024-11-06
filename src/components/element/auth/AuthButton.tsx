@@ -1,19 +1,40 @@
 import { Button } from '@/components/ui/button'
-import { RefreshCw } from 'lucide-react'
-import React from 'react'
+import { getSession } from 'next-auth/react'
+import Link from 'next/link'
+import React, { useEffect, useState } from 'react'
 
-type Props = {
-    loading: boolean
-}
-
-export default function AuthButton({ loading }: Props) {
+export default function AuthButton() {
+    const [sessionStatus, setSessionStatus] = useState(false)
+    async function checkSession() {
+        const session = await getSession()
+        if (session) {
+            setSessionStatus(true)
+        }
+    }
+    useEffect(() => {
+        checkSession()
+    }, [])
     return (
-        <Button
-            className={`bg-primary-app text-white w-full h-12 shadow-lg shadow-primary-app hover:bg-primary-app hover:bg-opacity-80 duration-200 ${loading ? "cursor-not-allowed" : "cursor-pointer"}`}
-            type="submit"
-            disabled={loading}
-        >
-            {loading ? <span className="animate-spin"><RefreshCw /></span> : "Register"}
-        </Button>
+        <div className='w-full h-full'>
+            {
+                sessionStatus ?
+                    <Link href="/profile">
+                        <Button size={"lg"} variant={"main"}>Profile</Button>
+                    </Link>
+                    :
+                    <div className="flex flex-col gap-3">
+                        <Link href="/signIn">
+                            <Button size={"lg"} variant={"ghostMain"}>
+                                SignIn
+                            </Button>
+                        </Link>
+                        <Link href="/signUp">
+                            <Button size={"lg"} variant={"main"}>
+                                SignUp
+                            </Button>
+                        </Link>
+                    </div>
+            }
+        </div>
     )
 }

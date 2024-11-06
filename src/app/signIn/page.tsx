@@ -1,5 +1,5 @@
 "use client"
-import AuthButton from "@/components/element/auth/AuthButton";
+import FormAuthButton from "@/components/element/auth/FormAuthButton";
 import AuthForm from "@/components/element/auth/AuthForm";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import useLogin from "@/hooks/useLogin";
@@ -19,7 +19,7 @@ export default function SignInPage() {
     const [alert, setAlert] = useState({
         show: false,
         description: ""
-    }); 
+    });
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
@@ -83,7 +83,7 @@ export default function SignInPage() {
                             <AuthForm
                                 inputData={inputData}
                             />
-                            <AuthButton loading={loading} />
+                            <FormAuthButton loading={loading} />
                             <p className="text-sm font-normal">Don't have an Account?
                                 <Link href="/signUp" className="text-primary-app font-semibold ml-2">Register</Link>
                             </p>
