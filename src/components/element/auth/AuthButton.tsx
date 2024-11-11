@@ -1,7 +1,8 @@
 import { Button } from '@/components/ui/button'
-import { getSession } from 'next-auth/react'
-import Link from 'next/link'
-import React, { useEffect, useState } from 'react'
+import { FilePen, LogIn, LogOut, User } from 'lucide-react'
+import { getSession, signOut } from 'next-auth/react'
+import { useEffect, useState } from 'react'
+import NavigationItem from '../sidebar/NavigationItem'
 
 export default function AuthButton() {
     const [sessionStatus, setSessionStatus] = useState(false)
@@ -18,21 +19,19 @@ export default function AuthButton() {
         <div className='w-full h-full'>
             {
                 sessionStatus ?
-                    <Link href="/profile">
-                        <Button size={"lg"} variant={"main"}>Profile</Button>
-                    </Link>
+                    <div className="flex flex-col gap-3">
+                        <NavigationItem url="/profile" text='Profile' className='h-12' icon={<User />} />
+                        <Button type='button' className='h-12 w-full flex gap-3' variant={"ghost"} onClick={() => signOut()}>
+                            <LogOut className='h-5 w-5' />
+                            <span className='w-full h-full flex items-center'>
+                                SignOut
+                            </span>
+                        </Button>
+                    </div>
                     :
                     <div className="flex flex-col gap-3">
-                        <Link href="/signIn">
-                            <Button size={"lg"} variant={"ghostMain"}>
-                                SignIn
-                            </Button>
-                        </Link>
-                        <Link href="/signUp">
-                            <Button size={"lg"} variant={"main"}>
-                                SignUp
-                            </Button>
-                        </Link>
+                        <NavigationItem icon={<LogIn/>} className='h-12' url="/signIn" text='SignIn' />
+                        <NavigationItem icon={<FilePen/>} className='h-12' url="/signUp" text='SIgnUp' />
                     </div>
             }
         </div>

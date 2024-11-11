@@ -5,7 +5,6 @@ import React from 'react'
 
 export default function SettingPage() {
     const { userData } = UserStore(useShallow((state) => ({ userData: state.userData })))
-    console.log(userData)
     return (
         <div>
             setting
