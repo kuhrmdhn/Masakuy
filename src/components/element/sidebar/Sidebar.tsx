@@ -3,8 +3,14 @@ import { House, Plus } from 'lucide-react'
 import NavigationItem from './NavigationItem'
 import AuthButton from '../auth/AuthButton'
 import { usePathname } from 'next/navigation'
+import { NavbarStore } from '@/store/navbarStore'
+import { useShallow } from 'zustand/react/shallow'
+import NavbarToggle from '@/components/ui/navbar-toggle'
 
 export default function Sidebar() {
+  const { navbarShow } = NavbarStore(useShallow((state) => ({
+    navbarShow: state.navbarShow
+  })))
   const ignoreSidebar = ["/signIn", "/signUp"]
   const pathname = usePathname()
   if (ignoreSidebar.some((path: string) => path == pathname)) {
@@ -12,7 +18,10 @@ export default function Sidebar() {
   }
 
   return (
-    <section className='fixed left-0 h-[100svh] w-56 pt-24 flex flex-col gap-3 items-center px-7'>
+    <section className={`fixed z-[99] ${navbarShow ? "left-0" : "-left-full"} duration-500 sm:left-0 h-[100svh] w-44 sm:w-40 lg:w-52 bg-white pt-24 flex flex-col gap-3 items-center px-7`}>
+      <span className='absolute top-5 left-3'>
+      <NavbarToggle/>
+      </span>
       {
         navigationData.map((navigation, index) => (
           <NavigationItem
@@ -35,7 +44,7 @@ const navigationData = [
     icon: <House />
   },
   {
-    text: "Create Recipe",
+    text: "Post",
     url: "/new-post",
     icon: <Plus />
   },

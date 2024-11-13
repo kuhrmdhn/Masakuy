@@ -8,8 +8,6 @@ import { useEffect, useState } from "react";
 export default function useLogin() {
     const searchParams = useSearchParams()
     const [session, setSession] = useState<null | Session>(null);
-    const [loginStatus, setLoginStatus] = useState<boolean>(false);
-    const [isNewUser, setIsNewUser] = useState<boolean>(false);
     const [loading, setLoading] = useState<boolean>(false);
     const { getUser, createUser } = UserRouter;
     const router = useRouter();
@@ -88,5 +86,5 @@ export default function useLogin() {
         }
     }
 
-    return { session, loginStatus, isNewUser, handleLogin, handleSignUp, loading };
+    return { session, confirmSession, handleLogin, handleSignUp, loading };
 }

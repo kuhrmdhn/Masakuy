@@ -1,4 +1,4 @@
-import RecipePageLoading from '@/app/loading'
+import RecipePageLoading from '@/app/profile/loading'
 
 export default function Loading() {
   return (

@@ -75,6 +75,9 @@ const config = {
       },
       backgroundImage: {
         "recipe-image-blur": "linear-gradient(rgba(255,255,255,0) 50%, rgba(252,252,252,0) 50%, rgba(246,246,246,1) 90%)"
+      },
+      fontSize: {
+        "2xs": "0.66rem"
       }
     },
   },
