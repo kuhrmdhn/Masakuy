@@ -84,7 +84,7 @@ export default function SignInPage() {
                                 inputData={inputData}
                             />
                             <FormAuthButton loading={loading} />
-                            <p className="text-sm font-normal">Don't have an Account?
+                            <p className="text-sm font-normal">Don&lsquo;t have an Account?
                                 <Link href="/signUp" className="text-primary-app font-semibold ml-2">Register</Link>
                             </p>
                         </form>

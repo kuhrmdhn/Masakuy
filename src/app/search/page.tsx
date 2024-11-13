@@ -1,5 +1,6 @@
 "use client"
 import RecipeCard from '@/components/element/recipe_list/RecipeCard'
+import RecipeListPage from '@/components/element/recipe_list/RecipeListPage'
 import { publicRecipeRouter } from '@/router/publicRecipeRouter'
 import { searchResultStore } from '@/store/searchResultStore'
 import { useSearchParams } from 'next/navigation'
@@ -28,15 +29,9 @@ export default function SearchResultPage() {
     }, [handleSearchRecipe])
     return (
         <div>
-            {
-                searchResultRecipe.map((recipe, index) => (
-                    <RecipeCard
-                        key={index}
-                        recipe={recipe}
-                        isPublic={true}
-                    />
-                ))
-            }
+            <RecipeListPage 
+                recipes={searchResultRecipe}
+            />
         </div>
     )
 }

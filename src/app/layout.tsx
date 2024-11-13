@@ -24,7 +24,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <body className={roboto.className}>
         <Header />
         <Sidebar />
-        <main className="pt-20 pl-56">
+        <main className="pt-20 sm:pl-40 lg:pl-52">
           {children}
         </main>
       </body>

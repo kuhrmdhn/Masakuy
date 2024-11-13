@@ -38,23 +38,23 @@ export default function RecipeCard({ recipe, isPublic = false }: Props) {
     }, [id, saved_recipe])
 
     return (
-        <section className='w-[260px] h-[320px] bg-white rounded-lg border shadow-xl hover:shadow-lg duration-300 text-sm'>
+        <section className='w-[190px] sm:w-[180px] lg:w-[260px] h-[240px] lg:h-[320px] bg-white rounded-lg border shadow-xl hover:shadow-lg duration-300 text-sm'>
             <RecipeImage image={image} isPublic={isPublic} recipeId={id} />
-            <div className='flex flex-col w-full p-3 h-1/2 items-center justify-evenly'>
+            <div className='flex flex-col w-full p-3 h-3/5 lg:h-1/2 items-center justify-evenly text-xs lg:text-sm'>
                 <div className="flex flex-col w-full h-1/5 justify-between">
                     <h1 className='font-bold text-gray-700 text-ellipsis overflow-hidden whitespace-nowrap'>{title}</h1>
                     <hr />
                 </div>
                 <RecipeInfo recipe={recipe} />
                 <div className="flex justify-around items-center w-full">
-                    <Button variant={"main"}>
-                        <Link className="w-5/6 py-2 flex justify-center items-center" href={recipeUrl}>Start Cooking</Link>
+                    <Button className="h-fit w-fit lg:w-5/6 p-2 lg:py-2 flex justify-center items-center text-2xs lg:text-sm" variant={"main"}>
+                        <Link href={recipeUrl}>Start Cooking</Link>
                     </Button>
                     <Button variant={"link"} onClick={handleIsSaved}>
                         {
                             savedStatus ?
-                                <BookmarkX className='w-5 h-5' /> :
-                                <Bookmark className='w-5 h-5' />
+                                <BookmarkX className='w-4 lg:w-5 h-4 lg:h-5' /> :
+                                <Bookmark className='w-4 lg:w-5 h-4 lg:h-5' />
                         }
                     </Button>
                 </div>
