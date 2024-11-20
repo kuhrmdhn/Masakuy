@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button'
 import useLogin from '@/hooks/useLogin'
-import { FilePen, LogIn, LogOut, User } from 'lucide-react'
+import { FilePen, LogIn, LogOut, Settings, User } from 'lucide-react'
 import { signOut } from 'next-auth/react'
 import NavigationItem from '../sidebar/NavigationItem'
 
@@ -12,10 +12,11 @@ export default function AuthButton() {
                 session ?
                     <div className="flex flex-col gap-3">
                         <NavigationItem url="/profile" text='Profile' className='h-12' icon={<User />} />
+                        <NavigationItem url="/profile/setting" text='Setting' className='h-12' icon={<Settings/>}/>
                         <Button type='button' className='h-12 w-full flex gap-3' variant={"ghost"} onClick={() => signOut()}>
                             <LogOut className='h-5 w-5' />
                             <span className='w-full h-full flex items-center'>
-                                SignOut
+                                Sign Out
                             </span>
                         </Button>
                     </div>

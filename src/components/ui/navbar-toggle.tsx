@@ -9,7 +9,7 @@ export default function NavbarToggle() {
         toggleNavbarShow: state.toggleNavbarShow
     })))
   return (
-      <Button onClick={toggleNavbarShow} variant={"ghost"} className='h-7 w-7 p-0'>
+      <Button onClick={toggleNavbarShow} variant={"ghost"} className='h-7 w-7 p-0 block sm:hidden'>
           <Menu />
       </Button>
   )

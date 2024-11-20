@@ -44,8 +44,16 @@ const UserRouter = {
             await updateDoc(userRef, userData);
             return userData;
         } catch (error) {
-            console.error("Error creating user:", error); 
+            console.error("Error creating user:", error);
             throw error;
+        }
+    },
+
+    editUserData: async (userData: UserData) => {
+        try {
+
+        } catch(error) {
+            console.error(error);
         }
     },
 
@@ -63,7 +71,7 @@ const UserRouter = {
             }
             return null;
         } catch (error) {
-            console.error("Error getting user:", error); 
+            console.error("Error getting user:", error);
             throw error;
         }
     },
