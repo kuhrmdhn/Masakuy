@@ -19,7 +19,7 @@ export default function Header({ className, ...props }: Props) {
         }
     }, [])
     return (
-        <header className={`h-16 w-full fixed top-0 z-50 flex justify-start lg:justify-between items-center gap-10 sm:gap-0 pl-3 sm:pl-7 lg:px-7 bg-white ${className}`} {...props}>
+        <header className={`h-16 w-full fixed top-0 z-50 flex justify-between items-center gap-10 sm:gap-0 p-3 sm:pl-7 lg:px-7 bg-white ${className}`} {...props}>
             <section className='w-fit sm:w-1/3 flex items-center gap-2'>
                 <NavbarToggle/>
                 <div>
@@ -28,7 +28,7 @@ export default function Header({ className, ...props }: Props) {
             </section>
             {
                 searchBarVisible &&
-                <div className="w-1/3 sm:w-2/5">
+                <div className="w-1/3 sm:w-2/5 flex justify-end items-end">
                     <SearchBar />
                 </div>
             }

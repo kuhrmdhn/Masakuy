@@ -32,7 +32,7 @@ export default function RecipeFolder() {
     ]
 
     return (
-        <Tabs defaultValue="postedRecipe" className="w-full h-full">
+        <Tabs defaultValue="postedRecipe" className="w-full h-full overflow-auto scrollbar-small scrollbar-main">
             <TabsList className="w-full h-fit flex gap-3 justify-center items-center bg-transparent">
                 <TabsTrigger value="postedRecipe">Posted Recipe</TabsTrigger>
                 <TabsTrigger value="savedRecipe">Saved Recipe</TabsTrigger>
