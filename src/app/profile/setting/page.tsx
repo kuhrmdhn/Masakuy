@@ -5,6 +5,7 @@ import React from 'react'
 import Input from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import PhotoProfile from '@/components/element/profile/PhotoProfile'
+import { UserRouter } from '@/router/userRouter'
 
 export default function SettingPage() {
     const { userData, setUserData } = UserStore(useShallow((state) => ({
@@ -19,9 +20,14 @@ export default function SettingPage() {
         setUserData(newUserData)
     }
 
+    const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+        UserRouter.editUserData(userData)
+    }
+
     return (
         <div className='w-full h-full flex justify-center items-center'>
-            <form className='w-4/5 h-full flex flex-col items-center gap-7'>
+            <form onSubmit={(e) => handleSubmit(e)} className='w-4/5 h-full flex flex-col items-center gap-7'>
                 <PhotoProfile className='w-48' />
                 <div className='w-4/5 h-fit px-5 flex flex-col gap-5'>
                     <Input

@@ -5,7 +5,7 @@ export async function middleware(req: NextRequest) {
     const token = await getToken({ req, secret: `${process.env.NEXT_AUTH_SECRET}` });
     const { pathname } = req.nextUrl;
     if (!token || token == null) {
-        if (pathname !== "/signIn") {
+        if (pathname !== "/signIn" && pathname !== "/signUp") {
             const callbackUrl = `/signIn?callbackUrl=${pathname}`
             return NextResponse.redirect(new URL(callbackUrl, req.url));
         }

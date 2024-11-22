@@ -36,7 +36,8 @@ const UserRouter = {
                 username,
                 password: hashedPassword,
                 recipe_created: [],
-                photo_profile: ""
+                photo_profile: "",
+                saved_recipe: []
             };
             const userRef = await addDoc(userCollectionRef, userTemplateData);
             const userId = userRef.id;
@@ -51,8 +52,12 @@ const UserRouter = {
 
     editUserData: async (userData: UserData) => {
         try {
-
-        } catch(error) {
+            const { id, username } = userData
+            const docRef = doc(firestore, "users", id)
+            await updateDoc(docRef, {
+                username
+            })
+        } catch (error) {
             console.error(error);
         }
     },
