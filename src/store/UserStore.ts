@@ -18,11 +18,12 @@ export const UserStore = create<Store>()((set) => ({
     userData: {
         id: "",
         username: "",
-        photo_profile: "/images/default-image",
+        photo_profile: "/images/default-image.webp",
         recipe_created: null,
         saved_recipe: null
     },
     setUserData(data) {
-        set({ userData: data })
+        const photoProfile = data.photo_profile === "" ? this.userData.photo_profile : data.photo_profile
+        set({ userData: { ...data, photo_profile: photoProfile } })
     },
 }))

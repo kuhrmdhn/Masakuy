@@ -52,10 +52,11 @@ const UserRouter = {
 
     editUserData: async (userData: UserData) => {
         try {
-            const { id, username } = userData
+            const { id, username, photo_profile } = userData
             const docRef = doc(firestore, "users", id)
             await updateDoc(docRef, {
-                username
+                username,
+                photo_profile
             })
         } catch (error) {
             console.error(error);
