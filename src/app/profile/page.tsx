@@ -1,6 +1,6 @@
+"use client"
 import ProfileCard from '@/components/element/profile/ProfileCard'
 import RecipeFolder from '@/components/element/recipe_list/RecipeFolder'
-import React from 'react'
 
 export default function ProfilePage() {
   return (

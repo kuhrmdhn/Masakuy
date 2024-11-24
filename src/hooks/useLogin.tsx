@@ -18,7 +18,7 @@ export default function useLogin() {
             if (session) {
                 setSession(session);
             } else {
-                throw new Error("Session is undefined");
+                console.log("Session is undefined")
             }
         } catch (error) {
             console.error(error);
