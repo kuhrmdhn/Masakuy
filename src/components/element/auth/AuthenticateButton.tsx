@@ -4,7 +4,7 @@ import { FilePen, LogIn, LogOut, Settings, User } from 'lucide-react'
 import { signOut } from 'next-auth/react'
 import NavigationItem from '../sidebar/NavigationItem'
 
-export default function AuthButton() {
+export default function AuthenticateButton() {
     const { session } = useLogin()
     return (
         <div className='w-full h-full'>

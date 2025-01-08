@@ -1,6 +1,6 @@
 "use client"
 import FormAuthButton from "@/components/element/auth/FormAuthButton";
-import AuthForm from "@/components/element/auth/AuthForm";
+import AuthForm from "@/components/element/auth/AuthInputForm";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogDescription, DialogContent, DialogFooter, DialogOverlay } from "@/components/ui/dialog";
@@ -11,6 +11,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { z, ZodError } from "zod"
+import AuthInputForm from "@/components/element/auth/AuthInputForm";
+import AuthenticateForm, { AuthType } from "@/components/element/auth/AuthenticateForm";
 
 export default function SignInPage() {
     const [formInputValue, setFormInputValue] = useState({
@@ -128,15 +130,12 @@ export default function SignInPage() {
                 <section className="flex justify-center items-center lg:w-1/2 w-full h-4/5">
                     <div className="h-full lg:w-3/5 sm:w-1/2 w-full px-5 flex flex-col justify-between">
                         <h2 className="text-2xl font-semibold">Sign Up</h2>
-                        <form className="h-5/6 w-full flex flex-col gap-7 items-center" onSubmit={handleSubmit}>
-                            <AuthForm
-                                inputData={inputData}
-                            />
-                            <FormAuthButton loading={loading} />
-                            <p className="text-sm font-normal">Have an Account?
-                                <a href="/signIn" className="text-primary-app font-semibold ml-2">Login</a>
-                            </p>
-                        </form>
+                        <AuthenticateForm
+                            inputData={inputData}
+                            authType={AuthType.REGISTER}
+                            onSubmit={handleSubmit}
+                            loading={loading}
+                        />
                     </div>
                 </section>
             </div>

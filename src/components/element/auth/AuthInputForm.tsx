@@ -6,7 +6,7 @@ type Props = {
     inputData: InputType[];
 };
 
-export default function AuthForm({ inputData, ...props }: Props) {
+export default function AuthInputForm({ inputData, ...props }: Props) {
     return (
         <div className="space-y-7 w-full" {...props}>
             {inputData.map(({ id, placeholder, type, handleOnChange, value, required }) => (

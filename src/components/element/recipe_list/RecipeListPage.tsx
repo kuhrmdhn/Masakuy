@@ -8,7 +8,7 @@ type Props = {
   className?: string
 }
 
-export default function RecipeListPage({ recipes, isPublic = true, className = "grid-cols-4" }: Props) {
+export default function RecipeListPage({ recipes, isPublic = true, className }: Props) {
   return (
     <section className="w-full h-full overflow-hidden">
       {
