@@ -8,7 +8,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
-
 export default function SignInPage() {
     const { handleLogin, loading } = useLogin()
     const [formInputValue, setFormInputValue] = useState({
@@ -63,7 +62,7 @@ export default function SignInPage() {
 
     return (
         <>
-            <div className="w-full h-[calc(100svh-64px)] flex justify-center items-center gap-7 bg-red-100 lg:px-7">
+            <div className="w-full h-[calc(100svh-64px)] flex justify-center items-center gap-7 lg:px-7">
                 <section className="w-1/2 lg:flex justify-end items-end hidden">
                     <div className="w-4/5 h-full flex flex-col justify-between">
                         <div className="relative top-10 w-full">
