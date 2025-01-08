@@ -39,8 +39,8 @@ export default function RecipeFolder() {
             </TabsList>
             {
                 tabContents.map((content, index) => (
-                    <TabsContent className="block pl-7" value={content.trigger} key={index}>
-                        {content.recipes && <RecipeListPage isPublic={content.isPublic} recipes={content.recipes} className='grid-cols-4' />}
+                    <TabsContent className="block" value={content.trigger} key={index}>
+                        {content.recipes && <RecipeListPage isPublic={content.isPublic} recipes={content.recipes} />}
                     </TabsContent>
                 ))
             }

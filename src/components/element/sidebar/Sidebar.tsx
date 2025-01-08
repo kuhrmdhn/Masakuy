@@ -1,7 +1,7 @@
 "use client"
 import { House, Plus } from 'lucide-react'
 import NavigationItem from './NavigationItem'
-import AuthButton from '../auth/AuthButton'
+import AuthenticateButton from '../auth/AuthenticateButton'
 import { usePathname } from 'next/navigation'
 import { NavbarStore } from '@/store/navbarStore'
 import { useShallow } from 'zustand/react/shallow'
@@ -34,7 +34,7 @@ export default function Sidebar() {
           />
         ))
       }
-      <AuthButton />
+      <AuthenticateButton />
     </section>
   )
 }

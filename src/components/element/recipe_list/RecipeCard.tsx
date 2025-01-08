@@ -38,7 +38,7 @@ export default function RecipeCard({ recipe, isPublic = false }: Props) {
     }, [id, saved_recipe])
 
     return (
-        <section className='w-[190px] sm:w-[180px] lg:w-[300px] h-[240px] lg:h-[360px] bg-white rounded-lg border shadow-xl hover:shadow-lg duration-300 text-sm'>
+        <section className='w-[190px] sm:w-[180px] lg:w-[280px] h-[240px] lg:h-[360px] bg-white rounded-lg border shadow-xl hover:shadow-lg duration-300 text-sm'>
             <RecipeImage image={image} isPublic={isPublic} recipeId={id} />
             <div className='flex flex-col w-full p-3 h-3/5 lg:h-1/2 items-center justify-evenly text-xs lg:text-sm'>
                 <div className="flex flex-col w-full h-1/5 justify-between">

@@ -1,16 +1,14 @@
 "use client"
-import FormAuthButton from "@/components/element/auth/FormAuthButton";
-import AuthForm from "@/components/element/auth/AuthForm";
+import AuthenticateForm, { AuthType } from "@/components/element/auth/AuthenticateForm";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Button } from "@/components/ui/button";
-import { Dialog, DialogDescription, DialogContent, DialogFooter, DialogOverlay } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogFooter } from "@/components/ui/dialog";
 import useLogin from "@/hooks/useLogin";
 import { InputType } from "@/types/InputType";
-import { RefreshCw, X } from "lucide-react";
+import { X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { z, ZodError } from "zod"
+import { z, ZodError } from "zod";
 
 export default function SignInPage() {
     const [formInputValue, setFormInputValue] = useState({
@@ -125,19 +123,19 @@ export default function SignInPage() {
                         </div>
                     </div>
                 </section>
-                <section className="flex justify-center items-center lg:w-1/2 w-full h-4/5">
+                <section className="flex flex-col justify-center gap-5 items-center lg:w-1/2 w-full h-4/5">
                     <div className="h-full lg:w-3/5 sm:w-1/2 w-full px-5 flex flex-col justify-between">
                         <h2 className="text-2xl font-semibold">Sign Up</h2>
-                        <form className="h-5/6 w-full flex flex-col gap-7 items-center" onSubmit={handleSubmit}>
-                            <AuthForm
-                                inputData={inputData}
-                            />
-                            <FormAuthButton loading={loading} />
-                            <p className="text-sm font-normal">Have an Account?
-                                <a href="/signIn" className="text-primary-app font-semibold ml-2">Login</a>
-                            </p>
-                        </form>
+                        <AuthenticateForm
+                            inputData={inputData}
+                            authType={AuthType.REGISTER}
+                            onSubmit={handleSubmit}
+                            loading={loading}
+                        />
                     </div>
+                    <p className="text-sm font-normal">Have an Account?
+                        <Link href="/signIn" className="text-primary-app font-semibold ml-2">Login</Link>
+                    </p>
                 </section>
             </div>
             <Alert variant="destructive" className={`w-fit h-max bg-red-500 bg-opacity-10 fixed top-3 z-[99] duration-300 ${alert.show ? "right-6 visible opacity-100" : "-right-full invisible opacity-0"}`}>

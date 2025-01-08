@@ -1,6 +1,5 @@
 "use client"
-import FormAuthButton from "@/components/element/auth/FormAuthButton";
-import AuthForm from "@/components/element/auth/AuthForm";
+import AuthenticateForm, { AuthType } from "@/components/element/auth/AuthenticateForm";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import useLogin from "@/hooks/useLogin";
 import { InputType } from "@/types/InputType";
@@ -8,7 +7,6 @@ import { X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-
 
 export default function SignInPage() {
     const { handleLogin, loading } = useLogin()
@@ -64,8 +62,8 @@ export default function SignInPage() {
 
     return (
         <>
-            <div className="w-full h-[calc(100svh-64px)] flex justify-center items-center gap-7 px-7">
-                <section className="w-1/2 h-4/5 lg:flex justify-end items-end hidden">
+            <div className="w-full h-[calc(100svh-64px)] flex justify-center items-center gap-7 lg:px-7">
+                <section className="w-1/2 lg:flex justify-end items-end hidden">
                     <div className="w-4/5 h-full flex flex-col justify-between">
                         <div className="relative top-10 w-full">
                             <h1 className="text-4xl mb-2 font-semibold">Sign In to Masakuy!</h1>
@@ -76,19 +74,19 @@ export default function SignInPage() {
                         </div>
                     </div>
                 </section>
-                <section className="flex justify-center items-center lg:w-1/2 w-full h-4/5">
-                    <div className="h-full lg:w-3/5 sm:w-1/2 w-full px-5 flex flex-col justify-between">
+                <section className="flex flex-col justify-center gap-5 items-center lg:w-1/2 w-full h-4/5">
+                    <div className="lg:h-3/5 lg:w-3/5 sm:w-4/5 w-full px-5 flex flex-col justify-between">
                         <h2 className="text-2xl font-semibold">Sign In</h2>
-                        <form className="h-5/6 w-full flex flex-col gap-7 items-center" onSubmit={handleSubmit}>
-                            <AuthForm
-                                inputData={inputData}
-                            />
-                            <FormAuthButton loading={loading} />
-                            <p className="text-sm font-normal">Don&lsquo;t have an Account?
-                                <Link href="/signUp" className="text-primary-app font-semibold ml-2">Register</Link>
-                            </p>
-                        </form>
+                        <AuthenticateForm
+                            inputData={inputData}
+                            authType={AuthType.SIGNIN}
+                            onSubmit={handleSubmit}
+                            loading={loading}
+                        />
                     </div>
+                    <p className="text-sm font-normal">Don&lsquo;t have an Account?
+                        <Link href="/signUp" className="text-primary-app font-semibold ml-2">Register</Link>
+                    </p>
                 </section>
             </div>
             <Alert variant="destructive" className={`w-fit h-max bg-red-500 bg-opacity-10 fixed top-3 z-[99] duration-300 ${alert.show ? "right-6 visible opacity-100" : "-right-full invisible opacity-0"}`}>
