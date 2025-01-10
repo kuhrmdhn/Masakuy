@@ -2,7 +2,7 @@
 import { Button } from "@/components/ui/button";
 import Input from "@/components/ui/input";
 import { initialRecipeInput } from "@/constant/initialRecipeInput";
-import { uploadRecipeImage } from "@/router/bucketStorage";
+import { BucketStorage } from "@/router/bucketStorage";
 import { UserRouter } from "@/router/userRouter";
 import { RecipeInput } from "@/types/recipeType";
 import { Plus, X } from "lucide-react";
@@ -87,7 +87,7 @@ export default function NewRecipePostPage() {
     e.preventDefault()
     let imageUrl = ""
     if (previewImage) {
-      imageUrl = await uploadRecipeImage(previewImage)
+      imageUrl = await BucketStorage.uploadRecipeImage(previewImage)
     }
     try {
       const dataToPost: RecipeInput = { ...formData, image: imageUrl }
@@ -104,9 +104,9 @@ export default function NewRecipePostPage() {
   };
 
   return (
-    <section className="w-full h-full flex items-center justify-evenly">
-      <div className="w-1/2 h-[calc(100svh-6rem)] flex flex-col justify-between">
-        <form className="w-full h-[calc(100svh-10rem)] flex flex-col gap-7 scrollbar-main scrollbar-small overflow-auto pl-3 pr-5 pt-7">
+    <section className="w-full h-full flex flex-col-reverse lg:flex-row items-center justify-evenly">
+      <div className="w-4/5 lg:w-1/2 h-[calc(100svh-6rem)] flex flex-col justify-between">
+        <form className="w-full h-max flex flex-col gap-7 scrollbar-main scrollbar-small overflow-auto pl-3 pr-5 pt-7">
           {
             inputData.map((data) => (
               <Input
@@ -166,7 +166,7 @@ export default function NewRecipePostPage() {
         alt="Preview Recipe Image"
         height={600}
         width={600}
-        className="h-72 w-72 object-cover object-center rounded-md"
+        className="h-44 lg:h-72 w-auto aspect-square object-cover object-center rounded-md"
       />
     </section>
   );

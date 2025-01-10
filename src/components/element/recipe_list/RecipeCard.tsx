@@ -13,9 +13,10 @@ import RecipeInfo from './RecipeInfo'
 type Props = {
     recipe: Recipe,
     isPublic?: boolean
+    index?: number
 }
 
-export default function RecipeCard({ recipe, isPublic = false }: Props) {
+export default function RecipeCard({ recipe, isPublic = false, index = 0 }: Props) {
     const [savedStatus, setSavedStatus] = useState(false)
     const { id, title, image } = recipe
     const recipeUrl = `recipe/${id}`
@@ -38,7 +39,12 @@ export default function RecipeCard({ recipe, isPublic = false }: Props) {
     }, [id, saved_recipe])
 
     return (
-        <section className='w-[190px] sm:w-[180px] lg:w-[280px] h-[240px] lg:h-[360px] bg-white rounded-lg border shadow-xl hover:shadow-lg duration-300 text-sm'>
+        <section
+            className={`w-[170px] sm:w-[180px] lg:w-[280px] h-[240px] lg:h-[360px] bg-white rounded-lg border shadow-xl hover:shadow-lg duration-300 text-sm opacity-0 animate-rise-up`}
+            style={{
+                animationDelay: `${index * .1}s`
+            }}
+        >
             <RecipeImage image={image} isPublic={isPublic} recipeId={id} />
             <div className='flex flex-col w-full p-3 h-3/5 lg:h-1/2 items-center justify-evenly text-xs lg:text-sm'>
                 <div className="flex flex-col w-full h-1/5 justify-between">
@@ -48,11 +54,18 @@ export default function RecipeCard({ recipe, isPublic = false }: Props) {
                 <RecipeInfo recipe={recipe} />
                 <div className="flex justify-around items-center w-full">
                     <Link href={recipeUrl}>
-                        <Button className="px-5 lg:px-12 flex justify-center items-center text-2xs lg:text-sm" variant={"main"}>
+                        <Button
+                            size={"xs"}
+                        className="flex justify-center items-center text-2xs lg:text-sm"
+                            variant={"main"}
+                        >
                             Start Cooking
                         </Button>
                     </Link>
-                    <Button variant={"link"} onClick={handleIsSaved}>
+                    <Button
+                        variant={"link"}
+                        onClick={handleIsSaved}
+                    >
                         {
                             savedStatus ?
                                 <BookmarkX className='w-4 lg:w-5 h-4 lg:h-5' /> :

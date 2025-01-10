@@ -10,7 +10,7 @@ export default function ProfileCard() {
     })))
 
     return (
-        <div className='h-20 w-full flex gap-5 items-center'>
+        <div className='h-32 w-full flex flex-col gap-2 items-center justify-center mb-3'>
             <PhotoProfile className='h-16 w-16' />
             <h1 className='text-lg font-semibold inline-flex gap-2'>
                 <span className="text-primary-app">

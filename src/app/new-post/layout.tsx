@@ -11,8 +11,8 @@ type Props = {
 
 export default function NewPostLayout({ children }: Props) {
     return (
-        <>
+        <section className='sm:pl-40 lg:pl-52'>
             {children}
-        </>
+        </section>
     )
 }
