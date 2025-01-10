@@ -32,18 +32,18 @@ export default function SettingPage() {
     }
 
     return (
-        <div className='w-full h-full flex justify-center items-center'>
+        <div className='w-full h-full flex justify-center items-center sm:pl-40'>
             <form onSubmit={(e) => handleSubmit(e)} className='w-4/5 h-full flex flex-col items-center gap-7'>
                 <div className='w-full h-full flex flex-col justify-center items-center gap-10'>
                     <PhotoProfile className='w-48' />
+                </div>
+                <div className='w-full lg:w-4/5 h-fit lg:px-5 flex flex-col gap-5'>
                     <Input
                         placeholder='Photo Profile'
                         type='file'
                         onChange={(e) => handleChange(e)}
                         name="photo_profile"
                     />
-                </div>
-                <div className='w-full lg:w-4/5 h-fit lg:px-5 flex flex-col gap-5'>
                     <Input
                         className='text-lg'
                         type="text"
