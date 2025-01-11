@@ -5,17 +5,18 @@ import Input from '@/components/ui/input'
 import { BucketStorage } from '@/router/bucketStorage'
 import { UserRouter } from '@/router/userRouter'
 import { UserStore } from '@/store/UserStore'
-import React from 'react'
+import React, { useState } from 'react'
 import { useShallow } from "zustand/react/shallow"
 
 export default function SettingPage() {
+    const [disableSaveButton, setDisableSaveButton] = useState(true)
     const { userData, setUserData } = UserStore(useShallow((state) => ({
         userData: state.userData,
         setUserData: state.setUserData
     })))
-
     const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
         e.preventDefault()
+        setDisableSaveButton(false)
         let { name, value, files } = e.target
         if (name === "photo_profile" && files) {
             value = URL.createObjectURL(files[0])
@@ -52,7 +53,7 @@ export default function SettingPage() {
                         value={userData.username}
                         onChange={(e) => handleChange(e)}
                     />
-                    <Button className='w-fit self-end' type='submit' variant={"main"}>Save</Button>
+                    <Button disabled={disableSaveButton} className='w-fit self-end' type='submit' variant={"main"}>Save</Button>
                 </div>
             </form>
         </div>

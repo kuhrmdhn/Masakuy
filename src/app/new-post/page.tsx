@@ -162,6 +162,7 @@ export default function NewRecipePostPage() {
         <Button onClick={(e) => handleSubmit(e)} className="w-fit self-end flex gap-2 items-center bg-primary-app hover:bg-primary-app/75">Submit</Button>
       </div>
       <Image
+        priority
         src={formData.image}
         alt="Preview Recipe Image"
         height={600}
