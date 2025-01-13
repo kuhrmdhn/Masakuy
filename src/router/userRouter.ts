@@ -164,8 +164,8 @@ const UserRouter = {
         try {
             const userDoc = doc(firestore, `users/${userId}`);
             const user = await getDoc(userDoc);
-            const data = user.data();
-            return data?.username || null;
+            const data = user.data() as UserData;
+            return data
         } catch (error) {
             throw error;
         }
