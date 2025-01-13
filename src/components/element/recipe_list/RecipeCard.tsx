@@ -56,7 +56,7 @@ export default function RecipeCard({ recipe, isPublic = false, index = 0 }: Prop
                     <Link href={recipeUrl}>
                         <Button
                             size={"xs"}
-                        className="flex justify-center items-center text-2xs lg:text-sm"
+                            className="flex justify-center items-center text-2xs lg:text-sm sm:h-10 sm:px-4 sm:py-3"
                             variant={"main"}
                         >
                             Start Cooking
