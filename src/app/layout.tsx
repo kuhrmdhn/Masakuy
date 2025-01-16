@@ -3,6 +3,7 @@ import "./globals.css";
 import Header from "@/components/element/header/Header";
 import Sidebar from "@/components/element/sidebar/Sidebar";
 import { Roboto } from "next/font/google";
+import AlertProvider from "@/components/provider/AlertProvider";
 
 const roboto = Roboto({
   subsets: ["latin"],
@@ -27,6 +28,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <main className="pt-20">
           {children}
         </main>
+        <AlertProvider/>
       </body>
     </html>
   );

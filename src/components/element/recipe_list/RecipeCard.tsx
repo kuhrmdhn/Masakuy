@@ -1,14 +1,9 @@
-"use client"
 import { Button } from '@/components/ui/button'
-import { UserRouter } from '@/router/userRouter'
-import { UserStore } from '@/store/UserStore'
 import { Recipe } from '@/types/recipeType'
-import { Bookmark, BookmarkX } from "lucide-react"
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
-import { useShallow } from 'zustand/react/shallow'
 import RecipeImage from './RecipeImage'
 import RecipeInfo from './RecipeInfo'
+import SaveRecipeButton from './SaveRecipeButton'
 
 type Props = {
     recipe: Recipe,
@@ -17,26 +12,8 @@ type Props = {
 }
 
 export default function RecipeCard({ recipe, isPublic = false, index = 0 }: Props) {
-    const [savedStatus, setSavedStatus] = useState(false)
     const { id, title, image } = recipe
     const recipeUrl = `recipe/${id}`
-    const { userData } = UserStore(useShallow((state) => ({ userData: state.userData })))
-    const { saved_recipe } = userData
-    const { deleteUserSavedRecipes, createUserSavedRecipes } = UserRouter
-    function handleIsSaved() {
-        if (savedStatus) {
-            deleteUserSavedRecipes(recipe)
-        } else {
-            createUserSavedRecipes(recipe)
-        }
-    }
-
-    useEffect(() => {
-        if (saved_recipe) {
-            const status = saved_recipe.some((saved) => saved.id == id)
-            setSavedStatus(status)
-        }
-    }, [id, saved_recipe])
 
     return (
         <section
@@ -62,16 +39,8 @@ export default function RecipeCard({ recipe, isPublic = false, index = 0 }: Prop
                             Start Cooking
                         </Button>
                     </Link>
-                    <Button
-                        variant={"link"}
-                        onClick={handleIsSaved}
-                    >
-                        {
-                            savedStatus ?
-                                <BookmarkX className='w-4 lg:w-5 h-4 lg:h-5' /> :
-                                <Bookmark className='w-4 lg:w-5 h-4 lg:h-5' />
-                        }
-                    </Button>
+
+                    <SaveRecipeButton recipe={recipe}/>
                 </div>
             </div>
         </section>

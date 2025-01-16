@@ -3,6 +3,7 @@ import { Open_Sans } from 'next/font/google'
 import Image from 'next/image'
 import RecipeContentList from './RecipeContentList'
 import RecipeInfo from './RecipeInfo'
+import SaveRecipeButton from './SaveRecipeButton'
 
 type Props = {
   recipe: RecipeDetails
@@ -29,14 +30,22 @@ export default async function RecipePage({ recipe, author }: Props) {
               height={1920}
               className='h-80 sm:h-[420px] w-64 sm:w-72 object-cover object-center rounded-xl opacity-0 animate-rise-up delay-150'
             />
-            <div className='flex flex-col gap-5'>
+            <div className='flex flex-col gap-5 w-1/3'>
               <div>
                 <h1 className='font-bold text-2xl'>{title}</h1>
                 <p>Created by
                   <span className='font-bold text-zinc-600 ml-1'>{author}</span>
                 </p>
               </div>
-              <RecipeInfo className='lg:w-full h-12 lg:h-16' recipe={recipe} />
+              <div className='flex w-full gap-5'>
+                <RecipeInfo
+                  className='lg:w-full h-12 lg:h-16'
+                  recipe={recipe}
+                />
+                <SaveRecipeButton
+                  recipe={recipe}
+                />
+              </div>
             </div>
           </section>
           <section className={`w-full h-full flex flex-col lg:flex-row gap-10 ${openSans.className} relative text-zinc-600`}>
