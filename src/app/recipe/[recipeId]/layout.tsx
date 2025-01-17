@@ -1,5 +1,4 @@
-import React, { Suspense } from 'react'
-import Loading from './loading'
+import React from 'react'
 import { Metadata } from 'next';
 import { publicRecipeRouter } from '@/router/publicRecipeRouter';
 import { notFound } from 'next/navigation';
@@ -23,8 +22,8 @@ export async function generateMetadata({ params }: { params: { recipeId: string 
 
 export default function layout({ children }: Props) {
     return (
-        <Suspense fallback={<Loading />}>
+        <div>
             {children}
-        </Suspense>
+        </div>
     )
 }

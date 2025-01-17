@@ -4,11 +4,13 @@ import { Button } from '@/components/ui/button'
 import Input from '@/components/ui/input'
 import { BucketStorage } from '@/router/bucketStorage'
 import { UserRouter } from '@/router/userRouter'
+import { AlertStore } from '@/store/alertStore'
 import { UserStore } from '@/store/UserStore'
 import React, { useState } from 'react'
 import { useShallow } from "zustand/react/shallow"
 
 export default function SettingPage() {
+    const { setAlert } = AlertStore(useShallow((state) => ({ setAlert: state.setAlert })))
     const [disableSaveButton, setDisableSaveButton] = useState(true)
     const { userData, setUserData } = UserStore(useShallow((state) => ({
         userData: state.userData,
@@ -21,15 +23,27 @@ export default function SettingPage() {
         if (name === "photo_profile" && files) {
             value = URL.createObjectURL(files[0])
             const photoProfileUrl = await BucketStorage.uploadUserImage(files[0])
-            UserRouter.editUserData({ ...userData, photo_profile: photoProfileUrl })
+            await UserRouter.editUserData({ ...userData, photo_profile: photoProfileUrl })
+            setAlert({
+                isShowAlert: true,
+                alertTitle: "Photo Profile Updated!",
+                alertDescription: "New Photo Profile Success to Saved"
+            })
+            setUserData({...userData, photo_profile: photoProfileUrl})
+        } else {
+            const newUserData = { ...userData, [name]: value }
+            setUserData(newUserData)
         }
-        const newUserData = { ...userData, [name]: value }
-        setUserData(newUserData)
     }
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        UserRouter.editUserData(userData)
+        await UserRouter.editUserData(userData)
+        setAlert({
+            isShowAlert: true,
+            alertTitle: "Profile Updated!",
+            alertDescription: "New Profile Data Success to Saved"
+        })
     }
 
     return (
@@ -53,7 +67,14 @@ export default function SettingPage() {
                         value={userData.username}
                         onChange={(e) => handleChange(e)}
                     />
-                    <Button disabled={disableSaveButton} className='w-fit self-end' type='submit' variant={"main"}>Save</Button>
+                    <Button
+                        disabled={disableSaveButton}
+                        className='w-fit self-end'
+                        type='submit'
+                        variant={"main"}
+                    >
+                        Save
+                    </Button>
                 </div>
             </form>
         </div>
