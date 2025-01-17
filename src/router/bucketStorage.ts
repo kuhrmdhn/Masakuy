@@ -1,13 +1,13 @@
 import app from "@/lib/firebase/config";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
-import { uuid } from "uuidv4"
+import { v7 as uuidv7 } from "uuid"
 
 export const storage = getStorage(app);
 
 export const BucketStorage = {
     uploadRecipeImage: async (image: File) => {
         try {
-            const storageRef = ref(storage, `/recipe_image/${uuid()}`)
+            const storageRef = ref(storage, `/recipe_image/${uuidv7()}`)
             const uploadImage = await uploadBytes(storageRef, image)
             const imageDownloadUrl = await getDownloadURL(uploadImage.ref)
             return imageDownloadUrl
@@ -18,7 +18,7 @@ export const BucketStorage = {
     },
     uploadUserImage: async (image:File) => {
         try {
-            const storageRef = ref(storage, `/user_photo/${uuid()}`)
+            const storageRef = ref(storage, `/user_photo/${uuidv7()}`)
             const uploadImage = await uploadBytes(storageRef, image)
             const imageDownloadUrl = await getDownloadURL(uploadImage.ref)
             return imageDownloadUrl
