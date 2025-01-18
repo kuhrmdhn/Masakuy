@@ -23,7 +23,7 @@ export default function AuthenticateButton() {
                     :
                     <div className="flex flex-col gap-3">
                         <NavigationItem icon={<LogIn />} className='h-12' url="/signIn" text='SignIn' />
-                        <NavigationItem icon={<FilePen />} className='h-12' url="/signUp" text='SIgnUp' />
+                        <NavigationItem icon={<FilePen />} className='h-12' url="/signUp" text='SignUp' />
                     </div>
             }
         </div>
