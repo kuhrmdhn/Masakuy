@@ -10,7 +10,7 @@ export interface InputProps
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(({ className, withLabel = true, type = "text", id, placeholder, ...props }, ref) => {
   const [visiblePassword, setVisiblePassword] = React.useState(false)
-  function handleVisiblePassword(e: React.MouseEvent<HTMLButtonElement>) {
+  function handleVisiblePassword(e: React.MouseEvent<HTMLSpanElement>) {
     e.preventDefault()
     setVisiblePassword(state => !state)
   }
@@ -39,14 +39,14 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(({ className, withL
       }
       {
         type === "password" &&
-        <button className="absolute right-3 top-4" onClick={(e) => handleVisiblePassword(e)}>
+        <span role="button" className="absolute right-3 top-4" onClick={(e) => handleVisiblePassword(e)}>
           {
             visiblePassword ?
               <Image src={"/icons/invisible-password.svg"} alt="Invisible password icon" height={18} width={18} />
               :
               <Image src={"/icons/visible-password.svg"} alt="Visible password icon" height={18} width={18} />
           }
-        </button>
+        </span>
       }
     </div>
   );
