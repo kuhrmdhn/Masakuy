@@ -4,6 +4,7 @@ import Header from "@/components/element/header/Header";
 import Sidebar from "@/components/element/sidebar/Sidebar";
 import { Roboto } from "next/font/google";
 import AlertProvider from "@/components/provider/AlertProvider";
+import SuspenseProvider from "./SuspenseProvider";
 
 const roboto = Roboto({
   subsets: ["latin"],
@@ -23,12 +24,14 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en">
       <body className={roboto.className}>
-        <Header />
-        <Sidebar />
-        <main className="pt-20">
-          {children}
-        </main>
-        <AlertProvider/>
+        <SuspenseProvider>
+          <Header />
+          <Sidebar />
+          <main className="pt-20">
+            {children}
+          </main>
+          <AlertProvider />
+        </SuspenseProvider>
       </body>
     </html>
   );

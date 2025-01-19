@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button'
 import Input from '@/components/ui/input'
 import { Search } from 'lucide-react'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { useEffect, useRef } from 'react'
+import { Suspense, useEffect, useRef } from 'react'
 
 export default function SearchBar() {
     const searchParams = useSearchParams()
@@ -26,11 +26,13 @@ export default function SearchBar() {
         }
     }, [queryParams])
     return (
-        <form onSubmit={onSearch} className="flex sm:gap-3 w-fit items-center">
-            <Input ref={inputRef} className='placeholder-slate-400 h-10 w-36 sm:w-80' withLabel={false} placeholder='Search recipe' />
-            <Button className="bg-primary-app hover:bg-primary-app/80 sm:w-fit" type="submit">
-                <Search className='h-4 w-4' />
-            </Button>
-        </form>
+        <Suspense>
+            <form onSubmit={onSearch} className="flex sm:gap-3 w-fit items-center">
+                <Input ref={inputRef} className='placeholder-slate-400 h-10 w-36 sm:w-80' withLabel={false} placeholder='Search recipe' />
+                <Button className="bg-primary-app hover:bg-primary-app/80 sm:w-fit" type="submit">
+                    <Search className='h-4 w-4' />
+                </Button>
+            </form>
+        </Suspense>
     )
 }
