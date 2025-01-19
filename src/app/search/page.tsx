@@ -1,10 +1,10 @@
 "use client"
-import RecipeCard from '@/components/element/recipe_list/RecipeCard'
+import EmptyRecipeList from '@/components/element/recipe_list/EmptyRecipeList'
 import RecipeListPage from '@/components/element/recipe_list/RecipeListPage'
 import { publicRecipeRouter } from '@/router/publicRecipeRouter'
 import { searchResultStore } from '@/store/searchResultStore'
 import { useSearchParams } from 'next/navigation'
-import React, { useCallback, useEffect } from 'react'
+import React, { Suspense, useCallback, useEffect } from 'react'
 import { useShallow } from 'zustand/react/shallow'
 
 export default function SearchResultPage() {
@@ -28,10 +28,15 @@ export default function SearchResultPage() {
         handleSearchRecipe()
     }, [handleSearchRecipe])
     return (
-        <div>
-            <RecipeListPage 
-                recipes={searchResultRecipe}
-            />
-        </div>
+        <Suspense>
+            {
+                searchResultRecipe.length === 0 ?
+                    <EmptyRecipeList />
+                    :
+                    <RecipeListPage
+                        recipes={searchResultRecipe}
+                    />
+            }
+        </Suspense>
     )
 }

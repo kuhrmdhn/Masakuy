@@ -3,8 +3,9 @@ import { getUserData } from '@/router/userRouter'
 import { UserStore } from '@/store/UserStore'
 import { useCallback, useEffect } from 'react'
 import { useShallow } from 'zustand/react/shallow'
-import RecipeListPage from './RecipeListPage'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import RecipeListPage from './RecipeListPage'
+import EmptyRecipeList from './EmptyRecipeList'
 
 export default function RecipeFolder() {
     const { userData } = UserStore(useShallow((state) => ({ userData: state.userData })))
@@ -40,7 +41,12 @@ export default function RecipeFolder() {
             {
                 tabContents.map((content, index) => (
                     <TabsContent className="block" value={content.trigger} key={index}>
-                        {content.recipes && <RecipeListPage isPublic={content.isPublic} recipes={content.recipes} />}
+                        {
+                            content.recipes ?
+                                <RecipeListPage isPublic={content.isPublic} recipes={content.recipes} />
+                                :
+                                <EmptyRecipeList />
+                        }
                     </TabsContent>
                 ))
             }

@@ -19,7 +19,7 @@ export default function RecipeImage({ image, isPublic, recipeId }: Props) {
         deleteUserRecipes(recipeId)
     }
     return (
-        <div className="w-full h-2/5 lg:h-1/2 relative rounded-t-lg duration-300 bg-[#F5F5F5] m-auto shadow-lg overflow-hidden transition-all duration-400 ease-[cubic-bezier(1,0.4,0.4,1)]">
+        <div className="w-full h-2/5 lg:h-1/2 relative rounded-t-lg duration-300 bg-[#F5F5F5] m-auto shadow-lg overflow-hidden transition-all duration-400 ease-in-out">
             <div
                 className="relative w-full h-full bg-[linear-gradient(rgba(255,255,255,0)_50%,rgba(252,252,252,0)_50%,rgba(246,246,246,1)_90%)] bg-cover bg-center"
                 style={{ backgroundImage: `url(${image})` }}

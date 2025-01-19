@@ -12,12 +12,12 @@ type Props = {
 export default function Header({ className, ...props }: Props) {
     const [searchBarVisible, setSearchBarVisible] = useState(true)
     const pathname = usePathname()
-    const ignoreNavbarPage = ["/signIn", "/signUp"]
     useEffect(() => {
+        const ignoreNavbarPage = ["/signIn", "/signUp"]
         if (ignoreNavbarPage.some((path: string) => pathname == path)) {
             setSearchBarVisible(false)
         }
-    }, [])
+    }, [pathname])
     return (
         <header className={`h-16 w-full fixed top-0 z-50 flex justify-between items-center gap-10 sm:gap-0 p-3 sm:pl-7 lg:px-7 bg-white ${className}`} {...props}>
             <section className='w-fit sm:w-1/3 flex items-center gap-2'>

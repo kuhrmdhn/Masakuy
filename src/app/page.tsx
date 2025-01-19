@@ -1,8 +1,8 @@
 "use client"
-import React, { useCallback, useEffect, useState } from "react"
-import { RecipeDetails } from "@/types/recipeType"
-import { publicRecipeRouter } from "@/router/publicRecipeRouter"
 import RecipeListPage from "@/components/element/recipe_list/RecipeListPage"
+import { publicRecipeRouter } from "@/router/publicRecipeRouter"
+import { RecipeDetails } from "@/types/recipeType"
+import { Suspense, useCallback, useEffect, useState } from "react"
 
 export default function Home() {
   const [publicRecipes, setPublicRecipes] = useState<RecipeDetails[]>([])
@@ -15,8 +15,10 @@ export default function Home() {
     fetchPublicRecipe()
   }, [fetchPublicRecipe])
   return (
-      <div className="min-h-[100dvh] w-full overflow-y-auto">
+    <div className="min-h-[100dvh] w-full overflow-y-auto">
+      <Suspense fallback={<p>asd</p>}>
         <RecipeListPage recipes={publicRecipes} />
-      </div>
+      </Suspense>
+    </div>
   )
 }
