@@ -7,7 +7,7 @@ type Props = {
 
 export default function SuspenseProvider({ children }: Props) {
     return (
-        <Suspense fallback={<p>Loading resource</p>}>
+        <Suspense>
             {children}
         </Suspense>
     )

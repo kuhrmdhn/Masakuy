@@ -1,9 +1,10 @@
 "use client"
-import RecipeListPage from "@/components/element/recipe_list/RecipeListPage"
+import RecipePageSkeleton from "@/components/element/loading/RecipePageSkeleton";
 import { publicRecipeRouter } from "@/router/publicRecipeRouter"
 import { RecipeDetails } from "@/types/recipeType"
-import { Suspense, useCallback, useEffect, useState } from "react"
+import { lazy, Suspense, useCallback, useEffect, useState } from "react"
 
+const RecipeListPage = lazy(() => import("@/components/element/recipe_list/RecipeListPage"));
 export default function Home() {
   const [publicRecipes, setPublicRecipes] = useState<RecipeDetails[]>([])
   const { getPublicRecipe } = publicRecipeRouter
@@ -16,7 +17,7 @@ export default function Home() {
   }, [fetchPublicRecipe])
   return (
     <div className="min-h-[100dvh] w-full overflow-y-auto">
-      <Suspense fallback={<p>asd</p>}>
+      <Suspense fallback={<RecipePageSkeleton />}>
         <RecipeListPage recipes={publicRecipes} />
       </Suspense>
     </div>
