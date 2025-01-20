@@ -2,7 +2,7 @@ import { Skeleton } from '@/components/ui/skeleton'
 import React from 'react'
 
 export default function RecipePageSkeleton() {
-    const dummyRecipeData = [...Array(15)].map((e, i) => ({
+    const dummyRecipeData = [...Array(8)].map((e, i) => ({
         id: `dummy-data-${i}`
     }))
     return (
