@@ -29,7 +29,7 @@ export default function RecipeCard({ recipe, isPublic = false, index = 0 }: Prop
                     <hr />
                 </div>
                 <RecipeInfo recipe={recipe} />
-                <div className="flex justify-around items-center w-full">
+                <div className="flex items-center w-full gap-3">
                     <Link href={recipeUrl}>
                         <Button
                             size={"xs"}
@@ -39,7 +39,6 @@ export default function RecipeCard({ recipe, isPublic = false, index = 0 }: Prop
                             Start Cooking
                         </Button>
                     </Link>
-
                     <SaveRecipeButton recipe={recipe}/>
                 </div>
             </div>
