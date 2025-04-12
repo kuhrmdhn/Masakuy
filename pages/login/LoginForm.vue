@@ -36,24 +36,24 @@ function handleRegister() {
 
 <template>
   <form
-    class="h-5/6 w-4/5 bg-white"
+    class="min-h-80 h-3/5 sm:h-1/2 w-full sm:w-3/4 lg:w-4/5 px-5 bg-white rounded-md"
     @submit.prevent="handleSubmit"
   >
-    <header class="mb-7 h-1/4 flex flex-col justify-center">
-      <h1 class="text-xl sm:text-3xl font-semibold">Selamat Datang Kembali!</h1>
+    <header class="mb-3 sm:mb-7 h-1/5 xs:h-1/4 flex flex-col justify-center">
+      <h1 class="text-lg sm:text-3xl font-semibold">Selamat Datang Kembali!</h1>
       <p class="text-xs sm:text-md font-thin">
         Masukkan Email dan Kata Sandi dengan Benar
       </p>
     </header>
-    <section>
-      <div class="w-full mb-5" v-for="input in formInputList">
-        <Label class="mb-2" :for="input.id">{{ input.label }}</Label>
+    <section class="mb-7 xs:m-0">
+      <div class="w-full mb-3 xs:mb-5" v-for="input in formInputList">
+        <Label class="mb-2 text-xs xs:text-base" :for="input.id">{{ input.label }}</Label>
         <Input
           :id="input.id"
           :v-model="input.value"
           :type="input.type"
           :placeholder="input.placeholder"
-          class="h-12"
+          class="h-10 xs:h-12 text-xs xs:text-base"
           required
         />
       </div>
