@@ -17,14 +17,14 @@ watchEffect(() => {
 </script>
 
 <template>
-  <Alert
-    :variant="alert.variant"
-    :class="[
-      'fixed top-2 right-0 transition-transform duration-300 ease-in-out z-50',
-      alertStyle,
-    ]"
-  >
-    <AlertTitle>{{ alert.title }}</AlertTitle>
-    <AlertDescription>{{ alert.description }}</AlertDescription>
+    <Alert
+      :variant="alert.variant"
+      :class="[
+        'fixed top-2 right-0 transition-transform duration-300 ease-in-out z-50',
+        alertStyle,
+      ]"
+    >
+      <AlertTitle>{{ alert.title }}</AlertTitle>
+      <AlertDescription>{{ alert.description }}</AlertDescription>
   </Alert>
 </template>

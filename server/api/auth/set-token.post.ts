@@ -11,7 +11,7 @@ export default defineEventHandler(async (event) => {
         setResponseHeader(
             event,
             "Set-Cookie",
-            `firebase_token=${token};Path=/;HttpOnly;Max-Age=3600;Secure;SameSite=Strict`
+            `firebase_access_token=${token};Path=/;HttpOnly;Max-Age=3600;Secure;SameSite=Strict`
         )
         setResponseStatus(event, 200)
         return { message: "Set token to cookie" }

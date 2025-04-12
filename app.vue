@@ -1,7 +1,12 @@
-<script setup lang="ts">
+<script setup>
+import AlertProvider from "./components/provider/AlertProvider.vue";
+
+const { currentUser } = useAuth();
+
+currentUser();
 </script>
 
 <template>
-  <h1>Hello Nuxt JS</h1>
-  <AlertProvider/>
+  <AlertProvider />
+  <NuxtPage />
 </template>
