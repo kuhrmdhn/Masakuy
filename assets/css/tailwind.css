@@ -125,7 +125,9 @@
 
 @theme {
   --animate-show-up: showUp 30s ease-in-out infinite alternate;
+  --animate-show-up-reverse: showUpReverse 30s ease-in-out infinite alternate;
   --breakpoint-xs: 23rem;
+  --font-display: "Roboto", "Montserrat", "Poppins", "Open Sans";
 
   @keyframes showUp {
     from {
@@ -134,6 +136,16 @@
 
     to {
       transform: translate(0, calc(calc(1/6 * 100%) * -1))
+    }
+  }
+
+  @keyframes showUpReverse {
+    from {
+      transform: translate(0, calc(calc(1/6 * 100%) * -1))
+    }
+
+    to {
+      transform: translate(0, 0)
     }
   }
 }

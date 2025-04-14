@@ -1,32 +1,33 @@
-<script setup>
+<script setup lang="ts">
 import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
 
 const { signIn } = useAuth();
-const formInput = reactive({
-  email: "",
-  password: "",
-});
-const formInputList = [
+const loginFormFields = [
   {
-    id: "emailInput",
+    id: "loginEmailInput",
+    key: "email",
     label: "Email",
     placeholder: "Masukkan email",
-    value: formInput.email,
     type: "email",
   },
   {
-    id: "passwordInput",
+    id: "loginPasswordInput",
+    key: "password",
     label: "Kata Sandi",
     placeholder: "Masukkan kata sandi",
-    value: formInput.password,
     type: "password",
   },
 ];
 
-async function handleSubmit() {
-  await signIn(formInput.email, formInput.password);
+const loginFormData = reactive<Record<string, string>>({});
+loginFormFields.forEach((field) => {
+  loginFormData[field.key] = "";
+});
+async function handleUserLogin() {
+  const { email, password } = loginFormData;
+  await signIn(email, password);
 }
 
 function handleRegister() {
@@ -36,8 +37,8 @@ function handleRegister() {
 
 <template>
   <form
-    class="min-h-80 h-3/5 sm:h-1/2 w-full sm:w-3/4 lg:w-4/5 px-5 bg-white rounded-md"
-    @submit.prevent="handleSubmit"
+    class="min-h-80 h-3/5 sm:h-1/2 w-full sm:w-3/4 lg:w-4/5 px-5 bg-white lg:bg-transparent rounded-md"
+    @submit.prevent="handleUserLogin"
   >
     <header class="mb-3 sm:mb-7 h-1/5 xs:h-1/4 flex flex-col justify-center">
       <h1 class="text-lg sm:text-3xl font-semibold">Selamat Datang Kembali!</h1>
@@ -46,14 +47,15 @@ function handleRegister() {
       </p>
     </header>
     <section class="mb-7 xs:m-0">
-      <div class="w-full mb-3 xs:mb-5" v-for="input in formInputList">
+      <div class="w-full mb-3 xs:mb-5" v-for="input in loginFormFields">
         <Label class="mb-2 text-xs xs:text-base" :for="input.id">{{ input.label }}</Label>
         <Input
           :id="input.id"
-          :v-model="input.value"
+          v-model="loginFormData[input.key]"
           :type="input.type"
           :placeholder="input.placeholder"
           class="h-10 xs:h-12 text-xs xs:text-base"
+          :minLength="input.type === 'password' && '8'"
           required
         />
       </div>
