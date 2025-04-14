@@ -4,6 +4,15 @@ import { useAlertStore } from "~/store/useAlertStore";
 export const useAuth = () => {
     // utils
     const alert = useAlertStore()
+    function validateAuthInput(email: string, password: string) {
+        const { error } = authSchema.safeParse({ email, password })
+        if (error) {
+            const errorMessages = error.errors.map((err) => err.message).join(", ")
+            alert.showAlert("Registrasi gagal", errorMessages, "destructive")
+            return false
+        }
+        return true
+    }
     const { $firebaseAuth } = useNuxtApp()
     async function setToken(token: string) {
         try {
@@ -27,6 +36,7 @@ export const useAuth = () => {
                 }
                 const token = await auth.getIdToken()
                 await setToken(token)
+                return auth
             })
         })
         onUnmounted(() => {
@@ -35,6 +45,7 @@ export const useAuth = () => {
     }
     const signUp = async (email: string, password: string) => {
         try {
+            if (!validateAuthInput(email, password)) return
             const { user } = await createUserWithEmailAndPassword($firebaseAuth, email, password)
             const token = await user.getIdToken()
             await setToken(token)
@@ -46,8 +57,9 @@ export const useAuth = () => {
     }
     const signIn = async (email: string, password: string) => {
         try {
+            if (!validateAuthInput(email, password)) return
             await signInWithEmailAndPassword($firebaseAuth, email, password)
-            alert.showAlert("Hi!", "Welcome Back to Masakuy", "success")
+            alert.showAlert("Hai!", "Selamat datang kembali!", "success")
         } catch (err) {
             const error = err as Error
             console.error(error);

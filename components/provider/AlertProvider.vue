@@ -11,7 +11,7 @@ watchEffect(() => {
   if (alert.isShow) {
     setTimeout(() => {
       alert.hideAlert();
-    }, 3000);
+    }, 10000);
   }
 });
 </script>
