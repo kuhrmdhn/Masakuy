@@ -1,6 +1,10 @@
 <script setup>
 import LoginForm from "./LoginForm.vue";
 import LoginImage from "./LoginImage.vue";
+
+definePageMeta({
+  middleware: "auth"
+})
 </script>
 
 <template>

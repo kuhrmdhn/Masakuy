@@ -1,7 +1,12 @@
 <script setup>
 import RegisterForm from "./RegisterForm.vue";
 import RegisterImage from "./RegisterImage.vue";
+
+definePageMeta({
+  middleware: "auth",
+});
 </script>
+
 <template>
   <div
     class="w-full h-dvh relative lg:flex items-center lg:items-start justify-center lg:justify-center"
