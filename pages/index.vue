@@ -1,9 +1,6 @@
 <script setup>
-const { currentUser } = useAuth();
-onMounted(() => {
-  const user = currentUser();
-  console.log({ user });
-});
+const user = useState("user");
+console.log({ user });
 </script>
 
 <template>
