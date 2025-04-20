@@ -1,5 +1,5 @@
 import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut, type User } from "firebase/auth";
-import { useAlertStore } from "~/store/useAlertStore";
+import { useAlertStore } from "~/utils/store/useAlertStore";
 
 export const useAuth = () => {
     // utils
@@ -38,10 +38,9 @@ export const useAuth = () => {
                 const token = await auth.getIdToken()
                 await setToken(token)
                 user.value = auth
+                return auth
             })
         })
-
-        return user
     }
 
     const signUp = async (email: string, password: string) => {

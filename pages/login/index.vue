@@ -1,6 +1,6 @@
 <script setup>
-import LoginForm from "./LoginForm.vue";
-import LoginImage from "./LoginImage.vue";
+import LoginForm from "../../components/elements/auth/LoginForm.vue";
+import LoginImage from "../../components/elements/auth/LoginImage.vue";
 
 definePageMeta({
   middleware: "auth"

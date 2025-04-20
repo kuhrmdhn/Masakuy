@@ -1,8 +1,12 @@
-<script setup>
-const user = useState("user");
-console.log({ user });
+<script setup lang="ts">
+import RecipeLists from "~/components/template/RecipeLists.vue";
+
+const { getPublicRecipes } = useRecipe();
+const publicRecipe = await getPublicRecipes();
 </script>
 
 <template>
-  <h1>Hello Nuxt JS</h1>
+  <div>
+    <RecipeLists :recipe-lists-data="publicRecipe" />
+  </div>
 </template>
