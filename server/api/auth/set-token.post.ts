@@ -1,4 +1,3 @@
-
 export default defineEventHandler(async (event) => {
     try {
         const { token } = await readBody(event)

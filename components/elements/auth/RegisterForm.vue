@@ -2,7 +2,7 @@
 import Button from "~/components/ui/button/Button.vue";
 import Input from "~/components/ui/input/Input.vue";
 import Label from "~/components/ui/label/Label.vue";
-import { useAlertStore } from "~/store/useAlertStore";
+import { useAlertStore } from "~/utils/store/useAlertStore";
 
 const { signUp } = useAuth();
 const { showAlert } = useAlertStore();
@@ -48,7 +48,7 @@ async function handleUserRegister() {
   await signUp(email, password);
 }
 function handlelogin() {
-  navigateTo("/register");
+  navigateTo("/login");
 }
 </script>
 

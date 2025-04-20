@@ -1,12 +1,12 @@
-<script setup>
+<script setup lang="ts">
 import AlertProvider from "./components/provider/AlertProvider.vue";
 
-const { currentUser } = useAuth();
-
-currentUser();
+useSeoMeta({
+  ogImage: "/og-image.png",
+});
 </script>
 
 <template>
-  <AlertProvider />
   <NuxtPage />
+  <AlertProvider />
 </template>
