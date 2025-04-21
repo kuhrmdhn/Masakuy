@@ -7,7 +7,7 @@ const props = defineProps<{
 
 <template>
   <ul>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+    <div class="columns-[15.5rem]">
       <RecipeCard
         v-for="recipe in props.recipeListsData"
         :recipe-data="recipe"
