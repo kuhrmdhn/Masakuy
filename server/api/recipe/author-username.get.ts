@@ -4,6 +4,7 @@ export default defineEventHandler(async (event) => {
         const { authorId } = getQuery(event)
 
         if (!authorId) {
+            console.error("Missing authorId in query");
             throw createError({
                 statusCode: 400,
                 statusMessage: "Missing authorId in query",
@@ -13,6 +14,7 @@ export default defineEventHandler(async (event) => {
         const userSnap = await db.doc(`users/${authorId}`).get()
 
         if (!userSnap.exists) {
+            console.error("User not found");
             throw createError({
                 statusCode: 404,
                 statusMessage: "User not found",
@@ -21,6 +23,7 @@ export default defineEventHandler(async (event) => {
 
         const user = userSnap.data()
         if (!user || !user.username) {
+            console.error("User data incomplete");
             throw createError({
                 statusCode: 500,
                 statusMessage: "User data incomplete",

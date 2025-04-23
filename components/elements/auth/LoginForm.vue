@@ -29,10 +29,6 @@ async function handleUserLogin() {
   const { email, password } = loginFormData;
   await signIn(email, password);
 }
-
-function handleRegister() {
-  navigateTo("/register");
-}
 </script>
 
 <template>
@@ -60,11 +56,9 @@ function handleRegister() {
         />
       </div>
     </section>
-    <div class="flex gap-4">
-      <Button type="submit">Masuk</Button>
-      <Button @click.prevent="handleRegister" type="button" variant="outline">
-        Daftar
-      </Button>
+    <div class="flex flex-col gap-5 items-center">
+      <Button class="w-full" type="submit">Masuk</Button>
+      <p>Belum memiliki akun? <a class="underline text-primary" href="/register">Daftar</a></p>
     </div>
   </form>
 </template>

@@ -47,9 +47,6 @@ async function handleUserRegister() {
   }
   await signUp(email, password);
 }
-function handlelogin() {
-  navigateTo("/login");
-}
 </script>
 
 <template>
@@ -73,11 +70,9 @@ function handlelogin() {
         />
       </div>
     </section>
-    <div class="flex gap-4">
-      <Button type="submit">Daftar</Button>
-      <Button @click.prevent="handlelogin" type="button" variant="outline">
-        Masuk
-      </Button>
+    <div class="flex flex-col gap-5 items-center">
+      <Button class="w-full" type="submit">Daftar</Button>
+      <p>Sudah memiliki akun? <a class="underline text-primary" href="/login">Masuk</a></p>
     </div>
   </form>
 </template>
