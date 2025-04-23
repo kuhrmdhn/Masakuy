@@ -2,6 +2,10 @@
 import RegisterForm from "../../components/elements/auth/RegisterForm.vue";
 import RegisterImage from "../../components/elements/auth/RegisterImage.vue";
 
+useSeoMeta({
+  title: "Daftar"
+})
+
 definePageMeta({
   middleware: "auth",
 });

@@ -1,38 +1,50 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { useRecipeCardOptionStore } from "~/utils/store/useRecipeCardOptionStore";
+import type { Recipe } from "~/utils/zod/recipeSchema";
 
-const author = ref<string>("");
-const optionRef = ref<null | HTMLElement>(null)
-const { getRecipeAuthor } = useRecipe();
+type UsernameResponse = {
+  success: boolean;
+  message: string;
+  data: {
+    username: string;
+  };
+};
+
+const optionRef = ref<null | HTMLElement>(null);
 const store = useRecipeCardOptionStore();
 const props = defineProps<{
-  recipeData: any;
+  recipeData: Recipe;
 }>();
 
 const { recipeData } = props;
-const { title, image, authorId, id } = recipeData;
+const { title, image, authorId, id, ingredients, serving, steps } = recipeData;
 
 function toggleOption() {
   store.toggleOpenOption(id);
 }
 
 useClickOutside(optionRef, () => {
-  if(store.cardOptionId === id) {
-    store.resetOpenOption()
+  if (store.cardOptionId === id) {
+    store.resetOpenOption();
   }
-})
-
-onMounted(async () => {
-  const authorName = await getRecipeAuthor(authorId);
-  author.value = authorName;
 });
+
+const { data } = useFetch<UsernameResponse>(`/api/recipe/author-username?authorId=${authorId}`);
+const author = computed(() => data.value?.data.username);
 </script>
 
 <template>
-  <div ref="optionRef" class="w-62 rounded-xl overflow-hidden shadow-md bg-white border border-gray-200">
+  <div
+    ref="optionRef"
+    class="w-62 rounded-xl overflow-hidden shadow-md bg-white border border-gray-200"
+  >
     <div class="w-full h-44 bg-gray-100 relative">
-      <img :src="image" alt="Resep Makanan" class="object-cover w-full h-full" />
+      <NuxtImg
+        :src="image"
+        :alt="'Recipe image for ' + title"
+        class="object-cover w-full h-full"
+      />
       <div class="absolute top-2 right-2">
         <button
           @click="toggleOption"
@@ -70,9 +82,11 @@ onMounted(async () => {
     </div>
     <div class="p-3 space-y-1">
       <p class="text-sm font-semibold truncate">{{ title }}</p>
-      <p class="text-xs text-gray-500">
-        oleh <span class="font-medium">{{ author }}</span>
-      </p>
+      <ClientOnly v-if="author">
+        <p class="text-xs text-gray-500">
+          oleh <span class="font-medium">{{ author }}</span>
+        </p>
+      </ClientOnly>
       <p class="text-sm text-gray-600 line-clamp-2">
         Nasi goreng dengan tambahan ayam, telur, dan bumbu rempah yang gurih dan lezat.
       </p>
@@ -88,14 +102,17 @@ onMounted(async () => {
   max-width: 18ch;
   text-overflow: ellipsis;
 }
-.slide-right-enter-active, .slide-right-leave-active {
+.slide-right-enter-active,
+.slide-right-leave-active {
   transition: all 0.3s ease;
 }
-.slide-right-enter-from, .slide-right-leave-to {
+.slide-right-enter-from,
+.slide-right-leave-to {
   opacity: 0;
   transform: translateX(50%);
 }
-.slide-right-enter-to, .slide-right-leave-from {
+.slide-right-enter-to,
+.slide-right-leave-from {
   opacity: 1;
   transform: translateX(0);
 }

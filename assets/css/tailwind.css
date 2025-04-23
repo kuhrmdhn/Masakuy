@@ -43,6 +43,7 @@
 }
 
 :root {
+  --logo-gold: #cfa44e;
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
@@ -126,6 +127,7 @@
 @theme {
   --animate-show-up: showUp 30s ease-in-out infinite alternate;
   --animate-show-up-reverse: showUpReverse 30s ease-in-out infinite alternate;
+  --animate-change-color: changeColor 1.4s ease-in-out infinite;
   --breakpoint-xs: 23rem;
   --font-display: "Roboto", "Montserrat", "Poppins", "Open Sans";
 
@@ -146,6 +148,21 @@
 
     to {
       transform: translate(0, 0)
+    }
+  }
+
+  @keyframes changeColor {
+
+    0%,
+    60%,
+    80%,
+    100% {
+      transform: translateY(0);
+    }
+
+    40% {
+      transform: translateY(-1rem);
+      color: var(--logo-gold);
     }
   }
 }
