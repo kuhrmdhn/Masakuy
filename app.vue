@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import Navbar from "./components/elements/navbar/Navbar.vue";
 import AlertProvider from "./components/provider/AlertProvider.vue";
 const { currentUser } = useAuth();
 
@@ -10,22 +11,31 @@ useSeoMeta({
   ogImage: "/og-image.png",
 });
 
-currentUser()
+onMounted(() => {
+  currentUser()
+})
 </script>
 
 <template>
-  <NuxtPage />
-  <AlertProvider />
+  <NuxtLayout>
+    <Navbar />
+    <NuxtPage :transition="{ name: 'page', mode: 'out-in', appear: true }" />
+    <AlertProvider />
+  </NuxtLayout>
 </template>
 
 <style>
+html {
+  font-family: Ubuntu;
+}
+
 .page-enter-active,
 .page-leave-active {
   transition: all 0.4s;
 }
+
 .page-enter-from,
 .page-leave-to {
-  opacity: 0;
-  filter: blur(1rem);
+  filter: blur(3px);
 }
 </style>

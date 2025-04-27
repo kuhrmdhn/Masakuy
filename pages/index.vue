@@ -22,7 +22,7 @@ const recipesData = data.value?.data.recipesData;
 </script>
 
 <template>
-  <div>
+  <div class="px-1">
     <Error v-if="error" :message="fetchErrorMessage" :title="fetchStatusCode" />
     <RecipeLists v-if="recipesData" :recipe-lists-data="recipesData" />
   </div>

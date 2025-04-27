@@ -1,9 +1,11 @@
 import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut, type User } from "firebase/auth";
 import { useAlertStore } from "~/utils/store/useAlertStore";
+import { useUserIdStore } from "~/utils/store/useUserIdStore";
 import { authSchema } from "~/utils/zod/authSchema";
 
 export const useAuth = () => {
     const alert = useAlertStore()
+    const { setUserId } = useUserIdStore()
     function validateAuthInput(email: string, password: string) {
         const { error } = authSchema.safeParse({ email, password })
         if (error) {
@@ -13,7 +15,7 @@ export const useAuth = () => {
         }
         return true
     }
-    
+
     const { $firebaseAuth } = useNuxtApp()
     async function setToken(token: string) {
         try {
@@ -26,21 +28,16 @@ export const useAuth = () => {
             return err
         }
     }
-    
-    const currentUser = () => {
-        const user = useState<null | User>("user", () => null)
 
-        onMounted(() => {
-            onAuthStateChanged($firebaseAuth, async (auth) => {
-                if (!auth) {
-                    user.value = null
-                    return
-                }
-                const token = await auth.getIdToken()
-                await setToken(token)
-                user.value = auth
-                return auth
-            })
+    const currentUser = () => {
+        onAuthStateChanged($firebaseAuth, async (auth) => {
+            if (!auth) {
+                return
+            }
+            const token = await auth.getIdToken()
+            await setToken(token)
+            setUserId(auth.uid)
+            return auth
         })
     }
 
