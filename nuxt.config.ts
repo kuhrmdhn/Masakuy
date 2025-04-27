@@ -10,10 +10,13 @@ export default defineNuxtConfig({
       tailwindcss(),
     ],
   },
-  modules: ['shadcn-nuxt', '@pinia/nuxt', '@nuxt/fonts', '@nuxt/icon', '@nuxt/image'],
+  modules: ['shadcn-nuxt', '@pinia/nuxt', '@nuxt/fonts', '@nuxt/icon', '@nuxt/image', '@nuxtjs/color-mode'],
   shadcn: {
     prefix: '',
     componentDir: './components/ui',
+  },
+  image: {
+    domains: []
   },
   runtimeConfig: {
     clientEmail: process.env.FIREBASE_CLIENT_EMAIL,

@@ -37,7 +37,7 @@ const author = computed(() => data.value?.data.username);
 <template>
   <div
     ref="optionRef"
-    class="w-62 rounded-xl overflow-hidden shadow-md bg-white border border-gray-200"
+    class="w-45 xs:w-48 md:w-56 lg:w-62 mb-1.5 rounded-xl overflow-hidden shadow-md bg-white border border-gray-200"
   >
     <div class="w-full h-44 bg-gray-100 relative">
       <NuxtImg

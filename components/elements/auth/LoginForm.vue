@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { NuxtLink } from "#components";
 import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
@@ -58,7 +59,7 @@ async function handleUserLogin() {
     </section>
     <div class="flex flex-col gap-5 items-center">
       <Button class="w-full" type="submit">Masuk</Button>
-      <p>Belum memiliki akun? <a class="underline text-primary" href="/register">Daftar</a></p>
+      <p>Belum memiliki akun? <NuxtLink class="underline text-primary" href="/register">Daftar</NuxtLink></p>
     </div>
   </form>
 </template>

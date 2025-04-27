@@ -9,7 +9,7 @@ const props = defineProps<{
 
 <template>
     <div>
-      <ul class="columns-5">
+      <ul class="columns-2 md:columns-3 lg:columns-4 xl:columns-5">
         <li v-for="recipe in props.recipeListsData" :key="recipe.id">
           <RecipeCard :recipe-data="recipe" />
         </li>

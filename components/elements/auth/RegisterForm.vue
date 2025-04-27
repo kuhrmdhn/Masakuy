@@ -72,7 +72,7 @@ async function handleUserRegister() {
     </section>
     <div class="flex flex-col gap-5 items-center">
       <Button class="w-full" type="submit">Daftar</Button>
-      <p>Sudah memiliki akun? <a class="underline text-primary" href="/login">Masuk</a></p>
+      <p>Sudah memiliki akun? <NuxtLink class="underline text-primary" href="/login">Masuk</NuxtLink></p>
     </div>
   </form>
 </template>
