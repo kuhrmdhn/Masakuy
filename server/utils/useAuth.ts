@@ -10,5 +10,20 @@ export const useAuth = (event: H3Event) => {
             console.error(err);
         }
     }
-    return { auth, verifyToken }
+    const verifyUserAccess = async (token: string, userId: string) => {
+        try {
+            const { uid } = await auth.verifyIdToken(token)
+            if(uid !== userId) {
+                throw createError({
+                    status: 403,
+                    message: "User not have access"
+                })
+            }
+
+        } catch (err) {
+            console.error(err);
+            throw err
+        }
+    }
+    return { auth, verifyToken, verifyUserAccess }
 }
