@@ -3,8 +3,9 @@ import { NuxtLink } from "#components";
 import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
+import type { SignInData } from "~/utils/zod/authSchema";
 
-const { signIn } = useAuth();
+const { signIn } = useLogin();
 const loginFormFields = [
   {
     id: "loginEmailInput",
@@ -27,8 +28,7 @@ loginFormFields.forEach((field) => {
   loginFormData[field.key] = "";
 });
 async function handleUserLogin() {
-  const { email, password } = loginFormData;
-  await signIn(email, password);
+  await signIn(loginFormData as SignInData);
 }
 </script>
 

@@ -4,7 +4,7 @@ import Input from "~/components/ui/input/Input.vue";
 import Label from "~/components/ui/label/Label.vue";
 import { useAlertStore } from "~/utils/store/useAlertStore";
 
-const { signUp } = useAuth();
+const { signUp } = useRegister();
 const { showAlert } = useAlertStore();
 const registerFormFields = [
   {
@@ -13,6 +13,13 @@ const registerFormFields = [
     placeholder: "johnDoe@example.com",
     label: "Email",
     type: "email",
+  },
+  {
+    id: "registerUsernameInput",
+    key: "username",
+    placeholder: "itsJohn",
+    label: "Nama Pengguna",
+    type: "text",
   },
   {
     id: "registerPasswordInput",
@@ -35,8 +42,8 @@ registerFormFields.forEach((field) => {
   registerFormState[field.key] = "";
 });
 
-async function handleUserRegister() {
-  const { email, password, confirmPassword } = registerFormState;
+async function handleRegisterUser() {
+  const { email, password, confirmPassword, username } = registerFormState;
   if (password !== confirmPassword) {
     showAlert(
       "Kata sandi tidak cocok!",
@@ -45,18 +52,19 @@ async function handleUserRegister() {
     );
     return;
   }
-  await signUp(email, password);
+  const registerData = { email, password, username };
+  await signUp(registerData);
 }
 </script>
 
 <template>
   <form
-    class="min-h-80 h-5/6 xs:h-3/4 sm:h-3/5 lg:h-5/6 w-full sm:w-3/4 lg:w-4/5 px-5 bg-white lg:bg-transparent rounded-md"
-    @submit.prevent="handleUserRegister"
+    class="min-h-80 h-5/6 xs:h-3/4 sm:h-3/5 lg:h-full w-full sm:w-3/4 lg:w-4/5 px-5 bg-white dark:bg-black lg:dark:bg-transparent lg:bg-transparent rounded-md"
+    @submit.prevent="handleRegisterUser"
   >
-    <header class="mb-3 sm:mb-7 h-1/5 xs:h-1/4 flex flex-col justify-center">
+    <header class="mb-3 sm:mb-3 h-1/5 xs:h-1/4 sm:h-1/5 flex flex-col justify-center">
       <h1 class="text-lg sm:text-3xl font-semibold">Selamat Datang!</h1>
-      <p class="text-xs sm:text-md font-thin">Daftarkan Email dan Kata Sandi</p>
+      <p class="text-xs sm:text-md font-thin">Daftarkan Akun Kamu</p>
     </header>
     <section class="mb-7 xs:m-0">
       <div class="w-full mb-3 xs:mb-5" v-for="input in registerFormFields">
@@ -72,7 +80,10 @@ async function handleUserRegister() {
     </section>
     <div class="flex flex-col gap-5 items-center">
       <Button class="w-full" type="submit">Daftar</Button>
-      <p>Sudah memiliki akun? <NuxtLink class="underline text-primary" href="/login">Masuk</NuxtLink></p>
+      <p>
+        Sudah memiliki akun?
+        <NuxtLink class="underline text-primary" href="/login">Masuk</NuxtLink>
+      </p>
     </div>
   </form>
 </template>

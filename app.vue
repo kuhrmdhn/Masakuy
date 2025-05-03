@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import Navbar from "./components/elements/navbar/Navbar.vue";
 import AlertProvider from "./components/provider/AlertProvider.vue";
-const { currentUser } = useAuth();
+const { currentUser } = useCurrentUser();
 
 useHead({
   titleTemplate: "%s | Masakuy!",

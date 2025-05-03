@@ -19,21 +19,22 @@ export default defineEventHandler(async (event) => {
         const userId = params.userId
         await verifyUserAccess(token, userId)
 
-        const snapshot = await db.collection("users").doc(userId).get()
-        if (!snapshot.exists) {
+        const snapshot = await db.collection("users").where("id", "==", userId).get()
+        if (snapshot.empty) {
             throw createError({
                 status: 404,
                 message: "User document is not found"
             })
         }
-        const data = snapshot.data()
+        const data = snapshot.docs.map((e) => e.data())
+        console.log({data})
         if (!data) {
             throw createError({
                 status: 404,
                 message: "User document is not found"
             })
         }
-        const userRecipeData = data.recipe_created
+        const userRecipeData = data
         return {
             success: true,
             message: `Success get user recipe, total ${userRecipeData.length} recipe(s)`,
