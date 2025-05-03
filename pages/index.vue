@@ -4,8 +4,8 @@ import { Error } from "~/components/ui/error";
 import type { Recipe } from "~/utils/zod/recipeSchema";
 
 useSeoMeta({
-  title: "Beranda"
-})
+  title: "Beranda",
+});
 
 type RecipeResponse = {
   success: boolean;
@@ -16,9 +16,9 @@ type RecipeResponse = {
 };
 
 const { data, error } = useFetch<RecipeResponse>("/api/recipe/public-recipe");
-const fetchErrorMessage = error.value?.statusMessage
-const fetchStatusCode = error.value?.statusCode?.toString()
-const recipesData = data.value?.data.recipesData;
+const fetchErrorMessage = error.value?.statusMessage;
+const fetchStatusCode = error.value?.statusCode?.toString();
+const recipesData = computed(() => data.value?.data.recipesData);
 </script>
 
 <template>

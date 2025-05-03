@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import { useUserIdStore } from "~/utils/store/useUserIdStore";
 import NavItem from "./NavItem.vue";
-
 const user = useUserIdStore();
 
 const authNavList = [
