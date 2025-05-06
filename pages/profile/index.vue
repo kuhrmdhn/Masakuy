@@ -1,4 +1,8 @@
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+  useSeoMeta({
+    title: "Profile"
+  })
+</script>
 
 <template>
   <div>
