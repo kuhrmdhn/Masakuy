@@ -1,22 +1,23 @@
 import { onAuthStateChanged } from "firebase/auth";
-import { useUserIdStore } from "~/utils/store/useUserIdStore";
 import { setToken } from "./utils/setToken";
 
 export const useCurrentUser = () => {
-    const { setUserId, resetUserId } = useUserIdStore()
     const { $firebaseAuth } = useNuxtApp()
+    const authState = ref(false)
 
     const currentUser = () => {
         onAuthStateChanged($firebaseAuth, async (auth) => {
             if (!auth) {
-                resetUserId()
+                authState.value = false
                 return null
             }
             const token = await auth.getIdToken()
             await setToken(token)
-            setUserId(auth.uid)
+            authState.value = true
             return auth
         })
     }
-    return { currentUser }
+
+    currentUser();
+    return { authState }
 }
