@@ -17,9 +17,7 @@ export default defineEventHandler(async (event) => {
         const recipesData = recipeSnap.docs.map((recipe) => ({ id: recipe.id, ...recipe.data() }))
         return {
             success: true,
-            data: {
-                recipesData
-            },
+            data: { recipesData },
             message: "Success get all recipes"
         }
     } catch (err) {

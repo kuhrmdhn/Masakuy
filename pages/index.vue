@@ -15,15 +15,16 @@ type RecipeResponse = {
   };
 };
 
-const { data, error } = useFetch<RecipeResponse>("/api/recipe/public-recipe");
-const fetchErrorMessage = error.value?.statusMessage;
-const fetchStatusCode = error.value?.statusCode?.toString();
-const recipesData = computed(() => data.value?.data.recipesData);
+const userRecipes = ref<Recipe[]>([])
+onMounted(async () => {
+  const { data } = await $fetch<RecipeResponse>("/api/recipe/public-recipe")
+  userRecipes.value = data.recipesData;
+});
+
 </script>
 
 <template>
   <div class="px-1">
-    <Error v-if="error" :message="fetchErrorMessage" :title="fetchStatusCode" />
-    <RecipeLists v-if="recipesData" :recipe-lists-data="recipesData" />
+    <RecipeLists :recipe-lists-data="userRecipes"/>
   </div>
 </template>

@@ -1,8 +1,8 @@
-import { useAuth } from "~/server/utils/useAuth"
+import { useToken } from "~/server/utils/useToken"
 
 export default defineEventHandler(async (event) => {
     try {
-        const { verifyToken} = useAuth(event)
+        const { verifyToken} = useToken(event)
         const { token } = await readBody(event)
         if (!token || token === "") {
             throw createError({

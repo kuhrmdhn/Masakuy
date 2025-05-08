@@ -1,8 +1,7 @@
 <script lang="ts" setup>
-import { useUserIdStore } from "~/utils/store/useUserIdStore";
 import NavItem from "./NavItem.vue";
-const user = useUserIdStore();
-
+const { authState } = useCurrentUser();
+const user = computed(() =>authState.value)
 const authNavList = [
   {
     id: 1,
@@ -21,7 +20,7 @@ const authNavList = [
 
 <template>
   <nav>
-    <ul v-if="!user.userId" class="flex gap-4 items-center">
+    <ul v-if="!user" class="flex gap-4 items-center">
       <li v-for="nav in authNavList" :key="nav.id">
         <NavItem :url="nav.url" :class="nav.style">
           {{ nav.text }}

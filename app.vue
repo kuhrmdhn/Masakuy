@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import Navbar from "./components/elements/navbar/Navbar.vue";
 import AlertProvider from "./components/provider/AlertProvider.vue";
-const { currentUser } = useCurrentUser();
 
 useHead({
   titleTemplate: "%s | Masakuy!",
@@ -10,10 +9,6 @@ useSeoMeta({
   description: "Food Recipe Website",
   ogImage: "/og-image.png",
 });
-
-onMounted(() => {
-  currentUser()
-})
 </script>
 
 <template>

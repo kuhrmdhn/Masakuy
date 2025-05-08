@@ -2,28 +2,21 @@ import { uploadRecipeSchema } from "~/utils/zod/recipeSchema"
 
 export default defineEventHandler(async (event) => {
     try {
-        const params = event.context.params
-        const cookie = getCookie(event,"firebase_access_token")
+        const token = getCookie(event, "firebase_access_token")
         const body = await readBody(event)
         const { db } = useDb(event)
 
-        if(!cookie) {
+        if (!token) {
             throw createError({
                 message: "Token is undefined",
                 status: 401
             })
         }
-        if(!params) {
-            throw createError({
-                message: "User id is required in params endpoint",
-                status: 400
-            })
-        }
-        const { verifyUserAccess } = useAuth(event)
-        await verifyUserAccess(cookie, params.userId)
+        const { verifyToken } = useToken(event)
+        const { uid } = await verifyToken(token)
 
         const recipeInputData = body.recipeData
-        const validateRecipeSchema = uploadRecipeSchema.safeParse(recipeInputData)
+        const validateRecipeSchema = uploadRecipeSchema.safeParse({...recipeInputData, authorId: uid})
         if (validateRecipeSchema.error) {
             throw createError({
                 message: validateRecipeSchema.error.message,
@@ -31,13 +24,13 @@ export default defineEventHandler(async (event) => {
             })
         }
 
-        const userRecipeRef = await db.collection(`users/${params?.userId}/user_recipe`).add({ ...recipeInputData })
+        const userRecipeRef = await db.collection(`users/${uid}/user_recipe`).add({ ...validateRecipeSchema.data })
         await userRecipeRef.update({ id: userRecipeRef.id })
 
         const publicRecipeSnap = await userRecipeRef.get();
         const publicRecipeData = publicRecipeSnap.data();
 
-        const publicRecipesRef = await db.collection("public_recipes").add({ ...publicRecipeData})
+        const publicRecipesRef = await db.collection("public_recipes").add({ ...publicRecipeData })
         await publicRecipesRef.update({ publicId: publicRecipesRef.id })
 
         return {
