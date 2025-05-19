@@ -3,7 +3,6 @@ import { useDb } from '~/server/utils/useDb'
 export default defineEventHandler(async (event) => {
     try {
         const date = new Date()
-        console.log("Get pub recipe!", date.getHours(), date.getMinutes())
         const { db } = useDb(event)
         const recipeSnap = await db.collection('public_recipes').get()
         if (recipeSnap.empty) {
