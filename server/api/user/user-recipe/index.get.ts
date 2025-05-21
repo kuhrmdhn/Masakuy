@@ -30,7 +30,7 @@ export default defineEventHandler(async (event) => {
         return {
             success: true,
             message: `Success get user recipe, total ${userRecipeData.length} recipe(s)`,
-            data: { userRecipeData }
+            data: userRecipeData
         }
     } catch (err) {
         console.error(err);

@@ -30,7 +30,16 @@ useClickOutside(optionRef, () => {
   }
 });
 
-const { data } = useFetch<UsernameResponse>(`/api/recipe/author-username?authorId=${authorId}`);
+async function saveRecipe() {
+  await $fetch("/api/user/saved-recipe", {
+    method: "POST",
+    body: { recipeData },
+  });
+}
+
+const { data } = useFetch<UsernameResponse>(
+  `/api/recipe/author-username?authorId=${authorId}`
+);
 const author = computed(() => data.value?.data.username);
 </script>
 
@@ -70,7 +79,10 @@ const author = computed(() => data.value?.data.username);
             v-show="id == store.cardOptionId"
             class="absolute right-0 mt-2 w-32 duration-200 bg-white border rounded shadow z-10"
           >
-            <button class="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100">
+            <button
+              @click="saveRecipe"
+              class="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100"
+            >
               Simpan
             </button>
             <button class="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100">
