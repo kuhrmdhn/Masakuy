@@ -10,7 +10,7 @@ export default defineEventHandler(async (event) => {
     const { db } = useDb(event)
     const { uid } = await verifyToken(token)
     const user = await db.doc(`users/${uid}`).get()
-    if(!user.exists) {
+    if (!user.exists) {
         throw createError({
             status: 404,
             message: "User data is not found"
@@ -22,6 +22,6 @@ export default defineEventHandler(async (event) => {
     return {
         success: true,
         message: "Success Get User Info",
-        data: userData
+        data: { ...userData }
     }
 })

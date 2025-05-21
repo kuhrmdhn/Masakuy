@@ -1,6 +1,5 @@
 import { Auth } from 'firebase-admin/auth'
 import { H3Event } from 'h3'
-import { ref } from 'process'
 
 export const useToken = (event: H3Event) => {
     const auth: Auth = event.context.firebaseAdminAuth
