@@ -2,25 +2,19 @@ import { uploadRecipeSchema } from "~/utils/zod/recipeSchema"
 
 export default defineEventHandler(async (event) => {
     try {
-        const token = getCookie(event, "firebase_access_token")
-        const body = await readBody(event)
+        const { recipeData } = await readBody(event)
         const { db } = useDb(event)
+        const { verifyUserToken } = useToken(event)
 
-        if (!token) {
-            throw createError({
-                message: "Token is undefined",
-                status: 401
-            })
-        }
-        const { verifyToken } = useToken(event)
-        const { uid } = await verifyToken(token)
+        const { uid } = await verifyUserToken()
 
-        const recipeInputData = body.recipeData
-        const validateRecipeSchema = uploadRecipeSchema.safeParse({...recipeInputData, authorId: uid})
+        const validateRecipeSchema = uploadRecipeSchema.safeParse({ ...recipeData, authorId: uid })
         if (validateRecipeSchema.error) {
             throw createError({
                 message: validateRecipeSchema.error.message,
-                status: 500
+                statusCode: 400,
+                statusMessage: "Bad request",
+                cause: "Invalid upload data schema"
             })
         }
 
@@ -38,7 +32,12 @@ export default defineEventHandler(async (event) => {
             message: `Success upload user recipe`,
         }
     } catch (err) {
-        console.error(err);
-        throw err
+        const { message, cause } = err as Error
+        throw createError({
+            statusCode: 500,
+            statusMessage: "Internal server error",
+            message,
+            cause
+        })
     }
 })

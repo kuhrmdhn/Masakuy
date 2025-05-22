@@ -1,23 +1,32 @@
 export default defineEventHandler(async (event) => {
-    const token = getCookie(event, "firebase_access_token")
-    const { db } = useDb(event)
-    const body = await readBody(event)
-    const { recipeData } = body
-    const { verifyToken } = useToken(event)
+    try {
+        const { db } = useDb(event)
+        const { verifyUserToken } = useToken(event)
+        const { recipeData } = await readBody(event)
 
-    if (!token) {
+        if (!recipeData) {
+            throw createError({
+                statusCode: 400,
+                statusMessage: "Recipe data is undefined",
+                message: "Recipe data is required, but receive is undefined. Please define recipe data before",
+                cause: "Recipe data not found",
+            })
+        }
+
+        const { uid } = await verifyUserToken()
+        const { id } = await db.collection(`users/${uid}/saved_recipe`).add(recipeData)
+        return {
+            success: true,
+            message: `Success Saved recipe with saved id: ${id}`,
+            data: recipeData
+        }
+    } catch (err) {
+        const { message, cause } = err as Error
         throw createError({
-            message: "Token is undefined",
-            status: 401
+            statusCode: 500,
+            statusMessage: "Internal server error",
+            message,
+            cause
         })
-    }
-
-    const { uid } = await verifyToken(token)
-    const { id } = await db.collection(`users/${uid}/saved_recipe`).add(recipeData)
-    console.log("add")
-    return {
-        success: true,
-        message: `Success Saved recipe with saved id: ${id}`,
-        data: recipeData
     }
 })

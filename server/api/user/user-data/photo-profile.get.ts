@@ -4,19 +4,23 @@ export default defineEventHandler(async (event) => {
         const { db } = useDb(event)
 
         const { uid } = await verifyUserToken()
-        const snapshot = await db.collection(`users/${uid}/user_recipe`).get()
-        if (snapshot.empty) {
+        const userSnap = await db.doc(`users/${uid}`).get()
+        if (!userSnap.exists) {
             throw createError({
-                status: 404,
-                message: "User document is not found"
+                statusCode: 404,
+                statusMessage: "Not found",
+                message: "User data is not found",
+                cause: "User fields is not found"
             })
         }
-        const data = snapshot.docs.map((e) => e.data())
-        const userRecipeData = data
+
+        const data = userSnap.data() as { photo_profile?: string, username?: string }
+        const { photo_profile, username } = data
+
         return {
             success: true,
-            message: `Success get user recipe, total ${userRecipeData.length} recipe(s)`,
-            data: userRecipeData
+            message: `Success get user photo profile`,
+            data: { photo_profile, username }
         }
     } catch (err) {
         const { message, cause } = err as Error
