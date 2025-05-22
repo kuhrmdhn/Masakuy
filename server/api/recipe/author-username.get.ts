@@ -4,43 +4,49 @@ export default defineEventHandler(async (event) => {
         const { authorId } = getQuery(event)
 
         if (!authorId) {
-            console.error("Missing authorId in query");
             throw createError({
                 statusCode: 400,
-                statusMessage: "Missing authorId in query",
+                statusMessage: "Missing author id in query",
+                message: "Author id is required, but receive is undefined",
+                cause: "Author id is not define"
             })
         }
 
-        const userSnap = await db.doc(`users/${authorId}`).get()
+        const authorSnap = await db.doc(`users/${authorId}`).get()
 
-        if (!userSnap.exists) {
-            console.error("User not found");
+        if (!authorSnap.exists) {
             throw createError({
                 statusCode: 404,
-                statusMessage: "User not found",
+                message: `Author with id ${authorId} is not found`,
+                statusMessage: "Not Found: Cant find author",
+                cause: "Author id is invalid"
             })
         }
 
-        const user = userSnap.data()
-        if (!user || !user.username) {
-            console.error("User data incomplete");
+        const author = authorSnap.data()
+        if (!author || !author.username) {
             throw createError({
                 statusCode: 500,
-                statusMessage: "User data incomplete",
+                message: "Author data is missing 'username' fields",
+                statusMessage: "Author data incomplete",
+                cause: "Incomplete fields"
             })
         }
 
-        const username = user.username
+        const { username } = author
         return {
             success: true,
             message: "Success get recipe author username",
-            data: {
-                username
-            }
+            data: username
         }
 
     } catch (err: any) {
-        console.error("[/api/get-username] Error:", err)
-        throw err
+       const { message, cause } = err as Error
+        throw createError({
+            statusCode: 500,
+            statusMessage: "Internal server error",
+            message,
+            cause
+        })
     }
 })

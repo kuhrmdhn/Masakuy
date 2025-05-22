@@ -2,27 +2,22 @@ import { useDb } from '~/server/utils/useDb'
 
 export default defineEventHandler(async (event) => {
     try {
-        const date = new Date()
         const { db } = useDb(event)
         const recipeSnap = await db.collection('public_recipes').get()
-        if (recipeSnap.empty) {
-            setResponseStatus(event, 200)
-            return {
-                success: true,
-                message: "Recipes is empty",
-                data: []
-            }
-        }
         const recipesData = recipeSnap.docs.map((recipe) => ({ id: recipe.id, ...recipe.data() }))
+
         return {
             success: true,
-            data: { recipesData },
+            data: recipesData,
             message: "Success get all recipes"
         }
     } catch (err) {
+        const { message, cause } = err as Error
         throw createError({
             statusCode: 500,
-            statusMessage: "Failed to fetch public recipes"
+            statusMessage: "Internal server error",
+            message,
+            cause
         })
     }
 })
