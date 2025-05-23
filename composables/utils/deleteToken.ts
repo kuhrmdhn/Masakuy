@@ -1,7 +1,7 @@
 export async function deleteToken() {
     try {
         await $fetch("/api/auth/delete-token", {
-            method: "POST",
+            method: "DELETE",
         });
     } catch (err) {
         console.error(err);

@@ -5,7 +5,7 @@ export const signInSchema = z.object({
 }).required()
 
 export const registerSchema = signInSchema.extend({
-    username: z.string().min(3, "Nama pengguna minimal 3 karakter")
+    username: z.string().min(3, "Nama pengguna minimal 3 karakter").max(20)
 })
 
 export type SignInData = z.infer<typeof signInSchema>
