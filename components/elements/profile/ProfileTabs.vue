@@ -7,7 +7,7 @@ import UserSavedRecipe from "./UserSavedRecipe.vue";
 <template>
   <Tabs default-value="userRecipes">
     <nav class="w-full flex justify-center mb-3">
-      <TabsList class="w-1/5 bg-transparent">
+      <TabsList class="w-1/2 sm:w-1/5 bg-transparent">
         <TabsTrigger value="userRecipes"> Postingan </TabsTrigger>
         <TabsTrigger value="savedRecipes"> Disimpan </TabsTrigger>
       </TabsList>

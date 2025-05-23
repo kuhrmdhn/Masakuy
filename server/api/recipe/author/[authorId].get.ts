@@ -1,7 +1,16 @@
 export default defineEventHandler(async (event) => {
     try {
         const { db } = useDb(event)
-        const { authorId } = getQuery(event)
+        const param = event.context.params
+        if (!param) {
+            throw createError({
+                statusCode: 400,
+                statusMessage: "Missing Params",
+                message: "Author id is missing in params",
+                cause: "Missing author id in params"
+            })
+        }
+        const authorId= param.authorId
 
         if (!authorId) {
             throw createError({
@@ -13,7 +22,6 @@ export default defineEventHandler(async (event) => {
         }
 
         const authorSnap = await db.doc(`users/${authorId}`).get()
-
         if (!authorSnap.exists) {
             throw createError({
                 statusCode: 404,
@@ -39,9 +47,8 @@ export default defineEventHandler(async (event) => {
             message: "Success get recipe author username",
             data: username
         }
-
     } catch (err: any) {
-       const { message, cause } = err as Error
+        const { message, cause } = err as Error
         throw createError({
             statusCode: 500,
             statusMessage: "Internal server error",
