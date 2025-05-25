@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import RecipeLists from "~/components/template/RecipeLists.vue";
+import LoadingUI from "~/components/ui/loading/LoadingUI.vue";
 import type { Recipe } from "~/utils/zod/recipeSchema";
 
 useSeoMeta({
@@ -12,16 +13,21 @@ type RecipeResponse = {
   data: Recipe[];
 };
 
-const userRecipes = ref<Recipe[]>([])
-onMounted(async () => {
-  const { data } = await $fetch<RecipeResponse>("/api/recipe/public-recipe")
-  userRecipes.value = data;
-});
+const { data: publicRecipes, status } = useAsyncData<RecipeResponse>(
+  "public-recipes",
+  () => $fetch("/api/recipe/public-recipe"),
+  {
+    server: false,
+  }
+);
 
 </script>
 
 <template>
   <div class="px-1">
-    <RecipeLists :recipe-lists-data="userRecipes"/>
+    <RecipeLists
+      :status
+      :recipe-lists-data="publicRecipes?.data || []"
+    />
   </div>
 </template>

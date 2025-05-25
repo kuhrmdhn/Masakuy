@@ -2,7 +2,7 @@
 import UserAvatar from "../profile/UserAvatar.vue";
 import NavItem from "./NavItem.vue";
 const { authState } = useCurrentUser();
-const user = computed(() =>authState.value)
+const user = computed(() => authState.value);
 const authNavList = [
   {
     id: 1,
@@ -20,17 +20,14 @@ const authNavList = [
 </script>
 
 <template>
-    <ul v-if="!user" class="flex gap-5 items-center">
-      <li v-for="nav in authNavList" :key="nav.id">
-        <NavItem :url="nav.url" :class="nav.style">
-          {{ nav.text }}
-        </NavItem>
-      </li>
-    </ul>
-    <NavItem
-      v-else
-      url="/profile"
-    >
-      <UserAvatar class="!size-10"/>
-    </NavItem>
+  <ul v-if="!user" class="flex gap-5 items-center">
+    <li v-for="nav in authNavList" :key="nav.id">
+      <NavItem :url="nav.url" :class="nav.style">
+        {{ nav.text }}
+      </NavItem>
+    </li>
+  </ul>
+  <NavItem v-else url="/profile">
+    <UserAvatar class="!size-10" />
+  </NavItem>
 </template>
