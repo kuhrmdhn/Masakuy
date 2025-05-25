@@ -8,20 +8,16 @@ export const useCurrentUser = () => {
 
     const currentUser = () => {
         onAuthStateChanged($firebaseAuth, async (auth) => {
-            try {
-                if (!auth) {
-                    authState.value = false
-                    return null
-                }
-                const token = await auth.getIdToken()
-                await setToken(token)
-                authState.value = true
-                return auth
-            } catch (err) {
-                console.error("Firebase auth error: ", err);
-            } finally {
+            if (!auth) {
+                authState.value = false
                 authInitialized.value = true
+                return null
             }
+            const token = await auth.getIdToken()
+            await setToken(token)
+            authState.value = true
+            authInitialized.value = true
+            return auth
         })
     }
 
