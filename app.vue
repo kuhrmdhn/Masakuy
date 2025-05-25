@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import MobileSearchBar from "./components/elements/navbar/MobileSearchBar.vue";
 import Navbar from "./components/elements/navbar/Navbar.vue";
 import AlertProvider from "./components/provider/AlertProvider.vue";
 import { useUserSavedRecipes } from "./utils/store/useUserSavedRecipes";
@@ -33,8 +34,9 @@ useSeoMeta({
 <template>
   <NuxtLayout>
     <Navbar />
-    <NuxtPage :transition="{ name: 'page', mode: 'out-in', appear: true }" />
+    <NuxtPage class="pb-20 lg:pb-0" :transition="{ name: 'page', mode: 'out-in', appear: true }" />
     <AlertProvider />
+    <MobileSearchBar/>
   </NuxtLayout>
 </template>
 

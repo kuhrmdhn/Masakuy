@@ -3,8 +3,9 @@ import { useNavbarStore } from "~/utils/store/useNavbarStore";
 import AuthNav from "./AuthNav.vue";
 import Logo from "./Logo.vue";
 import SearchBar from "./SearchBar.vue";
-import NavItem from "./NavItem.vue";
 import DarkModeToggle from "../dark-mode/DarkModeToggle.vue";
+import PageNav from "./PageNav.vue";
+import ToggleSearchBar from "./ToggleSearchBar.vue";
 
 const navbarStore = useNavbarStore();
 const navbarShow = computed(() => navbarStore.isShow);
@@ -15,37 +16,17 @@ const navbarShow = computed(() => navbarStore.isShow);
     v-if="navbarShow"
     class="h-20 w-full mb-1 flex px-7 justify-between items-center bg-white dark:bg-background border-b-2 sticky top-0 z-9999"
   >
-    <Logo />
-    <nav class="flex w-[70%] justify-between items-center">
-      <NavItem url="/">
-        <h1 class="underline-hover before:bg-primary hover:text-primary duration-500">Beranda</h1>
-      </NavItem>
-      <NavItem url="/new-recipe">
-        <h1 class="underline-hover before:bg-primary hover:text-primary duration-500">Posting Resep</h1>
-      </NavItem>
-      <SearchBar />
-      <AuthNav />
-      <DarkModeToggle/>
+    <div class="w-1/5">
+      <Logo />
+    </div>
+    <nav class="flex w-3/4 justify-end items-center gap-3">
+      <div class="w-full flex justify-center gap-5 items-center border-t-2 fixed bottom-0 left-0 z-10 bg-white dark:bg-background lg:relative">
+        <PageNav />
+        <SearchBar class="hidden lg:block"/>
+        <ToggleSearchBar class="lg:hidden"/>
+        <AuthNav />
+      </div>
+      <DarkModeToggle />
     </nav>
   </header>
 </template>
-
-<style scoped>
-.underline-hover {
-  position: relative;
-  width: fit-content;
-}
-.underline-hover::before {
-  content: "";
-  position: absolute;
-  bottom: -4px;
-  left: 50%;
-  transform: translateX(-50%);
-  height: 2px;
-  width: 0;
-  transition-duration: 500ms;
-}
-.underline-hover:hover::before {
-  width: 50%;
-}
-</style>
