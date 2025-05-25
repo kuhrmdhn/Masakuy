@@ -4,20 +4,29 @@ import { setToken } from "./utils/setToken";
 export const useCurrentUser = () => {
     const { $firebaseAuth } = useNuxtApp()
     const authState = ref(false)
+    const authInitialized = ref(false)
 
     const currentUser = () => {
         onAuthStateChanged($firebaseAuth, async (auth) => {
-            if (!auth) {
-                authState.value = false
-                return null
+            try {
+                if (!auth) {
+                    authState.value = false
+                    return null
+                }
+                const token = await auth.getIdToken()
+                await setToken(token)
+                authState.value = true
+                return auth
+            } catch (err) {
+                console.error("Firebase auth error: ", err);
+            } finally {
+                authInitialized.value = true
             }
-            const token = await auth.getIdToken()
-            await setToken(token)
-            authState.value = true
-            return auth
         })
     }
 
-    currentUser();
-    return { authState }
+    onMounted(() => {
+        currentUser();
+    })
+    return { authState, authInitialized }
 }

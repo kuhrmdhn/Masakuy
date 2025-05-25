@@ -2,7 +2,7 @@
 import RecipeLists from "~/components/template/RecipeLists.vue";
 import type { Recipe } from "~/utils/zod/recipeSchema";
 
-const { data: savedRecipe } = await useAsyncData<{ data: Recipe[] }>(
+const { data: savedRecipe } = await useLazyAsyncData<{ data: Recipe[] }>(
   "user-saved-recipe",
   () => $fetch("/api/user/saved-recipe"),
   { server: false }

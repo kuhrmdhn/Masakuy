@@ -2,19 +2,24 @@
 import Navbar from "./components/elements/navbar/Navbar.vue";
 import AlertProvider from "./components/provider/AlertProvider.vue";
 import { useUserSavedRecipes } from "./utils/store/useUserSavedRecipes";
+
+const { authInitialized } = useCurrentUser();
 const store = useUserSavedRecipes();
 
-const { data: recipesId, status } = await useAsyncData(
+const { data: recipesId } = await useAsyncData(
   "user-saved-recipe-id-lists",
   () => $fetch("/api/user/saved-recipe/recipe-id-list"),
   { server: false, lazy: true }
 );
 
-watchEffect(() => {
-  if (status.value == "success" && recipesId.value) {
-    store.setUserSavedRecipes(recipesId.value.data);
-  }
-});
+watchEffect(
+  () => {
+    if (authInitialized.value && recipesId.value) {
+      store.setUserSavedRecipes(recipesId.value.data);
+    }
+  },
+  { flush: "post" }
+);
 
 useHead({
   titleTemplate: "%s | Masakuy!",
