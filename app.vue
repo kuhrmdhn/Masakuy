@@ -7,16 +7,15 @@ import { useUserSavedRecipes } from "./utils/store/useUserSavedRecipes";
 const { authInitialized } = useCurrentUser();
 const store = useUserSavedRecipes();
 
-const { data: recipesId } = await useAsyncData(
-  "user-saved-recipe-id-lists",
-  () => $fetch("/api/user/saved-recipe/recipe-id-list"),
-  { server: false, lazy: true }
-);
-
 watchEffect(
-  () => {
-    if (authInitialized.value && recipesId.value) {
-      store.setUserSavedRecipes(recipesId.value.data);
+  async () => {
+    if (authInitialized.value) {
+      const { data: recipesId } = await useAsyncData(
+        "user-saved-recipe-id-lists",
+        () => $fetch("/api/user/saved-recipe/recipe-id-list"),
+        { server: false, lazy: true }
+      );
+      store.setUserSavedRecipes(recipesId.value?.data || []);
     }
   },
   { flush: "post" }
@@ -34,9 +33,12 @@ useSeoMeta({
 <template>
   <NuxtLayout>
     <Navbar />
-    <NuxtPage class="pb-20 lg:pb-0" :transition="{ name: 'page', mode: 'out-in', appear: true }" />
+    <NuxtPage
+      class="pb-20 lg:pb-0"
+      :transition="{ name: 'page', mode: 'out-in', appear: true }"
+    />
     <AlertProvider />
-    <MobileSearchBar/>
+    <MobileSearchBar />
   </NuxtLayout>
 </template>
 
