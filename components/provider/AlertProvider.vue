@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useAlertStore } from "~/utils/store/useAlertStore";
-import { Alert, AlertDescription, AlertTitle, type AlertVariants } from "../ui/alert";
+import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
 
 const alert = useAlertStore();
 const alertStyle = computed(() => {

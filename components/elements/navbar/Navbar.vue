@@ -20,7 +20,7 @@ const navbarShow = computed(() => navbarStore.isShow);
       <Logo />
     </div>
     <nav class="flex w-3/4 justify-end items-center gap-3">
-      <div class="w-full flex justify-center lg:justify-end gap-5 items-center border-t-2 fixed bottom-0 left-0 z-10 bg-white dark:bg-background lg:relative">
+      <div class="w-full flex justify-center lg:justify-end gap-5 items-center border-t-2 lg:border-none fixed bottom-0 left-0 z-10 bg-white dark:bg-background lg:relative">
         <PageNav />
         <SearchBar class="hidden lg:block"/>
         <ToggleSearchBar class="lg:hidden"/>

@@ -1,7 +1,6 @@
 import { z } from "zod";
 
-export const uploadRecipeSchema = z.object({
-    authorId: z.string(),
+export const uploadRecipeFormSchema = z.object({
     image: z.string(),
     ingredients: z.array(z.string()),
     serving: z.number(),
@@ -9,8 +8,13 @@ export const uploadRecipeSchema = z.object({
     title: z.string()
 })
 
-export const recipeSchema = uploadRecipeSchema.extend({
-    id: z.string(),
+export const uploadRecipeSchema = uploadRecipeFormSchema.extend({  
+    authorId: z.string()
+})
+
+export const recipeSchema = uploadRecipeFormSchema.extend({
+    id: z.string()
 })
 
 export type Recipe = z.infer<typeof recipeSchema>
+export type UploadRecipeForm = z.infer<typeof uploadRecipeFormSchema>
