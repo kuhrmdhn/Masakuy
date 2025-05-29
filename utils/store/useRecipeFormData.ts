@@ -1,8 +1,8 @@
-import type { UploadRecipeForm } from "../zod/recipeSchema"
+import type { PostRecipe } from "../zod/recipeSchema"
 
 export const useRecipeFormData = defineStore("recipe-form-data", () => {
-    const formData = ref<UploadRecipeForm>()
-    function setFormData(newData: UploadRecipeForm) {
+    const formData = ref<PostRecipe>()
+    function setFormData(newData: PostRecipe) {
         formData.value = newData
     }
 

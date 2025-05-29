@@ -1,21 +1,4 @@
 <script lang="ts" setup>
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-} from "~/components/ui/alert-dialog";
-import { Input } from "~/components/ui/input";
-import { Label } from "~/components/ui/label";
-
 const dialogShow = ref(false);
 const {
   image,

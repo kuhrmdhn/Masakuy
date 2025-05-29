@@ -1,4 +1,4 @@
-import { uploadRecipeSchema } from "~/utils/zod/recipeSchema"
+import { postRecipeSchema } from "~/utils/zod/recipeSchema"
 
 export default defineEventHandler(async (event) => {
     try {
@@ -8,7 +8,7 @@ export default defineEventHandler(async (event) => {
 
         const { uid } = await verifyUserToken()
 
-        const validateRecipeSchema = uploadRecipeSchema.safeParse({ ...recipeData, authorId: uid })
+        const validateRecipeSchema = postRecipeSchema.safeParse({ ...recipeData, authorId: uid })
         if (validateRecipeSchema.error) {
             throw createError({
                 message: validateRecipeSchema.error.message,

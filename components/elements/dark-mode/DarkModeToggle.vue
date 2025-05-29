@@ -1,7 +1,4 @@
 <script setup lang="ts">
-import { Button } from "@/components/ui/button";
-import { Icon } from "@iconify/vue";
-
 const colorMode = useColorMode();
 const toggleList = [
   {
@@ -26,6 +23,6 @@ const toggleList = [
     variant="outline"
     :class="toggle.class"
   >
-    <Icon :icon="toggle.icon" class="h-[1.2rem] w-[1.2rem]" />
+    <Icon :name="toggle.icon" class="h-[1.2rem] w-[1.2rem]" />
   </Button>
 </template>

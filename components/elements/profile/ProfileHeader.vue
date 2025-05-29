@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import Button from "~/components/ui/button/Button.vue";
 import ProfileTabs from "./ProfileTabs.vue";
 import UserAvatar from "./UserAvatar.vue";
 import type { User } from "~/utils/zod/userSchema";

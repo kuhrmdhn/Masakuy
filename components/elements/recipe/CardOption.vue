@@ -20,7 +20,6 @@ const visibleActions = computed(() => {
 
 async function shareRecipe() {
   await navigator.clipboard.writeText("cek");
-  alert("Sudah di copy");
 }
 </script>
 

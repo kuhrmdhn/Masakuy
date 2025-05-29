@@ -1,7 +1,4 @@
 <script lang="ts" setup>
-import Button from "~/components/ui/button/Button.vue";
-import Input from "~/components/ui/input/Input.vue";
-import Textarea from "~/components/ui/textarea/Textarea.vue";
 import RecipeImageInput from "./RecipeImageInput.vue";
 </script>
 

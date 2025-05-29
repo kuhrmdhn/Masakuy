@@ -1,20 +1,16 @@
 import { z } from "zod";
 
-export const uploadRecipeFormSchema = z.object({
+export const postRecipeSchema = z.object({
+    authorId: z.string(),
+    title: z.string().min(1, "Title of recipe at least 1 character"),
+    description: z.string().min(1, "At least 1 character for recipe description").optional(),
+    ingredients: z.array(z.string()).min(1, "Should have min. 1 ingredient"),
+    steps: z.array(z.string()).min(1, "At least have 1 cooking step"),
     image: z.string(),
-    ingredients: z.array(z.string()),
-    serving: z.number(),
-    steps: z.array(z.string()),
-    title: z.string()
+    serving: z.number().min(1, "Minimum serving is 1")
 })
 
-export const uploadRecipeSchema = uploadRecipeFormSchema.extend({  
-    authorId: z.string()
-})
+export const recipeSchema = postRecipeSchema.extend({ id: z.string() })
 
-export const recipeSchema = uploadRecipeFormSchema.extend({
-    id: z.string()
-})
-
+export type PostRecipe = z.infer<typeof postRecipeSchema>
 export type Recipe = z.infer<typeof recipeSchema>
-export type UploadRecipeForm = z.infer<typeof uploadRecipeFormSchema>
