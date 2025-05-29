@@ -1,8 +1,4 @@
 <script setup lang="ts">
-import Avatar from "~/components/ui/avatar/Avatar.vue";
-import AvatarFallback from "~/components/ui/avatar/AvatarFallback.vue";
-import AvatarImage from "~/components/ui/avatar/AvatarImage.vue";
-
 const { data: user } = await useAsyncData(
   "user-photo-profile",
   () => $fetch("/api/user/user-data/photo-profile"),

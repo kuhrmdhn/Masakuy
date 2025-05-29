@@ -1,7 +1,4 @@
 <script lang="ts" setup>
-import Button from "~/components/ui/button/Button.vue";
-import Input from "~/components/ui/input/Input.vue";
-import Label from "~/components/ui/label/Label.vue";
 import { useAlertStore } from "~/utils/store/useAlertStore";
 
 const { signUp } = useRegister();

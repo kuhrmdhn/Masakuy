@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import UserRecipe from "./UserRecipe.vue";
 import UserSavedRecipe from "./UserSavedRecipe.vue";
 

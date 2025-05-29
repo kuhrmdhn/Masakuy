@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import NavItem from "./NavItem.vue";
-import { Icon } from "@iconify/vue";
 
 const pageNavList = [
   {
@@ -26,7 +25,7 @@ const pageNavList = [
       {{ nav.text }}
     </h1>
     <Button variant="ghost" class="lg:hidden">
-      <Icon :icon="nav.icon" class="h-[1.2rem] w-[1.2rem]" />
+      <Icon :name="nav.icon" class="h-[1.2rem] w-[1.2rem]" />
     </Button>
   </NavItem>
 </template>
