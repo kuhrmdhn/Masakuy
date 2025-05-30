@@ -18,15 +18,13 @@ const pageNavList = [
 </script>
 
 <template>
-  <NavItem :title="nav.text" v-for="nav in pageNavList" :url="nav.url">
+  <NavItem :title="nav.text" v-for="nav in pageNavList" :url="nav.url" class="flex justify-center items-center">
     <h1
       class="underline-hover hidden lg:block before:bg-primary hover:text-primary duration-500"
     >
       {{ nav.text }}
     </h1>
-    <Button variant="ghost" class="lg:hidden">
-      <Icon :name="nav.icon" class="h-[1.2rem] w-[1.2rem]" />
-    </Button>
+      <Icon :name="nav.icon" class="text-xl" />
   </NavItem>
 </template>
 

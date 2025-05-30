@@ -9,20 +9,25 @@ const authNavList = [
     url: "/login",
     text: "Masuk",
     style: "bg-primary text-white",
+    icon: "uil:signin"
   },
   {
     id: 2,
     url: "/register",
     text: "Daftar",
     style: "bg-white dark:bg-background text-primary border border-primary",
+    icon: "mdi:register-outline"
   },
 ];
 </script>
 
 <template>
   <div v-if="!user" class="flex gap-5 items-center">
-    <NavItem v-for="nav in authNavList" :key="nav.id" :url="nav.url" :class="nav.style">
-      {{ nav.text }}
+    <NavItem v-for="nav in authNavList" :key="nav.id" :url="nav.url" :class="[nav.style, 'flex justify-center items-center']">
+      <h1 class="hidden lg:block">
+        {{ nav.text }}
+      </h1>
+      <Icon :name="nav.icon" class="text-xl"/>
     </NavItem>
   </div>
   <NavItem v-else url="/profile">

@@ -4,10 +4,12 @@ const isShowSearchBar = useState("is-show-search-bar", () => false)
 function toggleSearchBar() {
     isShowSearchBar.value = !isShowSearchBar.value
 }
+
+const icons = computed(() => isShowSearchBar.value ? 'mingcute:close-fill' : 'ic:twotone-search')
 </script>
 
 <template>
   <Button variant="ghost" @click="toggleSearchBar">
-    <Icon :name="isShowSearchBar ? 'mingcute:close-fill' : 'ic:twotone-search'" class="size-5" />
+    <Icon :name="icons" class="text-xl" />
   </Button>
 </template>
