@@ -13,8 +13,8 @@ const status = computed(() => store.isSavedRecipe(props.recipeData.id));
 const visibleActions = computed(() => {
   return [
     { icon: "mdi:share", onClick: shareRecipe, visible: true },
-    { icon: "prime:bookmark-fill", onClick: unsavedRecipe, visible: status.value },
-    { icon: "prime:bookmark", onClick: saveRecipe, visible: !status.value },
+    { icon: "material-symbols:bookmark-rounded", onClick: unsavedRecipe, visible: status.value },
+    { icon: "material-symbols:bookmark-outline-rounded", onClick: saveRecipe, visible: !status.value },
   ].filter((action) => action.visible);
 });
 
