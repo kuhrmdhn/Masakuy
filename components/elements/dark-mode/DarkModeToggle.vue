@@ -20,9 +20,9 @@ const toggleList = [
   <Button
     v-for="toggle in toggleList"
     @click="colorMode.preference = toggle.preference"
-    variant="outline"
-    :class="toggle.class"
+    variant="ghost"
+    :class="['size-12 flex justify-center items-center', toggle.class]"
   >
-    <Icon :name="toggle.icon" class="h-[1.2rem] w-[1.2rem]" />
+    <Icon :name="toggle.icon" class="text-xl" />
   </Button>
 </template>
