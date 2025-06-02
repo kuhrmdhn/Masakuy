@@ -17,12 +17,23 @@ export default defineEventHandler(async (event) => {
                 cause: "Invalid upload data schema"
             })
         }
+        console.log("UID", uid)
+        console.log("Recipe validated", validateRecipeSchema.data)
+
 
         const userRecipeRef = await db.collection(`users/${uid}/user_recipe`).add({ ...validateRecipeSchema.data })
         await userRecipeRef.update({ id: userRecipeRef.id })
 
         const publicRecipeSnap = await userRecipeRef.get();
         const publicRecipeData = publicRecipeSnap.data();
+        if (!publicRecipeData) {
+            throw createError({
+                statusCode: 500,
+                statusMessage: "Failed to retrieve user recipe after insert",
+                message: "No data found in user recipe snapshot",
+                cause: "Firestore document not found or empty"
+            })
+        }
 
         const publicRecipesRef = await db.collection("public_recipes").add({ ...publicRecipeData })
         await publicRecipesRef.update({ publicId: publicRecipesRef.id })

@@ -8,12 +8,12 @@ const tableHeading = ["Jumlah", "Satuan", "Nama"];
 const inputValueType = { total: 0, unit: "", name: "" };
 const inputData = reactive<typeof inputValueType[]>([]);
 const recipeUtilityInputStore = useRecipeUtilityInput();
-const alertStore = useAlertStore()
+const alertStore = useAlertStore();
 
 watch(
   () => formStore.formData.ingredients,
   (val) => {
-    inputData.splice(0, inputData.length, ...val.map(i => ({ ...i })));
+    inputData.splice(0, inputData.length, ...val);
   },
   { immediate: true }
 );
@@ -35,7 +35,7 @@ function deleteRow(index: number) {
 
 function saveInput() {
   formStore.setFormData({ ingredients: inputData });
-  alertStore.showAlert("Data disimpan", "Data langkah langkah resep disimpan", "success")
+  alertStore.showAlert("Data disimpan", "Data langkah langkah resep disimpan", "success");
 }
 </script>
 
