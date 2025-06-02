@@ -3,28 +3,26 @@ import { useAlertStore } from "~/utils/store/useAlertStore";
 import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
 
 const alert = useAlertStore();
-const alertStyle = computed(() => {
-  return alert.isShow ? "translate-x-0 right-4" : "translate-x-full";
-});
+const alertStyle = computed(() => (alert.isShow ? "right-4" : "-right-full"));
 
 watchEffect(() => {
   if (alert.isShow) {
     setTimeout(() => {
       alert.hideAlert();
-    }, 10000);
+    }, 5000);
   }
 });
 </script>
 
 <template>
-    <Alert
-      :variant="alert.variant"
-      :class="[
-        'fixed top-2 right-0 transition-transform duration-300 ease-in-out z-50',
-        alertStyle,
-      ]"
-    >
-      <AlertTitle>{{ alert.title }}</AlertTitle>
-      <AlertDescription>{{ alert.description }}</AlertDescription>
+  <Alert
+    :variant="alert.variant"
+    :class="['fixed top-2 duration-300 ease-in-out z-[9999]', alertStyle]"
+  >
+    <AlertTitle>{{ alert.title }}</AlertTitle>
+    <AlertDescription>{{ alert.description }}</AlertDescription>
+    <Button variant="ghost" @click="alert.hideAlert" class="p-2 hover:!bg-transparent hover:text-primary">
+      <Icon name="material-symbols:close" />
+    </Button>
   </Alert>
 </template>

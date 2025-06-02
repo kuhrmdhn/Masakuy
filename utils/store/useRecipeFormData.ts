@@ -1,9 +1,30 @@
 import type { PostRecipe } from "../zod/recipeSchema"
 
+type FormData = {
+    title: string,
+    description?: string,
+    authorId: string,
+    image: string,
+    ingredients: { total: number, unit: string, name: string }[],
+    steps: string[],
+    serving: number
+}
+
 export const useRecipeFormData = defineStore("recipe-form-data", () => {
-    const formData = ref<PostRecipe>()
-    function setFormData(newData: PostRecipe) {
-        formData.value = newData
+    const initialFormData: FormData = {
+        title: "",
+        description: "",
+        authorId: "",
+        image: "",
+        ingredients: [],
+        steps: [],
+        serving: 0
+    }
+    const formData = ref<FormData>(initialFormData)
+    function setFormData(newData: Partial<FormData>) {
+        formData.value = { ...formData.value, ...newData }
+        console.log({ newData })
+        localStorage.setItem("recipe-form-data", JSON.stringify({ ...formData.value }))
     }
 
     return { formData, setFormData }

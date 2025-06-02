@@ -1,34 +1,39 @@
+import { ref } from 'vue'
+import { defineStore } from 'pinia'
 import type { AlertVariants } from '~/components/ui/alert'
 
-export const useAlertStore = defineStore('alert', {
-  state: (): {
-    isShow: boolean
-    title: string
-    description: string
-    variant: AlertVariants['variant']
-  } => ({
-    isShow: false,
-    title: '',
-    description: '',
-    variant: 'default',
-  }),
+export const useAlertStore = defineStore('alert', () => {
+  // State
+  const isShow = ref(false)
+  const title = ref('')
+  const description = ref('')
+  const variant = ref<AlertVariants['variant']>('default')
 
-  actions: {
-    showAlert(
-      title: string,
-      description: string,
-      variant: AlertVariants['variant'] = 'default',
-    ) {
-      this.isShow = true
-      this.title = title
-      this.description = description
-      this.variant = variant
-    },
-    hideAlert() {
-      this.isShow = false
-      this.title = ''
-      this.description = ''
-      this.variant = 'default'
-    },
-  },
+  // Actions
+  function showAlert(
+    newTitle: string,
+    newDescription: string,
+    newVariant: AlertVariants['variant'] = 'default'
+  ) {
+    isShow.value = true
+    title.value = newTitle
+    description.value = newDescription
+    variant.value = newVariant
+  }
+
+  function hideAlert() {
+    isShow.value = false
+    title.value = ''
+    description.value = ''
+    variant.value = 'default'
+  }
+
+  return {
+    isShow,
+    title,
+    description,
+    variant,
+    showAlert,
+    hideAlert,
+  }
 })

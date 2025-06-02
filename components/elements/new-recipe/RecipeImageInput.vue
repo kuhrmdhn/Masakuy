@@ -1,5 +1,9 @@
 <script lang="ts" setup>
+import { useRecipeFormData } from '~/utils/store/useRecipeFormData';
+
 const dialogShow = ref(false);
+const formStore = useRecipeFormData();
+
 const {
   image,
   uploadLoadingStatus,
@@ -27,7 +31,7 @@ async function saveImage() {
   <div class="size-64 flex relative gap-3 group">
     <img
       class="aspect-square object-center object-cover"
-      :src="image.previewCard"
+      :src="formStore.formData.image"
       alt="Post recipe image"
     />
     <DropdownMenu>
