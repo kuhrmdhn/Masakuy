@@ -15,7 +15,7 @@ export const useRecipeFormData = defineStore("recipe-form-data", () => {
         title: "",
         description: "",
         authorId: "",
-        image: "",
+        image: "/image/image-default.jpeg",
         ingredients: [],
         steps: [],
         serving: 0
@@ -26,6 +26,9 @@ export const useRecipeFormData = defineStore("recipe-form-data", () => {
         console.log({ newData })
         localStorage.setItem("recipe-form-data", JSON.stringify({ ...formData.value }))
     }
+    function resetFormData() {
+        formData.value = initialFormData
+    }
 
-    return { formData, setFormData }
+    return { formData, setFormData, resetFormData }
 })

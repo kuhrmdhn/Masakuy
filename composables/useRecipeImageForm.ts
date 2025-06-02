@@ -12,7 +12,7 @@ export const useRecipeImageForm = (previewImage: string = "/image/image-default.
     const formStore = useRecipeFormData();
 
     function deleteImage() {
-        image.value = { previewDialog: previewImage, previewCard: previewImage, selectedFile: null }
+        formStore.setFormData({ image: previewImage })
     }
 
     function changeImage(e: Event, callback?: () => void) {
