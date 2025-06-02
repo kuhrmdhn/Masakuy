@@ -1,3 +1,4 @@
+import { useRecipeFormData } from "~/utils/store/useRecipeFormData"
 import { uploadRecipeImage } from "./utils/uploadRecipeImage"
 type Image = {
     selectedFile: null | File,
@@ -8,6 +9,7 @@ type Image = {
 export const useRecipeImageForm = (previewImage: string = "/image/image-default.jpeg") => {
     const image = ref<Image>({ selectedFile: null, previewCard: previewImage, previewDialog: previewImage })
     const uploadLoadingStatus = ref(false)
+    const formStore = useRecipeFormData();
 
     function deleteImage() {
         image.value = { previewDialog: previewImage, previewCard: previewImage, selectedFile: null }
@@ -36,7 +38,7 @@ export const useRecipeImageForm = (previewImage: string = "/image/image-default.
             const file = image.value.selectedFile
             if (file) {
                 const { url } = await uploadRecipeImage(file)
-                image.value.previewCard = url
+                formStore.setFormData({ image: url })
                 callback?.()
             }
         } catch (err) {

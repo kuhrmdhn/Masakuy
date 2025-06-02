@@ -1,17 +1,29 @@
 <script lang="ts" setup>
-import { useRecipeUtilityInput } from '~/utils/store/useRecipeUtilityInput';
+import { useRecipeFormData } from "~/utils/store/useRecipeFormData";
+import { useRecipeUtilityInput } from "~/utils/store/useRecipeUtilityInput";
+import { useAlertStore } from "~/utils/store/useAlertStore";
 
+const formStore = useRecipeFormData();
 const tableHeading = ["Jumlah", "Satuan", "Nama"];
-const inputData = reactive<typeof inputValueType[]>([]);
 const inputValueType = { total: 0, unit: "", name: "" };
-const isSaveButtonEnabled = computed(() => {
-  return inputData.length > 0 && 
-    inputData.every(
-      (input) => input.name !== "" && input.total > 0 && input.unit !== ""
-    );
-});
-const store = useRecipeUtilityInput()
+const inputData = reactive<typeof inputValueType[]>([]);
+const recipeUtilityInputStore = useRecipeUtilityInput();
+const alertStore = useAlertStore()
 
+watch(
+  () => formStore.formData.ingredients,
+  (val) => {
+    inputData.splice(0, inputData.length, ...val.map(i => ({ ...i })));
+  },
+  { immediate: true }
+);
+
+const isSaveButtonEnabled = computed(() => {
+  return (
+    inputData.length > 0 &&
+    inputData.every((input) => input.name !== "" && input.total > 0 && input.unit !== "")
+  );
+});
 
 function addRow() {
   inputData.push({ ...inputValueType });
@@ -22,12 +34,18 @@ function deleteRow(index: number) {
 }
 
 function saveInput() {
-  alert("Saved");
+  formStore.setFormData({ ingredients: inputData });
+  alertStore.showAlert("Data disimpan", "Data langkah langkah resep disimpan", "success")
 }
 </script>
 
 <template>
-  <div :class="['relative h-full w-full overflow-y-auto flex flex-col items-end gap-7 pb-5 duration-500', store.style.ingredientsInput]">
+  <div
+    :class="[
+      'relative h-full w-full overflow-y-auto flex flex-col items-end gap-7 pb-5 duration-500',
+      recipeUtilityInputStore.style.ingredientsInput,
+    ]"
+  >
     <table
       class="w-full border border-gary-300 dark:border-gray-700 h-auto table-fixed text-sm text-left shadow-md rtl:text-right text-gray-500 dark:text-gray-400"
     >
@@ -75,7 +93,12 @@ function saveInput() {
         <Icon name="radix-icons:plus" class="text-xl" />
         Tambah Baris Baru
       </Button>
-      <Button :disabled="!isSaveButtonEnabled" @click="saveInput" type="button" class="w-fit">
+      <Button
+        :disabled="!isSaveButtonEnabled"
+        @click="saveInput"
+        type="button"
+        class="w-fit"
+      >
         <Icon name="mingcute:save-fill" class="text-xl" />
         Simpan
       </Button>
