@@ -28,6 +28,7 @@ export const useRecipeFormData = defineStore("recipe-form-data", () => {
     }
     function resetFormData() {
         formData.value = initialFormData
+        localStorage.removeItem("recipe-form-data")
     }
 
     return { formData, setFormData, resetFormData }

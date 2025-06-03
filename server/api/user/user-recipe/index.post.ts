@@ -17,12 +17,10 @@ export default defineEventHandler(async (event) => {
                 cause: "Invalid upload data schema"
             })
         }
-        console.log("UID", uid)
-        console.log("Recipe validated", validateRecipeSchema.data)
-
 
         const userRecipeRef = await db.collection(`users/${uid}/user_recipe`).add({ ...validateRecipeSchema.data })
-        await userRecipeRef.update({ id: userRecipeRef.id })
+        const recipeId = userRecipeRef.id
+        await userRecipeRef.update({ id: recipeId })
 
         const publicRecipeSnap = await userRecipeRef.get();
         const publicRecipeData = publicRecipeSnap.data();
@@ -35,8 +33,7 @@ export default defineEventHandler(async (event) => {
             })
         }
 
-        const publicRecipesRef = await db.collection("public_recipes").add({ ...publicRecipeData })
-        await publicRecipesRef.update({ publicId: publicRecipesRef.id })
+        await db.collection('public_recipes').doc(recipeId).set({ ...publicRecipeData });
 
         return {
             success: true,
