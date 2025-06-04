@@ -3,7 +3,7 @@ import { z } from "zod";
 export const postRecipeSchema = z.object({
     authorId: z.string(),
     title: z.string().min(1, "Title of recipe at least 1 character"),
-    description: z.string().min(1, "At least 1 character for recipe description").optional(),
+    description: z.string().optional(),
     ingredients: z.array(z.string()).min(1, "Should have min. 1 ingredient"),
     steps: z.array(z.string()).min(1, "At least have 1 cooking step"),
     image: z.string(),

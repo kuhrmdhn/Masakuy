@@ -1,8 +1,10 @@
 <script lang="ts" setup>
-import { useRecipeFormData } from '~/utils/store/useRecipeFormData';
+import { useRecipeFormData } from "~/utils/store/useRecipeFormData";
 
 const dialogShow = ref(false);
+const dialogRef = ref<HTMLElement | null>(null);
 const formStore = useRecipeFormData();
+useClickOutside(dialogRef, () => hideDialog());
 
 const {
   image,
@@ -24,7 +26,6 @@ async function saveImage() {
     await uploadImage(hideDialog);
   }
 }
-
 </script>
 
 <template>
@@ -67,15 +68,19 @@ async function saveImage() {
       </DropdownMenuContent>
     </DropdownMenu>
   </div>
-  <AlertDialog :open="dialogShow">
-    <AlertDialogContent>
-      <img
-        :src="image.previewDialog"
-        alt="Preview Image"
-        class="h-96 mx-auto aspect-square object-center object-cover"
-      />
-      <AlertDialogCancel @click="hideDialog">Batal</AlertDialogCancel>
-      <AlertDialogAction @click="saveImage">Simpan</AlertDialogAction>
-    </AlertDialogContent>
-  </AlertDialog>
+  <div ref="dialogRef">
+    <AlertDialog :open="dialogShow">
+      <AlertDialogContent class="w-fit">
+        <img
+          :src="image.previewDialog"
+          alt="Preview Image"
+          class="h-80 mx-auto aspect-square object-center object-cover"
+        />
+        <div class="flex gap-3 justify-end">
+          <AlertDialogCancel class="w-1/3" @click="hideDialog">Batal</AlertDialogCancel>
+          <AlertDialogAction class="w-1/3" @click="saveImage">Simpan</AlertDialogAction>
+        </div>
+      </AlertDialogContent>
+    </AlertDialog>
+  </div>
 </template>

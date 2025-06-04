@@ -35,7 +35,7 @@ function deleteRow(index: number) {
 
 function saveInput() {
   formStore.setFormData({ ingredients: inputData });
-  alertStore.showAlert("Data disimpan", "Data langkah langkah resep disimpan", "success");
+  alertStore.showAlert("Data disimpan", "Data bahan bahan resep disimpan", "success");
 }
 </script>
 
