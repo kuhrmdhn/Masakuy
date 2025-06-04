@@ -8,6 +8,7 @@ import type { AsyncDataRequestStatus } from "#app";
 defineProps<{
   recipeListsData: Recipe[];
   status?: AsyncDataRequestStatus;
+  isPrivate?: boolean;
 }>();
 </script>
 
@@ -19,7 +20,7 @@ defineProps<{
     class="w-full h-auto grid gap-y-5 grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:block 2xl:columns-[15.5rem] justify-items-center px-3"
   >
     <li v-for="recipe in recipeListsData" :key="recipe.id">
-      <RecipeCard :recipe-data="recipe" />
+      <RecipeCard :is-private :recipe-data="recipe" />
     </li>
   </ul>
 

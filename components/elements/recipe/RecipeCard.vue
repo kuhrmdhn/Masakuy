@@ -3,11 +3,12 @@ import type { Recipe } from "~/utils/zod/recipeSchema";
 import CardBody from "./CardBody.vue";
 import CardImage from "./CardImage.vue";
 import CardOption from "./CardOption.vue";
+import PrivateOptions from "./PrivateOptions.vue";
 
 defineProps<{
   recipeData: Recipe;
+  isPrivate?: boolean;
 }>();
-
 </script>
 
 <template>
@@ -17,7 +18,10 @@ defineProps<{
     <CardImage :src="recipeData.image" :alt="'Recipe image for ' + recipeData.title" />
     <section class="w-2/3 sm:w-full h-full sm:h-1/2 p-3 flex flex-col justify-evenly">
       <CardBody :title="recipeData.title" :authorId="recipeData.authorId" />
-      <CardOption :recipeData />
+      <div class="flex items-center gap-3 justify-end h-12">
+        <CardOption :recipeData />
+        <PrivateOptions v-if="isPrivate" :recipe-id="recipeData.id" />
+      </div>
     </section>
   </div>
 </template>
