@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import RecipeLists from "~/components/template/RecipeLists.vue";
-import LoadingUI from "~/components/ui/loading/LoadingUI.vue";
 import type { Recipe } from "~/utils/zod/recipeSchema";
 
 useSeoMeta({
