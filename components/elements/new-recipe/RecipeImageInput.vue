@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { useRecipeFormData } from "~/utils/store/useRecipeFormData";
+import RecipeImagePreview from "../recipe-page/RecipeImagePreview.vue";
 
 const dialogShow = ref(false);
 const dialogRef = ref<HTMLElement | null>(null);
@@ -29,12 +30,7 @@ async function saveImage() {
 </script>
 
 <template>
-  <div class="size-64 flex relative gap-3 group">
-    <img
-      class="aspect-square object-center object-cover"
-      :src="formStore.formData.image"
-      alt="Post recipe image"
-    />
+  <RecipeImagePreview :src="formStore.formData.image" :alt="formStore.formData.title">
     <DropdownMenu>
       <DropdownMenuTrigger as-child>
         <button
@@ -67,7 +63,7 @@ async function saveImage() {
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
-  </div>
+  </RecipeImagePreview>
   <div ref="dialogRef">
     <AlertDialog :open="dialogShow">
       <AlertDialogContent class="w-fit">

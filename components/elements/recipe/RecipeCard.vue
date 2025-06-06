@@ -5,14 +5,17 @@ import CardImage from "./CardImage.vue";
 import CardOption from "./CardOption.vue";
 import PrivateOptions from "./PrivateOptions.vue";
 
-defineProps<{
+const props = defineProps<{
   recipeData: Recipe;
   isPrivate?: boolean;
 }>();
+
+const recipeUrl = `/recipe/${props.recipeData.id}`;
 </script>
 
 <template>
-  <div
+  <NuxtLink
+    :href="recipeUrl"
     class="w-full md:w-56 lg:w-62 h-38 xs:h-44 sm:h-80 lg:h-84 flex sm:flex-col mb-1.5 rounded-xl overflow-hidden shadow-md bg-white dark:bg-background border border-gray-200 dark:border-gray-600"
   >
     <CardImage :src="recipeData.image" :alt="'Recipe image for ' + recipeData.title" />
@@ -23,7 +26,7 @@ defineProps<{
         <PrivateOptions v-if="isPrivate" :recipe-id="recipeData.id" />
       </div>
     </section>
-  </div>
+  </NuxtLink>
 </template>
 
 <style scoped>
