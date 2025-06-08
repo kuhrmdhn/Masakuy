@@ -5,10 +5,6 @@ import LoginImage from "../../components/elements/auth/LoginImage.vue";
 useSeoMeta({
   title: "Masuk"
 })
-
-definePageMeta({
-  middleware: "auth"
-})
 </script>
 
 <template>
