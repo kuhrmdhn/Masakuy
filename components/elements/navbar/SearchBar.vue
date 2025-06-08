@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 const keyword = ref("");
 const router = useRouter();
-const route = useRoute();
 
 function searchRecipe() {
   router.push(`/search?title=${keyword.value}`);

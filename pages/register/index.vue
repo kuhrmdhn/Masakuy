@@ -6,9 +6,6 @@ useSeoMeta({
   title: "Daftar"
 })
 
-definePageMeta({
-  middleware: "auth",
-});
 </script>
 
 <template>
