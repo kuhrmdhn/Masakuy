@@ -6,7 +6,7 @@ export const useLogOut = () => {
         const { $firebaseAuth } = useNuxtApp()
         deleteToken()
         await signOut($firebaseAuth)
-        navigateTo("/")
+        return await navigateTo("/")
     }
     return { logOut }
 }

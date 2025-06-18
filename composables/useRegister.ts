@@ -19,7 +19,7 @@ export const useRegister = () => {
 
             await createUserDoc(registerData, user.uid)
             alert.showAlert("Selamat Datang!", "Akun kamu sukses didaftarkan", "success")
-            await navigateTo("/")
+            return await navigateTo("/")
         } catch (err) {
             const error = err as Error
             console.error(error);
