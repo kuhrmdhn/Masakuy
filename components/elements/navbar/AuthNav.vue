@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import UserAvatar from "../profile/UserAvatar.vue";
 import NavItem from "./NavItem.vue";
-const { authState } = useCurrentUser();
+const authState = useState("auth-state");
 const user = computed(() => authState.value);
 const authNavList = [
   {

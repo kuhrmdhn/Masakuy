@@ -9,13 +9,13 @@ export const useLogin = () => {
         try {
             const { $firebaseAuth } = useNuxtApp()
             const { email, password } = signInData
-
             if (!validateLoginInput(email, password)) return
 
             await signInWithEmailAndPassword($firebaseAuth, email, password)
             alert.showAlert("Hai!", "Selamat datang kembali!", "success")
-            await navigateTo("/")
             refreshNuxtData()
+            console.log("navigated")
+            return await navigateTo("/")
         } catch (err) {
             const error = err as Error
             console.error(error);
