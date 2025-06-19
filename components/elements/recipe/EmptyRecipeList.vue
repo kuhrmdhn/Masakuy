@@ -1,4 +1,5 @@
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+</script>
 
 <template>
   <div class="min-h-4/5 w-full flex flex-col justify-center items-center">
