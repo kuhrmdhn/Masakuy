@@ -5,12 +5,7 @@ export default defineEventHandler(async (event) => {
 
         const { uid } = await verifyUserToken()
         const snapshot = await db.collection(`users/${uid}/user_recipe`).get()
-        if (snapshot.empty) {
-            throw createError({
-                status: 404,
-                message: "User document is not found"
-            })
-        }
+
         const data = snapshot.docs.map((e) => e.data())
         const userRecipeData = data
         return {

@@ -12,8 +12,7 @@ const { data: recipes, status } = await useLazyAsyncData<{ data: Recipe[] }>(
 <template>
   <RecipeLists
     :is-private="true"
-    v-if="recipes"
-    :recipe-lists-data="recipes.data"
+    :recipe-lists-data="recipes?.data || []"
     :status
   />
 </template>
