@@ -11,5 +11,5 @@ const { data: savedRecipe } = await useLazyAsyncData<{ data: Recipe[] }>(
 </script>
 
 <template>
-  <RecipeLists :recipe-lists-data="savedRecipe?.data || []" />
+  <RecipeLists :recipe-lists-data="savedRecipe?.data" />
 </template>
