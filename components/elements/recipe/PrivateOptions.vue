@@ -12,6 +12,10 @@ function showDialog() {
 function hideDialog() {
   dialogShow.value = false;
 }
+
+function editRecipeNavigation(){
+  navigateTo(`/profile/edit/${props.recipeId}`)
+}
 </script>
 
 <template>
@@ -22,7 +26,7 @@ function hideDialog() {
       </Button>
     </DropdownMenuTrigger>
     <DropdownMenuContent side="top" class="mb-3 flex flex-col gap-2 py-2">
-      <DropdownMenuItem>
+      <DropdownMenuItem @click="editRecipeNavigation">
         <Icon name="radix-icons:pencil-1" class="text-lg" />
         Edit
       </DropdownMenuItem>
