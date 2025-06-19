@@ -1,9 +1,15 @@
 <script lang="ts" setup>
 const keyword = ref("");
 const router = useRouter();
+const isShowSearchBar = useState("is-show-search-bar");
+
+function hideSearchBar() {
+  isShowSearchBar.value = false;
+}
 
 function searchRecipe() {
   router.push(`/search?title=${keyword.value}`);
+  hideSearchBar();
 }
 </script>
 
