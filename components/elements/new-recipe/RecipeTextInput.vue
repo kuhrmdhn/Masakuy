@@ -46,6 +46,7 @@ const inputTextData: InputMeta[] = [
   <component
     v-for="input in inputTextData"
     :key="input.key"
+    :id="input.key"
     :is="input.component"
     :type="input.type"
     :required="input.required"
@@ -53,5 +54,6 @@ const inputTextData: InputMeta[] = [
     :min="input.min"
     :model-value="formStore.formData[input.key]"
     @update:model-value="(value:string | number) => updateFormData(input.key, value)"
+    class="group"
   />
 </template>

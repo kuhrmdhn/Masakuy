@@ -1,6 +1,4 @@
-import type { PostRecipe } from "../zod/recipeSchema"
-
-type FormData = {
+export type FormData = {
     title: string,
     description?: string,
     authorId: string,

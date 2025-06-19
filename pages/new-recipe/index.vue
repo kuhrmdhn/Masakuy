@@ -5,12 +5,18 @@ import RecipeStepsInput from "~/components/elements/new-recipe/RecipeStepsInput.
 import { useRecipeFormData } from "~/utils/store/useRecipeFormData";
 
 const recipeFormStore = useRecipeFormData()
+const { uploadUserRecipe } = useUploadNewRecipe();
+
 onMounted(() => {
   const savedFormData = localStorage.getItem("recipe-form-data")
   if(savedFormData) {
     recipeFormStore.setFormData(JSON.parse(savedFormData))
   }
 })
+
+async function uploadRecipe() {
+  await uploadUserRecipe();
+}
 
 useSeoMeta({
   title: "New Post",
@@ -19,7 +25,7 @@ useSeoMeta({
 
 <template>
   <section class="w-full min-h-[80dvh] flex justify-around pt-5">
-    <RecipeForm />
+    <RecipeForm :handle-submit="uploadRecipe"/>
     <div class="flex relative w-3/5 overflow-hidden">
       <RecipeIngredientsInput />
       <RecipeStepsInput />
