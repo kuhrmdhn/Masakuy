@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { useRecipeFormData } from "~/utils/store/useRecipeFormData";
-import RecipeImagePreview from "../recipe-page/RecipeImagePreview.vue";
+import RecipeImagePreview from "./RecipeImagePreview.vue";
 import LoadingUI from "~/components/ui/loading/LoadingUI.vue";
 
 const dialogShow = ref(false);
