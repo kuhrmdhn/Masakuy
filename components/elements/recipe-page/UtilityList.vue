@@ -7,7 +7,7 @@ defineProps<{
 </script>
 
 <template>
-  <div>
+  <div class="w-full">
     <h3 class="text-xl font-bold mb-4 flex items-center">
       <Icon :name="icon" class="text-primary mr-2" />
       {{ title }}

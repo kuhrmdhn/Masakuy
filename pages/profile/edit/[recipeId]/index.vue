@@ -23,6 +23,9 @@ watch(
   () => recipe.value?.data,
   (newData) => {
     if (newData) {
+      useSeoMeta({
+        title: `Edit ${newData.title || "Recipe"}`,
+      });
       const ingredients = newData.ingredients.map((ingredient: string) => {
         const data = ingredient.split(" ");
         return { total: parseInt(data[0]), unit: data[1], name: data.slice(2).join(" ") };
@@ -33,8 +36,8 @@ watch(
 );
 
 async function editRecipe() {
-  await editUserRecipe()
-  navigateTo("/profile")
+  await editUserRecipe();
+  navigateTo("/profile");
 }
 </script>
 

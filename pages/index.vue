@@ -19,14 +19,10 @@ const { data: publicRecipes, status } = useAsyncData<RecipeResponse>(
     server: false,
   }
 );
-
 </script>
 
 <template>
   <div class="px-1">
-    <RecipeLists
-      :status
-      :recipe-lists-data="publicRecipes?.data || []"
-    />
+    <RecipeLists :status :recipe-lists-data="publicRecipes?.data || []" />
   </div>
 </template>
