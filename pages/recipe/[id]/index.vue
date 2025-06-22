@@ -1,12 +1,12 @@
 <script lang="ts" setup>
-import Heading from "~/components/elements/recipe-page/Heading.vue";
-import RecipeImagePreview from "~/components/elements/recipe-page/RecipeImagePreview.vue";
+import RecipeDescription from "~/components/elements/recipe-page/RecipeDescription.vue";
+import RecipeImage from "~/components/elements/recipe-page/RecipeImage.vue";
+import RecipeTitleAndAuthor from "~/components/elements/recipe-page/RecipeTitleAndAuthor.vue";
 import UtilityList from "~/components/elements/recipe-page/UtilityList.vue";
 import type { Recipe } from "~/utils/zod/recipeSchema";
 
 const route = useRoute();
 const recipeId = route.params.id;
-
 const { data: recipe } = await useLazyAsyncData<{ data: Recipe }>(
   "recipe-by-id",
   () => $fetch(`/api/recipe/${recipeId}`),
@@ -14,8 +14,7 @@ const { data: recipe } = await useLazyAsyncData<{ data: Recipe }>(
     server: false,
   }
 );
-
-const recipeTitle = computed(() => recipe.value?.data.title)
+const recipeTitle = computed(() => recipe.value?.data.title);
 
 useSeoMeta({
   title: recipeTitle,
@@ -23,14 +22,57 @@ useSeoMeta({
 </script>
 
 <template>
-  <div v-if="recipe?.data" class="p-5 flex flex-col gap-5">
-    <section class="flex justify-center gap-7">
-      <RecipeImagePreview :src="recipe.data.image" :alt="recipe.data.title" />
-      <Heading :recipe="recipe.data" />
-    </section>
-    <section class="flex gap-10 justify-center">
-      <UtilityList class="w-1/3" title="Bahan Bahan" :utils="recipe.data.ingredients" />
-      <UtilityList class="w-1/3" title="Langkah Langkah" :utils="recipe.data.steps" />
-    </section>
+  <div class="h-[calc(100dvh-6rem)] font-sans p-4 w-full dark:text-slate-300" v-if="recipe">
+    <div class="bg-background h-full overflow-hidden w-5/6 mx-auto flex gap-7">
+      <div>
+        <RecipeImage :image="recipe.data.image" :title="recipe.data.title" />
+      </div>
+      <div class="p-6 md:p-8 w-2/3 h-full overflow-y-auto">
+        <RecipeTitleAndAuthor
+          :title="recipe.data.title"
+          :author-id="recipe.data.authorId"
+        />
+        <RecipeDescription :description="recipe.data.description" />
+        <ActionButtons />
+        <div class="flex flex-col gap-8">
+          <UtilityList
+            icon="hugeicons:serving-food"
+            title="Bahan-Bahan"
+            :utils="recipe.data.ingredients"
+          />
+          <UtilityList
+            icon="bi:bar-chart-steps"
+            title="Waktu Persiapan"
+            :utils="recipe.data.steps"
+          />
+        </div>
+      </div>
+    </div>
   </div>
 </template>
+
+<style scoped>
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-dark);
+}
+
+@supports (scrollbar-color: auto) {
+  * {
+    scrollbar-color: var(--primary) transparent;
+    scrollbar-width: thin;
+  }
+}
+</style>
