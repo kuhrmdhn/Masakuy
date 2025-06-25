@@ -3,6 +3,7 @@ import RecipeDescription from "~/components/elements/recipe-page/RecipeDescripti
 import RecipeImage from "~/components/elements/recipe-page/RecipeImage.vue";
 import RecipeTitleAndAuthor from "~/components/elements/recipe-page/RecipeTitleAndAuthor.vue";
 import UtilityList from "~/components/elements/recipe-page/UtilityList.vue";
+import ActionButton from "~/components/elements/recipe-page/ActionButton.vue";
 import type { Recipe } from "~/utils/zod/recipeSchema";
 
 const route = useRoute();
@@ -38,7 +39,7 @@ useSeoMeta({
           :author-id="recipe.data.authorId"
         />
         <RecipeDescription :description="recipe.data.description" />
-        <ActionButtons />
+        <ActionButton :recipe="recipe.data" />
         <div class="flex flex-col gap-8 w-full">
           <UtilityList
             icon="hugeicons:serving-food"
@@ -47,7 +48,7 @@ useSeoMeta({
           />
           <UtilityList
             icon="bi:bar-chart-steps"
-            title="Waktu Persiapan"
+            title="Langkah Pembuatan"
             :utils="recipe.data.steps"
           />
         </div>
