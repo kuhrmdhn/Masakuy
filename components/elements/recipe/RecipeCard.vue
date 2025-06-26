@@ -9,7 +9,6 @@ const props = defineProps<{
   recipeData: Recipe;
   isPrivate?: boolean;
 }>();
-
 const recipeUrl = `/recipe/${props.recipeData.id}`;
 </script>
 
@@ -20,7 +19,11 @@ const recipeUrl = `/recipe/${props.recipeData.id}`;
   >
     <CardImage :src="recipeData.image" :alt="'Recipe image for ' + recipeData.title" />
     <section class="w-2/3 sm:w-full h-full sm:h-1/2 p-3 flex flex-col justify-evenly">
-      <CardBody :title="recipeData.title" :authorId="recipeData.authorId" />
+      <CardBody
+        :title="recipeData.title"
+        :authorId="recipeData.authorId"
+        :description="recipeData.description"
+      />
       <div class="flex items-center gap-3 justify-end h-12">
         <CardOption :recipe="recipeData" />
         <PrivateOptions v-if="isPrivate" :recipe-id="recipeData.id" />

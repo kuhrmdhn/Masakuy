@@ -13,15 +13,15 @@ function hideDialog() {
   dialogShow.value = false;
 }
 
-function editRecipeNavigation(){
-  navigateTo(`/profile/edit/${props.recipeId}`)
+function editRecipeNavigation() {
+  navigateTo(`/profile/edit/${props.recipeId}`);
 }
 </script>
 
 <template>
   <DropdownMenu>
     <DropdownMenuTrigger as-child>
-      <Button class="size-fit px-1" variant="ghost">
+      <Button class="size-fit px-1 text-primary" variant="ghost">
         <Icon name="tabler:dots" class="text-xl" />
       </Button>
     </DropdownMenuTrigger>

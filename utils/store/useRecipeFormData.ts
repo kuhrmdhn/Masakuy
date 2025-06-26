@@ -21,7 +21,6 @@ export const useRecipeFormData = defineStore("recipe-form-data", () => {
     const formData = ref<FormData>(initialFormData)
     function setFormData(newData: Partial<FormData>) {
         formData.value = { ...formData.value, ...newData }
-        console.log({ newData })
         localStorage.setItem("recipe-form-data", JSON.stringify({ ...formData.value }))
     }
     function resetFormData() {

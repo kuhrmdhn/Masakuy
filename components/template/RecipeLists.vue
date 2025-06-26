@@ -5,7 +5,7 @@ import EmptyRecipeList from "../elements/recipe/EmptyRecipeList.vue";
 import LoadingUI from "../ui/loading/LoadingUI.vue";
 import type { AsyncDataRequestStatus } from "#app";
 
-defineProps<{
+const props = defineProps<{
   recipeListsData: Recipe[];
   status?: AsyncDataRequestStatus;
   isPrivate?: boolean;

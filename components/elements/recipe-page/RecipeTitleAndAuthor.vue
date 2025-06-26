@@ -5,19 +5,19 @@ const props = defineProps<{
 }>();
 
 const { data: author } = await useLazyAsyncData<{ data: string }>(
-  "recipe-page-author",
-  () => $fetch(`/api/recipe/author/${props.authorId}`)
+  `recipe-author-${props.authorId}`,
+  () => $fetch(`/api/recipe/author/${props.authorId}`, { method: "GET" })
 );
 
 const authorName = computed(() => author.value?.data || "Anonymous Author");
 </script>
 
 <template>
-  <div class="mb-6">
-    <h2 class="text-2xl md:text-3xl font-bold mb-2">{{ title }}</h2>
-    <div class="flex items-center">
-      <Icon name="mdi:account" class="mr-2 text-xl" />
-      <span>{{ authorName}}</span>
+  <div>
+    <h2 class="text-2xl md:text-base font-bold mb-2">{{ title }}</h2>
+    <div class="flex items-center text-xs">
+      <Icon name="mdi:account" class="mr-2 text-sm" />
+      <span>{{ authorName }}</span>
     </div>
   </div>
 </template>

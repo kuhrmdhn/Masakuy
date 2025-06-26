@@ -14,7 +14,6 @@ export const useLogin = () => {
             await signInWithEmailAndPassword($firebaseAuth, email, password)
             alert.showAlert("Hai!", "Selamat datang kembali!", "success")
             refreshNuxtData()
-            console.log("navigated")
             return await navigateTo("/")
         } catch (err) {
             const error = err as Error

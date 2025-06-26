@@ -10,8 +10,7 @@ export default defineEventHandler(async (event) => {
                 cause: "Missing author id in params"
             })
         }
-        const authorId= param.authorId
-
+        const authorId = param.authorId
         if (!authorId) {
             throw createError({
                 statusCode: 400,
@@ -41,11 +40,10 @@ export default defineEventHandler(async (event) => {
             })
         }
 
-        const { username } = author
         return {
             success: true,
             message: "Success get recipe author username",
-            data: username
+            data: author.username
         }
     } catch (err: any) {
         const { message, cause } = err as Error

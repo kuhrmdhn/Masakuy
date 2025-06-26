@@ -10,7 +10,6 @@ const store = useUserSavedRecipes();
 watchEffect(async () => {
   if (authInitialized.value) {
     const { data: recipesId } = await $fetch("/api/user/saved-recipe/recipe-id-list");
-    console.log({ recipesId });
     store.setUserSavedRecipes(recipesId);
   }
 });
