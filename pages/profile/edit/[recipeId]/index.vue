@@ -8,7 +8,6 @@ import type { Recipe } from "~/utils/zod/recipeSchema";
 const route = useRoute();
 const recipeId = route.params.recipeId;
 const recipeFormDataStore = useRecipeFormData();
-
 const { data: recipe, pending } = await useLazyAsyncData<{ data: Recipe }>(
   "user-recipe-by-id",
   () => $fetch(`/api/recipe/${recipeId}`),

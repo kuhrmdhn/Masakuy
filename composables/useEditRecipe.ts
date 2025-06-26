@@ -8,7 +8,7 @@ export const useEditRecipe = () => {
     async function editUserRecipe() {
         try {
             const ingredients = formStore.formData.ingredients.map((e) => `${e.total} ${e.unit} ${e.name}`)
-            const { success } = await $fetch("/api/user/user-recipe", { method: "PUT", body: { recipeData: { ...formStore.formData, ingredients } } })
+            const { success } = await $fetch("/api/user/user-recipe", { method: "PATCH", body: { recipeData: { ...formStore.formData, ingredients } } })
             if (success) {
                 alertStore.showAlert("Sukses!", "Resep telah diedit", "success")
                 formStore.resetFormData()
