@@ -32,9 +32,9 @@ async function saveImage() {
 
 <template>
   <div class="relative flex justify-center items-center">
-  <span v-if="uploadLoadingStatus" class="h-full w-full absolute z-40">
-    <LoadingUI class="!size-full"/>
-  </span>
+    <span v-if="uploadLoadingStatus" class="h-full w-full absolute z-40">
+      <LoadingUI class="!size-full" />
+    </span>
     <RecipeImagePreview :src="formStore.formData.image" :alt="formStore.formData.title">
       <DropdownMenu>
         <DropdownMenuTrigger as-child>

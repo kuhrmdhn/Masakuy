@@ -14,7 +14,7 @@ function hideDialog() {
 }
 
 function editRecipeNavigation() {
-  navigateTo(`/profile/edit/${props.recipeId}`);
+  navigateTo(`/profile/recipe/${props.recipeId}`);
 }
 </script>
 
