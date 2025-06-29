@@ -19,6 +19,7 @@ const recipeData = computed(() => recipe.value?.data);
 
 useSeoMeta({
   title: recipeData.value?.title || "Recipe Page",
+  ogImage: recipeData.value?.image,
 });
 </script>
 

@@ -3,6 +3,7 @@ import MobileSearchBar from "./components/elements/navbar/MobileSearchBar.vue";
 import Navbar from "./components/elements/navbar/Navbar.vue";
 import AlertProvider from "./components/provider/AlertProvider.vue";
 import { useUserSavedRecipes } from "./utils/store/useUserSavedRecipes";
+import { useUserData } from "~/utils/store/useUserData";
 
 const { authInitialized } = useCurrentUser();
 const store = useUserSavedRecipes();
@@ -12,6 +13,13 @@ watchEffect(async () => {
     const { data: recipesId } = await $fetch("/api/user/saved-recipe/recipe-id-list");
     store.setUserSavedRecipes(recipesId);
   }
+});
+
+const userDataStore = useUserData();
+const { initializeUserData } = userDataStore;
+
+onMounted(async () => {
+  await initializeUserData();
 });
 
 useHead({
