@@ -1,16 +1,18 @@
-import type { User } from "../zod/userSchema"
+import type { User } from "../zod/userSchema";
 
 export const useUserData = defineStore("user-data", () => {
-    const userData = ref<User | null>(null)
+    const userData = ref<User | null>(null);
+
     const setUserData = (data: User) => {
-        return userData.value = data
-    }
+        userData.value = data;
+    };
+
     const initializeUserData = async () => {
-        const { data } = await $fetch<{data: User}>("/api/user/user-data")
-        if (data) {
-            return userData.value = data;
+        const response = await $fetch<{ data: User }>("/api/user/user-data");
+        if (response?.data) {
+            setUserData(response.data);
         }
     };
 
-    return { userData, setUserData, initializeUserData }
-})
+    return { userData, setUserData, initializeUserData };
+});

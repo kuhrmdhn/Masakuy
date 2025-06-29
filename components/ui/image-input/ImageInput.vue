@@ -1,8 +1,10 @@
 <script lang="ts" setup>
 const props = defineProps<{
   initialImage: string;
-  saveImageInput: (image: string) => void;
+  saveImageInput: (image: File) => void;
 }>();
+
+const uploadImage = ref<null | File>(null);
 const imageInput = ref();
 const dialogShow = ref(false);
 
@@ -17,12 +19,14 @@ function changeImage(e: Event) {
   const target = e.target as HTMLInputElement;
   const { files } = target;
   if (!files) return;
+  uploadImage.value = files[0];
   imageInput.value = URL.createObjectURL(files[0]);
   showDialog();
 }
 
 function saveImage() {
-  props.saveImageInput(imageInput.value);
+  if (!uploadImage.value) return;
+  props.saveImageInput(uploadImage.value);
   hideDialog();
 }
 </script>
