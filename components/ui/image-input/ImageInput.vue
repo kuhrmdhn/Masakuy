@@ -33,7 +33,11 @@ function saveImage() {
 
 <template>
   <div class="relative size-56">
-    <img class="size-full absolute top-0 -z-10" :src="initialImage" alt="Ei" />
+    <img
+      class="size-full absolute top-0 -z-10 rounded-full"
+      :src="initialImage"
+      alt="Ei"
+    />
     <div class="size-full group flex justify-center items-center">
       <DropdownMenu>
         <DropdownMenuTrigger as-child>
