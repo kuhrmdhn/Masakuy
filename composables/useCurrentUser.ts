@@ -1,6 +1,7 @@
 import { onAuthStateChanged } from "firebase/auth";
 import { setToken } from "./utils/setToken";
 import { useUserUIDStore } from "~/utils/store/useUserUIDStore";
+import { useUserData } from "~/utils/store/useUserData";
 
 export const useCurrentUser = () => {
     const { $firebaseAuth } = useNuxtApp()
@@ -10,6 +11,8 @@ export const useCurrentUser = () => {
     const route = useRoute()
     const unProtectPage = route.path === "/login" || route.path === "/register" || route.path === "/"
     let unsubscribe: (() => void) | null = null
+    const userDataStore = useUserData();
+    const { initializeUserData } = userDataStore;
 
     const currentUser = () => {
         unsubscribe = onAuthStateChanged($firebaseAuth, async (auth) => {
@@ -36,6 +39,7 @@ export const useCurrentUser = () => {
 
     onMounted(() => {
         currentUser();
+        initializeUserData();
     })
 
     onUnmounted(() => {
