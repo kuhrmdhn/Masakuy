@@ -1,5 +1,5 @@
 import { useRecipeFormData } from "~/utils/store/useRecipeFormData"
-import { uploadRecipeImage } from "./utils/uploadRecipeImage"
+import { uploadFileToUserStorage } from "./utils/uploadFileToUserStorage"
 type Image = {
     selectedFile: null | File,
     previewCard: string,
@@ -37,7 +37,7 @@ export const useRecipeImageForm = (previewImage: string = "/image/image-default.
             uploadLoadingStatus.value = true
             const file = image.value.selectedFile
             if (file) {
-                const { url } = await uploadRecipeImage(file)
+                const { url } = await uploadFileToUserStorage(file, "recipe-image")
                 formStore.setFormData({ image: url })
                 callback?.()
             }

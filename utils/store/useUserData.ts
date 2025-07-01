@@ -10,8 +10,8 @@ export const useUserData = defineStore("user-data", () => {
     const initializeUserData = async () => {
         const response = await $fetch<{ data: User }>("/api/user/user-data");
         if (response?.data) {
-            setUserData(response.data);
             console.log(response.data)
+            setUserData(response.data);
         }
     };
 
