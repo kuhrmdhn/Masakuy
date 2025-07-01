@@ -27,6 +27,7 @@ export const useCurrentUser = () => {
             const token = await auth.getIdToken()
             const uid = auth.uid
             await setToken(token)
+            await initializeUserData();
 
             userUIDStore.setUserUID(uid)
             authState.value = true
@@ -39,7 +40,6 @@ export const useCurrentUser = () => {
 
     onMounted(() => {
         currentUser();
-        initializeUserData();
     })
 
     onUnmounted(() => {
