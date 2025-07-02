@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { SignInData } from "~/utils/zod/authSchema";
 
-const { signIn } = useLogin();
+const { logIn } = useAuth();
 const loginFormFields = [
   {
     id: "loginEmailInput",
@@ -24,7 +24,7 @@ loginFormFields.forEach((field) => {
   loginFormData[field.key] = "";
 });
 async function handleUserLogin() {
-  await signIn(loginFormData as SignInData);
+  await logIn(loginFormData as SignInData);
 }
 </script>
 
@@ -55,7 +55,10 @@ async function handleUserLogin() {
     </section>
     <div class="flex flex-col gap-5 items-center">
       <Button class="w-full" type="submit">Masuk</Button>
-      <p>Belum memiliki akun? <NuxtLink class="underline text-primary" href="/register">Daftar</NuxtLink></p>
+      <p>
+        Belum memiliki akun?
+        <NuxtLink class="underline text-primary" href="/register">Daftar</NuxtLink>
+      </p>
     </div>
   </form>
 </template>

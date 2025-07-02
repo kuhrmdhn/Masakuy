@@ -9,11 +9,7 @@ export default defineEventHandler(async (event) => {
             })
         }
 
-        const id = param.id
-        const token = getCookie(event, "firebase_access_token")
-        const { verifyToken } = useToken(event)
-        await verifyToken(token)
-        
+        const id = param.id        
         const { db } = useDb(event)
         const recipeData = await db.doc(`public_recipes/${id}`).get()
 

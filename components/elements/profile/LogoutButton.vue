@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-const { logOut } = useLogOut();
+const { logOut } = useAuth();
 
 async function handleLogout() {
   try {
