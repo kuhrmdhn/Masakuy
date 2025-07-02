@@ -3,13 +3,11 @@ import { defineStore } from 'pinia'
 import type { AlertVariants } from '~/components/ui/alert'
 
 export const useAlertStore = defineStore('alert', () => {
-  // State
   const isShow = ref(false)
   const title = ref('')
   const description = ref('')
   const variant = ref<AlertVariants['variant']>('default')
 
-  // Actions
   function showAlert(
     newTitle: string,
     newDescription: string,

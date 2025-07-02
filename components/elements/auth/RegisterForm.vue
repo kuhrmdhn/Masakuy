@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { useAlertStore } from "~/utils/store/useAlertStore";
 
-const { signUp } = useRegister();
+const { register } = useAuth();
 const { showAlert } = useAlertStore();
 const registerFormFields = [
   {
@@ -50,7 +50,7 @@ async function handleRegisterUser() {
     return;
   }
   const registerData = { email, password, username };
-  await signUp(registerData);
+  await register(registerData);
 }
 </script>
 

@@ -9,7 +9,7 @@ const store = useUserSavedRecipes();
 
 watchEffect(async () => {
   if (authInitialized.value) {
-    const { data: recipesId } = await $fetch("/api/user/saved-recipe/recipe-id-list");
+    const { data: recipesId } = await $fetch("/api/user/saved-recipe/id-list");
     store.setUserSavedRecipes(recipesId);
   }
 });
