@@ -7,7 +7,7 @@ export const useCurrentUser = () => {
     const authState = useState("auth-state", () => false)
     const authInitialized = ref(false)
     const route = useRoute()
-    const unProtectPage = route.path === "/login" || route.path === "/register" || route.path === "/" || route.path.startsWith("/recipe")
+    const protectedPage = route.path.startsWith("/profile") || route.path.startsWith("/new-recipe")
     let unsubscribe: (() => void) | null = null
     const userDataStore = useUserData();
     const { initializeUserData } = userDataStore;
@@ -17,7 +17,7 @@ export const useCurrentUser = () => {
             if (!auth) {
                 authState.value = false
                 authInitialized.value = true
-                if (!unProtectPage) {
+                if (protectedPage) {
                     return navigateTo("/login")
                 }
                 return null
@@ -28,9 +28,6 @@ export const useCurrentUser = () => {
 
             authState.value = true
             authInitialized.value = true
-            if (unProtectPage) {
-                return navigateTo("/")
-            }
         })
     }
 
