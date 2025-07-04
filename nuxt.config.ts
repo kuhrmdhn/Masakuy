@@ -24,6 +24,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
     privateKey: process.env.FIREBASE_PRIVATE_KEY,
+    projectId: process.env.FIREBASE_PROJECT_ID,
     public: {
       apiKey: process.env.FIREBASE_API_KEY,
       authDomain: process.env.FIREBASE_AUTH_DOMAIN,
@@ -31,7 +32,6 @@ export default defineNuxtConfig({
       appId: process.env.FIREBASE_APP_ID,
       measurementId: process.env.FIREBASE_MEASUREMENT_ID,
       storage: process.env.FIREBASE_STORAGE_BUCKET,
-      projectId: process.env.FIREBASE_PROJECT_ID
     }
   }
 })

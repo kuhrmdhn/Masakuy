@@ -10,21 +10,21 @@ export default defineNitroPlugin((nitroApp) => {
   if (!getApps().length) {
     app = initializeApp({
       credential: cert({
-        projectId: config.public.projectId,
+        projectId: config.projectId,
         clientEmail: config.clientEmail,
-        privateKey: config.privateKey?.replace(/\\n/g, '\n'),
+        privateKey: config.privateKey.replace(/\\n/g, '\n'),
       }),
       projectId: process.env.FIREBASE_PROJECT_ID,
     })
   }
 
   const firebaseAdminAuth: Auth = getAuth()
-  const firebaseAdminDb: Firestore = getFirestore()
+  const adminFirestore: Firestore = getFirestore()
   const firebaseAdminStorage = getStorage(app)
 
   nitroApp.hooks.hook('request', (event) => {
-    event.context.firebaseAdminAuth = firebaseAdminAuth,
-      event.context.firebaseAdminDb = firebaseAdminDb
-      event.context.firebaseAdminStorage = firebaseAdminStorage
+    event.context.firebaseAdminAuth = firebaseAdminAuth
+    event.context.adminFirestore = adminFirestore
+    event.context.firebaseAdminStorage = firebaseAdminStorage
   })
 })

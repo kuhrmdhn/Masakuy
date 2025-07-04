@@ -1,7 +1,7 @@
 export default defineEventHandler(async (event) => {
     try {
         const { verifyUserToken } = useToken(event)
-        const { db } = useDb(event)
+        const { db } = useFirebase(event)
 
         const { uid } = await verifyUserToken()
         const userSnap = await db.doc(`users/${uid}`).get()

@@ -6,8 +6,8 @@ export const useCurrentUser = () => {
     const { $firebaseAuth } = useNuxtApp()
     const authState = useState("auth-state", () => false)
     const authInitialized = ref(false)
-    const route = useRoute()
-    const protectedPage = route.path.startsWith("/profile") || route.path.startsWith("/new-recipe")
+    const isAuthProcessFinish = useState("auth-process-finish", () => false)
+
     let unsubscribe: (() => void) | null = null
     const userDataStore = useUserData();
     const { initializeUserData } = userDataStore;
@@ -17,9 +17,7 @@ export const useCurrentUser = () => {
             if (!auth) {
                 authState.value = false
                 authInitialized.value = true
-                if (protectedPage) {
-                    return navigateTo("/login")
-                }
+                isAuthProcessFinish.value = true
                 return null
             }
             const token = await auth.getIdToken()
@@ -28,6 +26,7 @@ export const useCurrentUser = () => {
 
             authState.value = true
             authInitialized.value = true
+            isAuthProcessFinish.value = true
         })
     }
 

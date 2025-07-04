@@ -11,7 +11,7 @@ export default defineEventHandler(async (event) => {
 
         const id = param.id
         const { verifyUserToken } = useToken(event)
-        const { db } = useDb(event)
+        const { db } = useFirebase(event)
         const { uid } = await verifyUserToken()
 
         await db.doc(`users/${uid}/user_recipe/${id}`).delete()

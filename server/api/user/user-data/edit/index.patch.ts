@@ -2,7 +2,7 @@ export default defineEventHandler(async (event) => {
     try {
         const { newData } = await readBody(event)
         const { verifyUserToken } = useToken(event)
-        const { db } = useDb(event)
+        const { db } = useFirebase(event)
 
         const { uid } = await verifyUserToken()
         const userDoc = await db.doc(`users/${uid}`).get()
