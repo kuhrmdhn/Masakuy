@@ -24,13 +24,15 @@ useSeoMeta({
 </script>
 
 <template>
-  <Navbar />
-  <NuxtPage
-    class="pb-20 lg:pb-0"
-    :transition="{ name: 'page', mode: 'out-in', appear: true }"
-  />
-  <AlertProvider />
-  <MobileSearchBar />
+  <NuxtLayout>
+    <Navbar />
+    <NuxtPage
+      class="pb-20 lg:pb-0"
+      :transition="{ name: 'page', mode: 'out-in', appear: true }"
+    />
+    <AlertProvider />
+    <MobileSearchBar />
+  </NuxtLayout>
 </template>
 
 <style>

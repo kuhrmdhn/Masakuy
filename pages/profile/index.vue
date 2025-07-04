@@ -8,10 +8,6 @@ const userDataStore = useUserData();
 const { initializeUserData } = userDataStore;
 const { userData } = storeToRefs(userDataStore);
 
-watchEffect(() => {
-  console.log({ userData: userData.value });
-});
-
 onMounted(async () => {
   await initializeUserData();
 });

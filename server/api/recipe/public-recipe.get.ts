@@ -1,9 +1,8 @@
-import { useDb } from '~/server/utils/useDb'
 import { Recipe } from '~/utils/zod/recipeSchema'
 
 export default defineEventHandler(async (event) => {
   try {
-    const { db } = useDb(event)
+    const { db } = useFirebase(event)
     const recipeCollection = db.collection('public_recipes')
     const allRecipeSnap = await recipeCollection.get()
     const recipesData = allRecipeSnap.docs.map((recipe) => ({

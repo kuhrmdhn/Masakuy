@@ -1,6 +1,6 @@
 export default defineEventHandler(async (event) => {
     try {
-        const { db } = useDb(event)
+        const { db } = useFirebase(event)
         const param = event.context.params
         if (!param) {
             throw createError({

@@ -10,7 +10,7 @@ export default defineEventHandler(async (event) => {
         }
 
         const id = param.id        
-        const { db } = useDb(event)
+        const { db } = useFirebase(event)
         const recipeData = await db.doc(`public_recipes/${id}`).get()
 
         return {

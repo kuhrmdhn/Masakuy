@@ -1,7 +1,7 @@
 export default defineEventHandler(async (event) => {
     try {
         const { verifyUserToken } = useToken(event)
-        const { db } = useDb(event)
+        const { db } = useFirebase(event)
 
         const { uid } = await verifyUserToken()
         const savedRecipeSnap = await db.collection(`users/${uid}/saved_recipe`).get()

@@ -1,6 +1,6 @@
 export async function setToken(token: string) {
     try {
-        await $fetch("/api/auth/set-token", {
+        await $fetch("/api/auth/token/set-token", {
             method: "POST",
             body: { token },
         });

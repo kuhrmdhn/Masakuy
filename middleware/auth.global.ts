@@ -1,13 +1,22 @@
-export default defineNuxtRouteMiddleware(async (to) => {
-    const headers = useRequestHeaders()
-    const cookieHeader = headers.cookie || ""
-    const cookie = cookieHeader.match(/firebase_access_token=([^;]+)/)?.[1] || null
-    const protectedPage = to.path.startsWith("/profile") || to.path.startsWith("/new-recipe")
-    const authPage = to.path === "/login" || to.path === "/register"
+import { useUserData } from "~/utils/store/useUserData"
 
-    if (cookie && authPage) {
-        return navigateTo("/")
-    } else if (!cookie && protectedPage) {
-        return navigateTo("/login")
+export default defineNuxtRouteMiddleware(async (to) => {
+    const isServerSide = typeof window === "undefined"
+
+    if (isServerSide) {
+        const token = useCookie("firebase_access_token").value
+        return useAuthGuardPage(!!token, to)
     }
+
+    const isAuthProcessFinish = useState("auth-process-finish")
+    if (!isAuthProcessFinish.value) {
+        return abortNavigation()
+    }
+
+    const userDataStore = useUserData()
+    const user = storeToRefs(userDataStore)
+
+    await nextTick()
+    const clientSideUserStatus = !!user.userData.value
+    return useAuthGuardPage(clientSideUserStatus, to)
 })

@@ -3,7 +3,7 @@ import { postRecipeSchema } from "~/utils/zod/recipeSchema"
 export default defineEventHandler(async (event) => {
     try {
         const { recipeData } = await readBody(event)
-        const { db } = useDb(event)
+        const { db } = useFirebase(event)
         const { verifyUserToken } = useToken(event)
 
         const { uid } = await verifyUserToken()
