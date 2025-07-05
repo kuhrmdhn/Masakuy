@@ -24,11 +24,9 @@ useSeoMeta({
 </script>
 
 <template>
-  <div
-    class="h-auto xl:h-[calc(100dvh-6rem)] font-sans p-4 w-full dark:text-slate-300"
-    v-if="recipeData"
-  >
+  <div class="h-auto xl:h-[calc(100dvh-6rem)] font-sans p-4 w-full dark:text-slate-300">
     <div
+      v-if="recipeData"
       class="bg-background h-full overflow-hidden sm:w-3/5 xl:w-5/6 mx-auto flex flex-col xl:flex-row gap-7"
     >
       <div class="lg:w-2/5">
