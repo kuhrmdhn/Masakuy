@@ -5,10 +5,13 @@ import AlertProvider from "./components/provider/AlertProvider.vue";
 import { useUserSavedRecipes } from "./utils/store/useUserSavedRecipes";
 
 const { authInitialized } = useCurrentUser();
+const authState = useState("auth-state");
+const user = computed(() => authState.value);
+
 const store = useUserSavedRecipes();
 
 watchEffect(async () => {
-  if (authInitialized.value) {
+  if (authInitialized.value && user.value) {
     const { data: recipesId } = await $fetch("/api/user/saved-recipe/id-list");
     store.setUserSavedRecipes(recipesId);
   }

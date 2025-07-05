@@ -5,6 +5,11 @@ export const useSavedRecipes = (recipe: Recipe) => {
     const store = useUserSavedRecipes();
 
     async function saveRecipe() {
+        const authState = useState("auth-state");
+        const user = computed(() => authState.value);
+
+        if (!user.value) return navigateTo("/login")
+
         await $fetch("/api/user/saved-recipe", {
             method: "POST",
             body: { recipeData: recipe },
