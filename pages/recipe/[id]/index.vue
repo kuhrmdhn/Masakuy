@@ -36,6 +36,7 @@ useSeoMeta({
       </div>
       <div class="p-6 md:p-8 w-full lg:w-2/3 h-full xl:overflow-y-auto">
         <RecipeTitleAndAuthor
+          class="!text-2xl"
           :title="recipeData.title"
           :author-id="recipeData.authorId"
         />

@@ -4,17 +4,16 @@ import { getFirestore } from "firebase/firestore"
 import { getStorage } from "firebase/storage";
 
 export default defineNuxtPlugin(() => {
-  const config = useRuntimeConfig();
-  const publicConfig = config.public
+  const clientConfig = useRuntimeConfig().public.firebaseClient;
 
   const firebaseConfig = {
-    apiKey: publicConfig.apiKey,
-    authDomain: publicConfig.authDomain,
-    projectId: config.projectId,
-    storageBucket: publicConfig.storage,
-    messagingSenderId: publicConfig.messagingSenderId,
-    appId: publicConfig.appId,
-    measurementId: publicConfig.measurementId
+    apiKey: clientConfig.apiKey,
+    authDomain: clientConfig.authDomain,
+    projectId: clientConfig.projectId,
+    storageBucket: clientConfig.storage,
+    messagingSenderId: clientConfig.messagingSenderId,
+    appId: clientConfig.appId,
+    measurementId: clientConfig.measurementId
   };
 
   const app = initializeApp(firebaseConfig);

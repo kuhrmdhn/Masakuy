@@ -15,10 +15,10 @@ const recipeUrl = `/recipe/${props.recipeData.id}`;
 <template>
   <NuxtLink
     :href="recipeUrl"
-    class="w-full md:w-56 lg:w-62 h-38 xs:h-44 sm:h-80 lg:h-84 flex sm:flex-col mb-1.5 rounded-xl overflow-hidden shadow-md bg-white dark:bg-background border border-gray-200 dark:border-gray-600"
+    class="w-[90dvw] md:w-56 lg:w-62 h-38 xs:h-40 sm:h-80 lg:h-84 flex sm:flex-col mb-1.5 rounded-xl overflow-hidden shadow-md bg-white dark:bg-background border border-gray-200 dark:border-gray-600"
   >
     <CardImage :src="recipeData.image" :alt="'Recipe image for ' + recipeData.title" />
-    <section class="w-2/3 sm:w-full h-full sm:h-1/2 p-3 flex flex-col justify-evenly">
+    <section class="w-full h-full sm:h-1/2 px-3 pt-2 flex flex-col justify-evenly">
       <CardBody
         :title="recipeData.title"
         :authorId="recipeData.authorId"
