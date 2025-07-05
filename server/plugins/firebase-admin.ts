@@ -5,14 +5,14 @@ import { getFirestore, Firestore } from 'firebase-admin/firestore'
 import { getStorage } from 'firebase-admin/storage'
 
 export default defineNitroPlugin((nitroApp) => {
-  const config = useRuntimeConfig()
+  const adminConfig = useRuntimeConfig().firebaseAdmin
   let app;
   if (!getApps().length) {
     app = initializeApp({
       credential: cert({
-        projectId: config.projectId,
-        clientEmail: config.clientEmail,
-        privateKey: config.privateKey.replace(/\\n/g, '\n'),
+        projectId: adminConfig.projectId,
+        clientEmail: adminConfig.clientEmail,
+        privateKey: adminConfig.privateKey.replace(/\\n/g, '\n'),
       }),
       projectId: process.env.FIREBASE_PROJECT_ID,
     })

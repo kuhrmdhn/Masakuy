@@ -13,8 +13,8 @@ const authorName = computed(() => author.value?.data || "Anonymous Author");
 </script>
 
 <template>
-  <div>
-    <h2 class="text-2xl md:text-base font-bold mb-2">{{ title }}</h2>
+  <div class="text-base xl:text-lg">
+    <h2 class="font-bold mb-2 line-clamp-1">{{ title }}</h2>
     <div class="flex items-center text-xs">
       <Icon name="mdi:account" class="mr-2 text-sm" />
       <span>{{ authorName }}</span>

@@ -1,3 +1,5 @@
+import { userSchema } from "../../../../../utils/zod/userSchema"
+
 export default defineEventHandler(async (event) => {
     try {
         const { newData } = await readBody(event)
@@ -18,12 +20,24 @@ export default defineEventHandler(async (event) => {
 
         const userData = userDoc.data()
         const updatedUserData = { ...userData, ...newData }
-        const userDocRef = userDoc.ref
-        userDocRef.set(updatedUserData, { merge: true })
-        return {
-            success: true,
-            message: "Success Update User Data",
-            data: updatedUserData
+        const validateUserSchema = userSchema.safeParse(updatedUserData)
+        if(validateUserSchema.error) {
+            throw createError({
+                statusCode: 400,
+                statusMessage: validateUserSchema.error.name,
+                message: validateUserSchema.error.message,
+                cause: validateUserSchema.error.cause
+            })
+        }
+
+        if (validateUserSchema.data) {
+            const userDocRef = userDoc.ref
+            userDocRef.set(validateUserSchema.data, { merge: true })
+            return {
+                success: true,
+                message: "Success Update User Data",
+                data: updatedUserData
+            }
         }
     } catch (err) {
         const { message, cause } = err as Error
