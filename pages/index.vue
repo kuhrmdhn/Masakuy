@@ -1,30 +1,21 @@
 <script setup lang="ts">
 import RecipeLists from "~/components/template/RecipeLists.vue";
-import type { Recipe } from "~/utils/zod/recipeSchema";
+import { usePublicRecipe } from "~/utils/store/usePublicRecipe";
 
 useSeoMeta({
   title: "Beranda",
 });
 
-type RecipeResponse = {
-  success: boolean;
-  message: string;
-  data: Recipe[];
-};
+const publicRecipeStore = usePublicRecipe();
+const { publicRecipe, fetchStatus: status } = storeToRefs(publicRecipeStore);
 
-const { data: publicRecipes, status } = useAsyncData<RecipeResponse>(
-  "public-recipes",
-  () => $fetch("/api/recipe/public-recipe", { method: "GET" }),
-  {
-    server: false,
-  }
-);
-
-const publicRecipesData = computed(() => publicRecipes.value?.data || []);
+onMounted(async () => {
+  await publicRecipeStore.initializePublicRecipe();
+});
 </script>
 
 <template>
-  <div class="px-1">
-    <RecipeLists :status :recipe-lists-data="publicRecipesData" />
+  <div>
+    <RecipeLists :status :recipe-lists-data="publicRecipe" />
   </div>
 </template>

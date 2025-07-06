@@ -4,15 +4,15 @@ import RecipeIngredientsInput from "../../components/elements/new-recipe/RecipeI
 import RecipeStepsInput from "~/components/elements/new-recipe/RecipeStepsInput.vue";
 import { useRecipeFormData } from "~/utils/store/useRecipeFormData";
 
-const recipeFormStore = useRecipeFormData()
+const recipeFormStore = useRecipeFormData();
 const { uploadUserRecipe } = useUploadNewRecipe();
 
 onMounted(() => {
-  const savedFormData = localStorage.getItem("recipe-form-data")
-  if(savedFormData) {
-    recipeFormStore.setFormData(JSON.parse(savedFormData))
+  const savedFormData = localStorage.getItem("recipe-form-data");
+  if (savedFormData) {
+    recipeFormStore.setFormData(JSON.parse(savedFormData));
   }
-})
+});
 
 async function uploadRecipe() {
   await uploadUserRecipe();
@@ -24,9 +24,9 @@ useSeoMeta({
 </script>
 
 <template>
-  <section class="w-full min-h-[80dvh] flex justify-around pt-5">
-    <RecipeForm :handle-submit="uploadRecipe"/>
-    <div class="flex relative w-3/5 overflow-hidden">
+  <section class="w-full min-h-[80dvh] flex justify-around pt-5 px-3">
+    <RecipeForm :handle-submit="uploadRecipe" />
+    <div class="hidden xl:flex relative w-3/5 overflow-hidden">
       <RecipeIngredientsInput />
       <RecipeStepsInput />
     </div>
