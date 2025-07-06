@@ -6,7 +6,7 @@ const { userData } = storeToRefs(userDataStore);
 </script>
 
 <template>
-  <Avatar class="size-28 lg:size-32">
+  <Avatar class="size-26 lg:size-32">
     <AvatarImage
       v-if="userData?.photo_profile"
       :src="userData.photo_profile"

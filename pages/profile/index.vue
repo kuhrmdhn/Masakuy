@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import LogoutButton from "~/components/elements/profile/LogoutButton.vue";
+import ProfileOptions from "~/components/elements/profile/ProfileOptions.vue";
 import ProfileTabs from "~/components/elements/profile/ProfileTabs.vue";
 import UserAvatar from "~/components/elements/profile/UserAvatar.vue";
 import { useUserData } from "~/utils/store/useUserData";
@@ -19,17 +20,14 @@ useSeoMeta({
 
 <template>
   <div>
-    <section class="w-full h-36 flex justify-center items-center gap-15 mb-5">
+    <section
+      class="w-full h-36 flex justify-center items-center gap-5 xl:gap-10 mb-5 px-2"
+    >
       <UserAvatar />
-      <div class="w-1/2 lg:w-[30%] h-32 flex flex-col gap-5">
+      <div class="w-full lg:w-[30%] h-32 flex flex-col gap-5">
         <span class="flex justify-between items-center">
           <h1 class="text-lg">{{ userData?.username }}</h1>
-          <div class="h-full w-fit flex gap-2">
-            <NuxtLink href="/profile/edit">
-              <Button variant="secondary" class="font-semibold">Edit Profil</Button>
-            </NuxtLink>
-            <LogoutButton />
-          </div>
+          <ProfileOptions />
         </span>
         <span class="w-full h-full">
           <h2 class="font-semibold">{{ userData?.name }}</h2>

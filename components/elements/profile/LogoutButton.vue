@@ -13,8 +13,9 @@ async function handleLogout() {
 <template>
   <AlertDialog>
     <AlertDialogTrigger variant="ghost">
-      <Button variant="ghost">
-        <Icon name="material-symbols:logout" class="text-xl text-red-500" />
+      <Button variant="destructive">
+        Keluar
+        <Icon name="material-symbols:logout" class="text-xl" />
       </Button>
     </AlertDialogTrigger>
     <AlertDialogContent>
