@@ -3,16 +3,15 @@ import RegisterForm from "../../components/elements/auth/RegisterForm.vue";
 import RegisterImage from "../../components/elements/auth/RegisterImage.vue";
 
 useSeoMeta({
-  title: "Daftar"
-})
-
+  title: "Daftar",
+});
 </script>
 
 <template>
   <div
     class="w-full h-dvh relative lg:flex items-center lg:items-start justify-center lg:justify-center"
   >
-    <section class="h-full w-full lg:w-1/2">
+    <section class="h-dvh w-full lg:w-1/2">
       <RegisterImage />
     </section>
     <section

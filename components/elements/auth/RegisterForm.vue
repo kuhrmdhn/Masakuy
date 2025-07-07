@@ -56,10 +56,10 @@ async function handleRegisterUser() {
 
 <template>
   <form
-    class="min-h-80 h-5/6 xs:h-3/4 sm:h-3/5 lg:h-full w-full sm:w-3/4 lg:w-4/5 px-5 bg-white dark:bg-black lg:dark:bg-transparent lg:bg-transparent rounded-md"
+    class="min-h-80 h-5/6 xs:h-11/12 sm:h-3/5 md:h-[63%] lg:h-full w-full sm:w-3/4 lg:w-4/5 px-5 bg-background/80 lg:bg-transparent rounded-md"
     @submit.prevent="handleRegisterUser"
   >
-    <header class="mb-3 sm:mb-3 h-1/5 xs:h-1/4 sm:h-1/5 flex flex-col justify-center">
+    <header class="mb-3 sm:mb-3 h-1/6 sm:h-1/5 flex flex-col justify-center">
       <h1 class="text-lg sm:text-3xl font-semibold">Selamat Datang!</h1>
       <p class="text-xs sm:text-md font-thin">Daftarkan Akun Kamu</p>
     </header>

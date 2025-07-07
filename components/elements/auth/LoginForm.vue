@@ -30,7 +30,7 @@ async function handleUserLogin() {
 
 <template>
   <form
-    class="min-h-80 h-3/5 sm:h-1/2 w-full sm:w-3/4 lg:w-4/5 px-5 bg-white lg:bg-transparent rounded-md"
+    class="min-h-80 h-3/5 sm:h-1/2 w-full sm:w-3/4 lg:w-4/5 px-5 bg-background/80 lg:bg-transparent rounded-md"
     @submit.prevent="handleUserLogin"
   >
     <header class="mb-3 sm:mb-7 h-1/5 xs:h-1/4 flex flex-col justify-center">

@@ -3,7 +3,7 @@
     <img
       src="/image/login-image.webp"
       alt="Login image"
-      class="h-full xl:h-auto w-full aspect-auto xl:animate-show-up"
+      class="h-full xl:h-auto xl:w-full object-cover xl:animate-show-up"
     />
   </section>
 </template>
