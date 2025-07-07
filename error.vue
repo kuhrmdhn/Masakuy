@@ -1,14 +1,30 @@
 <script setup lang="ts">
-import type { NuxtError } from '#app'
+import type { NuxtError } from "#app";
 
 const props = defineProps({
-  error: Object as () => NuxtError
-})
+  error: Object as () => NuxtError,
+});
+
+const router = useRouter();
+function routerBack() {
+  router.back();
+}
+
+function routeToHome() {
+  window.location.href = "/";
+}
 </script>
 
 <template>
-  <div>
-    <h1>{{ props.error?.statusCode }}</h1>
-    <h1>{{ props.error?.message }}</h1>
+  <div class="w-full h-dvh flex flex-col justify-center items-center gap-10">
+    <img src="./public/image/warning.png" alt="" class="w-64 lg:w-72" />
+    <div class="flex flex-col gap-5 items-center">
+      <h1 class="text-3xl lg:text-4xl font-bold">{{ props.error?.statusCode }}</h1>
+      <p class="lg:text-lg">{{ props.error?.message }}</p>
+      <div class="flex gap-3">
+        <Button @click="routerBack">Kembali</Button>
+        <Button @click="routeToHome" variant="outline">Ke Beranda</Button>
+      </div>
+    </div>
   </div>
 </template>
