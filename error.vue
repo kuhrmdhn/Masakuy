@@ -5,6 +5,10 @@ const props = defineProps({
   error: Object as () => NuxtError,
 });
 
+useSeoMeta({
+  title: `Error ${props.error?.statusCode}`,
+});
+
 const router = useRouter();
 function routerBack() {
   router.back();

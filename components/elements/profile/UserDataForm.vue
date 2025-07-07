@@ -55,7 +55,7 @@ const handleSubmit = async () => {
   >
     <ImageInput
       :save-image-input="saveUserPhotoProfile"
-      :initial-image="userData.photo_profile"
+      :initial-image="userData.photo_profile || '/image/image-default.jpeg'"
     />
     <Label
       v-for="input in inputData"
