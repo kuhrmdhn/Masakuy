@@ -8,18 +8,18 @@ import type { Recipe } from "~/utils/zod/recipeSchema";
 
 const route = useRoute();
 const recipeId = route.params.id;
-const { data: recipe } = await useLazyAsyncData<{ data: Recipe }>(
-  "recipe-by-id",
-  () => $fetch(`/api/recipe/${recipeId}`),
-  {
-    server: false,
-  }
+const { data: recipe } = await useAsyncData<{ data: Recipe }>("recipe-by-id", () =>
+  $fetch(`/api/recipe/${recipeId}`)
 );
 const recipeData = computed(() => recipe.value?.data);
 
-useSeoMeta({
-  title: recipeData.value?.title || "Recipe Page",
-  ogImage: recipeData.value?.image,
+watchEffect(() => {
+  if (recipeData.value) {
+    useSeoMeta({
+      title: recipeData.value.title,
+      ogImage: recipeData.value.image,
+    });
+  }
 });
 </script>
 
