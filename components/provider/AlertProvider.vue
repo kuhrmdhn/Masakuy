@@ -21,7 +21,12 @@ watchEffect(() => {
   >
     <AlertTitle>{{ alert.title }}</AlertTitle>
     <AlertDescription>{{ alert.description }}</AlertDescription>
-    <Button variant="ghost" @click="alert.hideAlert" class="p-2 hover:!bg-transparent hover:text-primary">
+    <Button
+      aria-label="Close Alert Button"
+      variant="ghost"
+      @click="alert.hideAlert"
+      class="p-2 hover:!bg-transparent hover:text-primary"
+    >
       <Icon name="material-symbols:close" />
     </Button>
   </Alert>

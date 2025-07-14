@@ -18,6 +18,7 @@ function handleShareRecipe() {
     @click.stop.prevent="handleShareRecipe"
     variant="ghost"
     class="flex items-center text-primary hover:text-primary-dark"
+    aria-label="Share Recipe Button"
   >
     <Icon name="mdi:share-variant" class="mr-2 text-2xl" />
     <span v-if="withLabel">Bagikan</span>

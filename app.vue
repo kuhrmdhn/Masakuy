@@ -18,6 +18,9 @@ watchEffect(async () => {
 });
 
 useHead({
+  htmlAttrs: {
+    lang: "en",
+  },
   titleTemplate: "%s | Masakuy!",
 });
 useSeoMeta({
