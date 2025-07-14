@@ -23,7 +23,11 @@ function searchRecipe() {
       v-model="keyword"
       placeholder="Cari resep untuk hari ini"
     />
-    <Button type="submit" class="w-16 h-full absolute right-0 top-0">
+    <Button
+      aria-label="Search Button"
+      type="submit"
+      class="w-16 h-full absolute right-0 top-0"
+    >
       <Icon name="ic:twotone-search" class="text-2xl" />
     </Button>
   </form>

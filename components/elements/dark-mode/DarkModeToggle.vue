@@ -19,6 +19,7 @@ const toggleList = [
 <template>
   <Button
     v-for="toggle in toggleList"
+    aria-label="Toggle Dark Mode"
     @click="colorMode.preference = toggle.preference"
     variant="ghost"
     :class="['size-12 flex justify-center items-center', toggle.class]"

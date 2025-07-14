@@ -30,6 +30,7 @@ const buttonData = computed(() => {
     @click.stop.prevent="buttonData.action"
     class="flex items-center text-primary hover:text-primary-dark"
     variant="ghost"
+    aria-label="Save Recipe Button"
   >
     <Icon class="text-2xl" :name="buttonData.icon" />
     <span v-if="withLabel">{{ buttonData.text }}</span>
