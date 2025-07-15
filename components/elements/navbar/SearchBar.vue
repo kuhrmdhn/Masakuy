@@ -28,7 +28,7 @@ function searchRecipe() {
       type="submit"
       class="w-16 h-full absolute right-0 top-0"
     >
-      <Icon name="ic:twotone-search" class="text-2xl" />
+      <Icon name="ic:twotone-search" class="text-2xl text-white" />
     </Button>
   </form>
 </template>
