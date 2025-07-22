@@ -1,9 +1,8 @@
-<script lang="ts" setup>
-</script>
+<script lang="ts" setup></script>
 
 <template>
-  <div class="min-h-4/5 w-full flex flex-col justify-center items-center">
-    <img class="h-60" src="/image/empty-recipe.png" />
+  <div class="min-h-4/5 h-[75dvh] w-full flex flex-col justify-center items-center">
+    <img class="h-2/5 max-h-60" src="/image/empty-recipe.png" />
     <div class="text-center">
       <h1 class="text-2xl">Resep Kosong!</h1>
       <span class="text-sm">
